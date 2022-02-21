@@ -1,0 +1,59 @@
+.home_main_img_container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	margin: 0;
+	padding: 0;
+
+	width: 100%;
+	background: url('../../../assets/images/1.jpg') fixed center 100%;
+
+	box-shadow: 0 0 4px var(--color-40);
+}
+
+.home_title {
+	margin: 20px 0;
+	color: aliceblue;
+
+	font-size: 80px;
+	font-weight: bold;
+	font-style: italic;
+	letter-spacing: 4px;
+}
+
+.home_description {
+	position: absolute;
+	right: 16px;
+	bottom: 12px;
+
+	font-size: 12px;
+	font-weight: 600;
+
+	color: darkslategray;
+}
+
+.home_account_btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 320px;
+	height: 60px;
+	color: white;
+	background: linear-gradient(to left top, var(--color-60), var(--color-100));
+
+	font-size: 18px;
+	font-weight: 600;
+	letter-spacing: -1px;
+	word-spacing: 6px;
+
+	border-radius: 35px;
+	cursor: pointer;
+	transition: 500ms;
+}
+
+.home_account_btn:hover {
+	opacity: 0.5;
+}
