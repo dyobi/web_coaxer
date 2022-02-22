@@ -32,7 +32,7 @@
 	justify-content: center;
 
 	width: 380px;
-	height: 480px;
+	height: 500px;
 	padding: 20px;
 	background-color: #fff;
 
@@ -48,7 +48,7 @@
 
 .modal>.close_btn {
 	position: fixed;
-	top: calc(50% - 250px);
+	top: calc(50% - 260px);
 	right: calc(50% - 200px);
 
 	width: 36px;
@@ -106,6 +106,7 @@
 	border: 2px solid #525964;
 
 	font-size: 14px;
+	color: darkslategray;
 
 	cursor: pointer;
 	transition: 300ms;
@@ -117,5 +118,39 @@
 
 .login_btn_container>p {
 	margin-top: 10px;
+	color: darkslategray;
+
+	font-size: 14px;
+	line-height: 40px;
+
 	text-align: center;
+	text-decoration: underline 1px;
+	text-underline-offset: 2px;
+
+	cursor: pointer;
+	transition: 300ms;
+}
+
+.login_btn_container>p:hover {
+	font-weight: bold;
+}
+
+.modal>.appstore_container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	margin-top: 20px;
+}
+
+.modal>.appstore_container>img {
+	margin: 0 10px;
+	width: 140px;
+	height: auto;
+	cursor: pointer;
+	transition: 300ms;
+}
+
+.modal>.appstore_container>img:hover {
+	opacity: 0.6;
 }

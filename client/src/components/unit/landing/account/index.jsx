@@ -3,6 +3,9 @@ import ReactDom from 'react-dom';
 import { BiXCircle } from 'react-icons/bi';
 import { GiHeartBeats } from 'react-icons/gi';
 
+import AppStore from '../../../../assets/icons/appstore.png';
+import PlayStore from '../../../../assets/icons/playstore.png';
+
 import './index.css';
 
 const Component = ({ show, close }) => {
@@ -26,9 +29,19 @@ const Component = ({ show, close }) => {
 					<div className="login_btn">LOG IN WITH GOOGLE</div>
 					<div className="login_btn">LOG IN WITH GOOGLE</div>
 					<div className="login_btn">LOG IN WITH GOOGLE</div>
-					<p>Trouble Logging In?</p>
+					<p>
+						{_ui.lang === 'en_US' ?
+							'Trouble Logging In?'
+							:
+							'로그인이 안되나요?'
+						}
+					</p>
 				</div>
-				<hr style={{width: '340px', margin: '0', padding: '0', color: 'gray'}} />
+				<hr style={{ width: '320px', margin: '0', padding: '0', color: 'gray' }} />
+				<div className='appstore_container'>
+					<img src={AppStore} alt='' />
+					<img src={PlayStore} alt='' />
+				</div>
 			</div>
 		</div>,
 		document.getElementById('root_modal_account')
