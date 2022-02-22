@@ -90,6 +90,19 @@
 	line-height: 18px;
 }
 
+.modal>span>span {
+	font-weight: 500;
+	color: darkslategray;
+	text-decoration: underline 0.6px;
+	text-underline-offset: 0.6px;
+	cursor: pointer;
+	transition: 300ms;
+}
+
+.modal>span>span:hover {
+	color: var(--color-100);
+}
+
 .modal>.login_btn_container {
 	margin-top: 18px;
 }
@@ -98,6 +111,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
 	margin: 10px 0;
 	width: 320px;
 	height: 40px;
@@ -105,11 +119,21 @@
 	border-radius: 24px;
 	border: 2px solid #525964;
 
-	font-size: 14px;
+	font-size: 15px;
+	font-weight: 500;
+	letter-spacing: -0.2px;
 	color: darkslategray;
 
 	cursor: pointer;
 	transition: 300ms;
+}
+
+.login_btn>img {
+	position: fixed;
+	left: calc(50% - 150px);
+	margin-right: 20px;
+	width: 24px;
+	height: 24px;
 }
 
 .login_btn_container>.login_btn:hover {
