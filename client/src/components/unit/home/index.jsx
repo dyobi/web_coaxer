@@ -10,7 +10,7 @@ const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
 	const [width, setWidth] = useState(window.innerWidth);
-	const [signUpView, setSignUpView] = useState(false);
+	const [accountView, setAccountView] = useState(false);
 
 	$(window).on('resize', () => {
 		setWidth(window.innerWidth);
@@ -19,8 +19,8 @@ const Component = () => {
 	return (
 		<>
 			<AccountModal
-				show={signUpView}
-				close={() => setSignUpView(!signUpView)}
+				show={accountView}
+				close={() => setAccountView(!accountView)}
 			/>
 			<div
 				className='home_main_img_container'
@@ -34,7 +34,7 @@ const Component = () => {
 					}
 				</div>
 				<div className='home_account_btn'
-					onClick={() => setSignUpView(!signUpView)}
+					onClick={() => setAccountView(!accountView)}
 				>
 					{_ui.lang === 'en_US' ?
 						'CREATE AN ACCOUNT'
