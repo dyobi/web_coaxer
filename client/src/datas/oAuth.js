@@ -30,3 +30,27 @@ export const requestGoogleCode = (code, cb) => {
 		});
 
 };
+
+export const requestGoogleProfile = (token, cb) => {
+
+    let url = `https://www.googleapis.com/oauth2/v1/userinfo?alt=json`;
+
+    Axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
+        .then(res => {
+            const user = res.data;
+
+            cb({
+                userName: user.email.split('@')[0],
+                password: '',
+                email: user.email,
+                firstName: user.given_name,
+                lastName: user.family_name,
+                picture: user.picture,
+                socialType: 'google'
+            });
+        })
+        .catch(() => {
+            cb(null);
+        });
+		
+};

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 
-import { requestGoogleCode } from '../../../../datas';
+import { requestGoogleCode, requestGoogleProfile } from '../../../../datas';
 
 import './index.css';
 
@@ -24,6 +24,12 @@ const Component = () => {
 
 			codeFunc(code, res => {
 				const token = res.token;
+				if (token !== null) {
+					let profileFunc = requestGoogleProfile;
+					profileFunc(token, res => {
+						console.log(res)
+					})
+				}
 			})
 		}
 	}, [location, source]);

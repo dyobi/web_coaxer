@@ -1,5 +1,6 @@
-import { requestGoogleCode } from './oAuth';
+import { requestGoogleCode, requestGoogleProfile } from './oAuth';
 
 export {
-	requestGoogleCode
+	requestGoogleCode,
+	requestGoogleProfile
 };
