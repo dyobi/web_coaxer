@@ -13,12 +13,22 @@ import GoogleLogo from '../../../../assets/icons/google_logo.png';
 import FacebookLogo from '../../../../assets/icons/facebook_logo.png';
 import GithubLogo from '../../../../assets/icons/github_logo.png';
 
+import { GOOGLE_ID, APP_REDIRECT_URL } from '../../../../constants';
+
 import '../index.css';
 
 const Component = ({ show, close }) => {
 
 	const _ui = useSelector(state => state.ui);
 	const [termsView, setTermsView] = useState(false);
+
+	const _handleGoogleSignin = (e) => {
+		e.preventDefault();
+		window.open(
+			`https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_ID}&scope=openid%20email%20profile&redirect_uri=${APP_REDIRECT_URL}/google&response_type=code`,
+			'_self'
+		);
+	};
 
 	return ReactDom.createPortal(
 		<>
@@ -39,7 +49,7 @@ const Component = ({ show, close }) => {
 						}
 					</span>
 					<div className='login_btn_container'>
-						<div className="login_btn">
+						<div className="login_btn" onClick={(e) => _handleGoogleSignin(e)}>
 							<img src={GoogleLogo} alt='' />
 							{_ui.lang === 'en_US' ?
 								'Log in with Google'

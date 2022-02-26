@@ -10,4 +10,5 @@ build/
 *.ipr
 
 .gitignore
-constants
+src/constants/api.js
+

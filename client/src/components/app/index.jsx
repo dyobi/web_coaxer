@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Header from '../unit/nav';
 import Core from '../core';
+import Callback from '../unit/landing/callback';
 
 import './index.css';
 
@@ -38,6 +39,7 @@ const Component = () => {
 					<Route path='/lookup' element={<Core page='2' />} />
 					<Route path='/chat' element={<Core page='3' />} />
 					<Route path='/setting' element={<Core page='4' />} />
+					<Route path='/oauth/:source' element={<Callback />} />
 				</Routes>
 			</BrowserRouter>
 		</Wrapper>
