@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 
-import { requestGoogleCode, requestGoogleProfile } from '../../../../datas';
+import { requestGoogleCode, requestGoogleProfile, requestGithubCode } from '../../../../datas';
 
-import './index.css';
-
+import '../index.css';
+import Axios from 'axios'
 const Component = () => {
 
 	const { source } = useParams();
@@ -20,16 +20,21 @@ const Component = () => {
 
 			if (source === 'google') codeFunc = requestGoogleCode;
 			// else if (source === 'facebook') codeFunc = requestFacebookCode;
-			// else if (source === '42') codeFunc = request42Code;
+			else if (source === 'github') codeFunc = requestGithubCode;
 
-			codeFunc(code, res => {
-				const token = res.token;
-				if (token !== null) {
-					let profileFunc = requestGoogleProfile;
-					profileFunc(token, res => {
-						console.log(res)
-					})
-				}
+			// codeFunc(code, res => {
+			// 	const token = res.token;
+			// 	if (token !== null) {
+			// 		console.log(token)
+			// 		// let profileFunc = requestGoogleProfile;
+			// 		// profileFunc(token, res => {
+			// 		// 	console.log(res)
+			// 		// })
+			// 	}
+			// })
+
+			Axios.get('http://localhost:8081/api', res => {
+				console.log(res)
 			})
 		}
 	}, [location, source]);
