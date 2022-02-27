@@ -22,20 +22,21 @@ const Component = () => {
 			// else if (source === 'facebook') codeFunc = requestFacebookCode;
 			else if (source === 'github') codeFunc = requestGithubCode;
 
-			// codeFunc(code, res => {
-			// 	const token = res.token;
-			// 	if (token !== null) {
-			// 		console.log(token)
-			// 		// let profileFunc = requestGoogleProfile;
-			// 		// profileFunc(token, res => {
-			// 		// 	console.log(res)
-			// 		// })
-			// 	}
-			// })
-
-			Axios.get('http://localhost:8081/api', res => {
+			codeFunc(code, res => {
 				console.log(res)
+				const token = res.token;
+				if (token !== null) {
+					console.log(token)
+					// let profileFunc = requestGoogleProfile;
+					// profileFunc(token, res => {
+					// 	console.log(res)
+					// })
+				}
 			})
+
+			// Axios.get('http://localhost:8081/api', res => {
+			// 	console.log(res)
+			// })
 		}
 	}, [location, source]);
 
