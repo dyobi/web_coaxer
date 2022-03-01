@@ -1,9 +1,8 @@
-import { requestGoogleCode, requestGoogleProfile, requestGithubCode } from './oAuth';
-
-export const API_URL = 'http://localhost:8081';
+import { requestGoogleCode, requestGoogleProfile, requestGithubCode, requestGithubProfile } from './oAuth';
 
 export {
 	requestGoogleCode,
 	requestGoogleProfile,
-	requestGithubCode
+	requestGithubCode,
+	requestGithubProfile
 };

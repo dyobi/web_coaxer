@@ -11,6 +11,7 @@ import {
 export const requestGoogleCode = (code, cb) => {
 
 	let url = 'https://oauth2.googleapis.com/token';
+
 	const data = {
 		grant_type: 'authorization_code',
 		client_id: GOOGLE_ID,
@@ -40,10 +41,8 @@ export const requestGoogleProfile = (token, cb) => {
 	Axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
 		.then(res => {
 			const user = res.data;
-
 			cb({
 				userName: user.email.split('@')[0],
-				password: '',
 				email: user.email,
 				firstName: user.given_name,
 				lastName: user.family_name,
@@ -59,24 +58,19 @@ export const requestGoogleProfile = (token, cb) => {
 
 export const requestGithubCode = (code, cb) => {
 
-	let url = 'https://github.com/login/oauth/access_token';
+	let url = '/login/oauth/access_token';
+
 	const data = {
-		// grant_type: 'authorization_code',
 		client_id: GITHUB_ID,
 		client_secret: GITHUB_SECRET,
 		code,
 		redirect_uri: `${APP_REDIRECT_URL}/github`
 	};
 
-	Axios.post(url, data, {
-		headers: {
-			'Access-Control-Allow-Origin': '*',
-			'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
-		}
-	})
+	Axios.post(url, data)
 		.then(res => {
 			cb({
-				token: res.data.access_token
+				token: new URLSearchParams(res.data).get('access_token')
 			});
 		})
 		.catch(() => {
@@ -85,4 +79,25 @@ export const requestGithubCode = (code, cb) => {
 			});
 		});
 
+};
+
+export const requestGithubProfile = (token, cb) => {
+
+	let url = 'https://api.github.com/user';
+
+	Axios.get(url, { headers: { Authorization: `token ${token}` } })
+		.then(res => {
+			const user = res.data;
+			cb({
+				userName: user.login,
+				email: user.email,
+				firstName: user.name,
+				lastName: '',
+				picture: user.avatar_url,
+				socialType: 'github'
+			});
+		})
+		.catch(() => {
+			cb(null);
+		});
 };

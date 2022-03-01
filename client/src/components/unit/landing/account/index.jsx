@@ -35,7 +35,7 @@ const Component = ({ show, close }) => {
 
 	const _handleGithubSignin = () => {
 		window.open(
-			`https://github.com/login/oauth/authorize?client_id=${GITHUB_ID}&scope=read:user%20user&redirect_uri=${APP_REDIRECT_URL}/github`,
+			`https://github.com/login/oauth/authorize?client_id=${GITHUB_ID}&read:user&redirect_uri=${APP_REDIRECT_URL}/github`,
 			'_self'
 		);
 	};
