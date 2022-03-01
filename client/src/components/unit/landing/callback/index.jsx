@@ -39,7 +39,6 @@ const Component = () => {
 
 			codeFunc(code, res => {
 				const token = res.token;
-				console.log(token)
 				if (token !== null) {
 					profileFunc(token, res => {
 						console.log(res)

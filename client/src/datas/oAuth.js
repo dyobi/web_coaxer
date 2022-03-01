@@ -12,8 +12,7 @@ import {
 
 export const requestGoogleCode = (code, cb) => {
 
-	let url = 'https://oauth2.googleapis.com/token';
-
+	const url = 'https://oauth2.googleapis.com/token';
 	const data = {
 		grant_type: 'authorization_code',
 		client_id: GOOGLE_ID,
@@ -38,13 +37,13 @@ export const requestGoogleCode = (code, cb) => {
 
 export const requestGoogleProfile = (token, cb) => {
 
-	let url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json';
+	const url = 'https://www.googleapis.com/oauth2/v1/userinfo?alt=json';
 
 	Axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
 		.then(res => {
 			const user = res.data;
 			cb({
-				userName: user.email.split('@')[0],
+				userId: user.email.split('@')[0],
 				email: user.email,
 				firstName: user.given_name,
 				lastName: user.family_name,
@@ -60,8 +59,7 @@ export const requestGoogleProfile = (token, cb) => {
 
 export const requestFacebookCode = (code, cb) => {
 
-	let url = `https://graph.facebook.com/v6.0/oauth/access_token`;
-
+	const url = `https://graph.facebook.com/v6.0/oauth/access_token`;
 	const data = {
 		client_id: FACEBOOK_ID,
 		client_secret: FACEBOOK_SECRET,
@@ -85,13 +83,13 @@ export const requestFacebookCode = (code, cb) => {
 
 export const requestFacebookProfile = (token, cb) => {
 
-	let url = `https://graph.facebook.com/v6.0/me?fields=email,first_name,last_name,picture`;
+	const url = `https://graph.facebook.com/v13.0/me?fields=email,first_name,last_name,picture`;
 
 	Axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
 		.then(res => {
 			const user = res.data;
 			cb({
-				userName: user.email.split('@')[0],
+				userId: user.email.split('@')[0],
 				email: user.email,
 				firstName: user.first_name,
 				lastName: user.last_name,
@@ -107,8 +105,7 @@ export const requestFacebookProfile = (token, cb) => {
 
 export const requestGithubCode = (code, cb) => {
 
-	let url = '/login/oauth/access_token';
-
+	const url = '/login/oauth/access_token';
 	const data = {
 		client_id: GITHUB_ID,
 		client_secret: GITHUB_SECRET,
@@ -132,13 +129,13 @@ export const requestGithubCode = (code, cb) => {
 
 export const requestGithubProfile = (token, cb) => {
 
-	let url = 'https://api.github.com/user';
+	const url = 'https://api.github.com/user';
 
 	Axios.get(url, { headers: { Authorization: `token ${token}` } })
 		.then(res => {
 			const user = res.data;
 			cb({
-				userName: user.login,
+				userId: user.login,
 				email: user.email,
 				firstName: user.name,
 				lastName: '',
