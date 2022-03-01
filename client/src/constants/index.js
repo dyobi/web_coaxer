@@ -1,4 +1,11 @@
-import {GOOGLE_ID, GOOGLE_SECRET, GITHUB_ID, GITHUB_SECRET} from './api';
+import {
+	GOOGLE_ID,
+	GOOGLE_SECRET,
+	GITHUB_ID,
+	GITHUB_SECRET,
+	FACEBOOK_ID,
+	FACEBOOK_SECRET
+} from './api';
 
 const APP_REDIRECT_URL = 'https://localhost:3000/oauth';
 
@@ -7,5 +14,7 @@ export {
 	GOOGLE_SECRET,
 	GITHUB_ID,
 	GITHUB_SECRET,
+	FACEBOOK_ID,
+	FACEBOOK_SECRET,
 	APP_REDIRECT_URL
 };

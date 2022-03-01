@@ -1,8 +1,17 @@
-import { requestGoogleCode, requestGoogleProfile, requestGithubCode, requestGithubProfile } from './oAuth';
+import {
+	requestGoogleCode,
+	requestGoogleProfile,
+	requestFacebookCode,
+	requestFacebookProfile,
+	requestGithubCode,
+	requestGithubProfile
+} from './oAuth';
 
 export {
 	requestGoogleCode,
 	requestGoogleProfile,
+	requestFacebookCode,
+	requestFacebookProfile,
 	requestGithubCode,
 	requestGithubProfile
 };

@@ -15,6 +15,7 @@ import GithubLogo from '../../../../assets/icons/github_logo.png';
 
 import {
 	GOOGLE_ID,
+	FACEBOOK_ID,
 	GITHUB_ID,
 	APP_REDIRECT_URL
 } from '../../../../constants';
@@ -29,6 +30,13 @@ const Component = ({ show, close }) => {
 	const _handleGoogleSignin = () => {
 		window.open(
 			`https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_ID}&scope=openid%20email%20profile&redirect_uri=${APP_REDIRECT_URL}/google&response_type=code`,
+			'_self'
+		);
+	};
+
+	const _handleFacebookSignin = () => {
+		window.open(
+			`https://www.facebook.com/v6.0/dialog/oauth?client_id=${FACEBOOK_ID}&redirect_uri=${APP_REDIRECT_URL}/facebook`,
 			'_self'
 		);
 	};
@@ -67,7 +75,7 @@ const Component = ({ show, close }) => {
 								'Google 계정으로 로그인'
 							}
 						</div>
-						<div className="login_btn">
+						<div className="login_btn" onClick={() => _handleFacebookSignin()}>
 							<img src={FacebookLogo} alt='' />
 							{_ui.lang === 'en_US' ?
 								'Log in with Facebook'

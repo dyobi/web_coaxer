@@ -3,6 +3,8 @@ import Axios from 'axios';
 import {
 	GOOGLE_ID,
 	GOOGLE_SECRET,
+	FACEBOOK_ID,
+	FACEBOOK_SECRET,
 	GITHUB_ID,
 	GITHUB_SECRET,
 	APP_REDIRECT_URL
@@ -56,6 +58,53 @@ export const requestGoogleProfile = (token, cb) => {
 
 };
 
+export const requestFacebookCode = (code, cb) => {
+
+	let url = `https://graph.facebook.com/v6.0/oauth/access_token`;
+
+	const data = {
+		client_id: FACEBOOK_ID,
+		client_secret: FACEBOOK_SECRET,
+		code,
+		redirect_uri: `${APP_REDIRECT_URL}/facebook`
+	};
+
+	Axios.get(url, { params: data })
+		.then(res => {
+			cb({
+				token: res.data.access_token
+			});
+		})
+		.catch(() => {
+			cb({
+				token: null
+			});
+		});
+
+};
+
+export const requestFacebookProfile = (token, cb) => {
+
+	let url = `https://graph.facebook.com/v6.0/me?fields=email,first_name,last_name,picture`;
+
+	Axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
+		.then(res => {
+			const user = res.data;
+			cb({
+				userName: user.email.split('@')[0],
+				email: user.email,
+				firstName: user.first_name,
+				lastName: user.last_name,
+				picture: user.picture.data.url,
+				socialType: 'facebook'
+			});
+		})
+		.catch(() => {
+			cb(null);
+		});
+
+};
+
 export const requestGithubCode = (code, cb) => {
 
 	let url = '/login/oauth/access_token';
@@ -100,4 +149,5 @@ export const requestGithubProfile = (token, cb) => {
 		.catch(() => {
 			cb(null);
 		});
+
 };
