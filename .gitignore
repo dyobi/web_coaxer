@@ -3,6 +3,7 @@ node_modules
 build/
 *.log*
 .vscode
+package-lock.json
 
 .idea
 *.iws
