@@ -1,17 +1,27 @@
 import {
-	requestGoogleCode,
+	requestGoogleToken,
 	requestGoogleProfile,
-	requestFacebookCode,
+	requestFacebookToken,
 	requestFacebookProfile,
-	requestGithubCode,
+	requestGithubToken,
 	requestGithubProfile
 } from './oAuth';
 
+import {
+	checkEmail,
+	postUser,
+	deleteUser
+} from './user';
+
 export {
-	requestGoogleCode,
+	checkEmail,
+	postUser,
+	deleteUser,
+	
+	requestGoogleToken,
 	requestGoogleProfile,
-	requestFacebookCode,
+	requestFacebookToken,
 	requestFacebookProfile,
-	requestGithubCode,
+	requestGithubToken,
 	requestGithubProfile
 };

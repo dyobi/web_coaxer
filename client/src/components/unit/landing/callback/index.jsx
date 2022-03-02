@@ -3,11 +3,13 @@ import { useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 
 import {
-	requestGoogleCode,
+	checkEmail,
+
+	requestGoogleToken,
 	requestGoogleProfile,
-	requestFacebookCode,
+	requestFacebookToken,
 	requestFacebookProfile,
-	requestGithubCode,
+	requestGithubToken,
 	requestGithubProfile
 } from '../../../../datas';
 
@@ -21,19 +23,21 @@ const Component = () => {
 	// const _ui = useSelector(state => state.ui);
 
 	useEffect(() => {
+
 		if (location !== undefined) {
+
 			const code = new URLSearchParams(location).get('code');
 			let codeFunc;
 			let profileFunc;
 
 			if (source === 'google') {
-				codeFunc = requestGoogleCode;
+				codeFunc = requestGoogleToken;
 				profileFunc = requestGoogleProfile;
 			} else if (source === 'facebook') {
-				codeFunc = requestFacebookCode;
+				codeFunc = requestFacebookToken;
 				profileFunc = requestFacebookProfile;
 			} else if (source === 'github') {
-				codeFunc = requestGithubCode;
+				codeFunc = requestGithubToken;
 				profileFunc = requestGithubProfile;
 			}
 
@@ -41,11 +45,15 @@ const Component = () => {
 				const token = res.token;
 				if (token !== null) {
 					profileFunc(token, res => {
-						console.log(res)
-					})
+						const user = res;
+						checkEmail(user.email, user.socialType, res => {
+
+						});
+					});
 				}
-			})
+			});
 		}
+		
 	}, [location, source]);
 
 	return (

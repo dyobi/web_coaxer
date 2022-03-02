@@ -4,6 +4,43 @@ import Axios from 'axios';
 
 /*
 	method: 
+		GET
+	url: 
+		/api/user/checkEmail
+	parameter: 
+		email, socialType
+	result:
+		status:
+			200: absence
+			400: error
+			411: existence & same social type
+			412: existence & different social type
+		obj:
+			socialType (only when 412 occurs)
+	using at:
+		User
+*/
+export const checkEmail = (email, socialType, cb) => {
+
+	const url = '/api/user/checkEmail';
+	const data = {
+		email,
+		socialType
+	};
+
+	Axios.get(url, { params: data })
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb(0);
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
 		POST
 	url: 
 		/api/user/
@@ -22,7 +59,7 @@ export const postUser = (
 
 	const url = '/api/user';
 	const data = {
-		userId,
+		userId: `${userId}-${Math.floor(Math.random() * 100000)}`,
 		email,
 		firstName,
 		lastName,
