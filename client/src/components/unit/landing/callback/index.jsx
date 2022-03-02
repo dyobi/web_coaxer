@@ -24,6 +24,8 @@ const Component = () => {
 
 	useEffect(() => {
 
+		let isCancelled = false;
+
 		if (location !== undefined) {
 
 			const code = new URLSearchParams(location).get('code');
@@ -43,17 +45,36 @@ const Component = () => {
 
 			codeFunc(code, res => {
 				const token = res.token;
-				if (token !== null) {
-					profileFunc(token, res => {
-						const user = res;
-						checkEmail(user.email, user.socialType, res => {
-
+				if (!isCancelled) {
+					if (token !== null) {
+						profileFunc(token, res => {
+							const user = res;
+							if (!isCancelled) {
+								checkEmail(user.email, user.socialType, res => {
+									if (res.status === 200 || res.status === 411) {
+										if (res.status === 200) {
+											console.log('put user');
+										}
+										console.log('login');
+									} else if (res.status === 412) {
+										console.log('다른 플랫폼으로 가입이력있음, 계속진행?');
+									} else {
+										console.log('잘못된 접근입니다');
+									}
+								});
+							}
 						});
-					});
+					} else {
+						console.log('잘못된 접근입니다');
+					}
 				}
 			});
 		}
-		
+
+		return () => {
+			isCancelled = true;
+		};
+
 	}, [location, source]);
 
 	return (
