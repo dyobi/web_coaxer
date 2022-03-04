@@ -27,6 +27,18 @@ public class UserController {
         return userService.checkEmail(email, socialType);
     }
 
+    @GetMapping
+    public Response getUser(@RequestParam String email) {
+        //  url:
+        //      /api/user
+        //  status:
+        //      200: success
+        //      400: failure
+        //  obj:
+        //      user
+        return userService.getUser(email);
+    }
+
     @PostMapping
     public Response postUser(@RequestBody User user) {
         //  url:

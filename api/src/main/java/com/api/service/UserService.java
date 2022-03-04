@@ -18,8 +18,24 @@ public class UserService {
             User user = userRepository.findByEmail(email);
             if (user == null) {
                 return new Response(200);
+            } else if (user.getSocialType().equals(socialType)) {
+                return new Response(411);
             } else {
-                return new Response(user.getSocialType().equals(socialType) ? 411 : 412, user.getSocialType());
+                return new Response(412, user.getSocialType());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
+    public Response getUser(String email) {
+        try {
+            User user = userRepository.findByEmail(email);
+            if (user == null) {
+                return new Response(400);
+            } else {
+                return new Response(200, user);
             }
         } catch (Exception e) {
             e.printStackTrace();

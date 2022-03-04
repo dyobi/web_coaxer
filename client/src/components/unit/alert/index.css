@@ -1,0 +1,104 @@
+.alert_container {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #00000080;
+
+	visibility: hidden;
+	opacity: 0;
+	transition: 300ms;
+}
+
+.alert_container.show {
+	visibility: visible;
+	opacity: 1;
+}
+
+.alert_container>.alert {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	width: 280px;
+	height: auto;
+	padding: 20px;
+	background-color: #fff;
+
+	-webkit-box-shadow: 0 0 8px var(--color-100);
+	box-shadow: 0 0 8px var(--color-100);
+	border-radius: 8px;
+}
+
+.alert>.logo_icon {
+	width: 36px;
+	height: 36px;
+	color: var(--color-100);
+}
+
+.alert>h3 {
+	margin: 12px 0;
+	font-size: 20px;
+	font-style: italic;
+	letter-spacing: -1.2px;
+	word-spacing: 3px;
+}
+
+.alert>span {
+	margin: 4px 0;
+	width: 280px;
+	height: auto;
+
+	color: darkslategray;
+	font-size: 14px;
+	letter-spacing: -0.2px;
+	word-spacing: 1.2px;
+	line-height: 20px;
+}
+
+.alert>hr {
+	margin: 16px 0;
+	width: 280px;
+	border: 0.4px solid var(--color-20);
+}
+
+.alert>.alert_btn_container {
+	display: flex;
+	align-self: flex-end;
+	justify-content: center;
+}
+
+.alert>.alert_btn_container>.alert_btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	padding: 0 8px;
+	margin-left: 14px;
+
+	width: auto;
+	height: 28px;
+	min-width: 26px;
+
+	border-radius: 6px;
+	border: 0.4px solid #525964;
+
+	font-size: 12px;
+	font-weight: 500;
+	letter-spacing: -0.2px;
+	color: darkslategray;
+
+	cursor: pointer;
+	transition: 300ms;
+}
+
+.alert>.alert_btn_container>.alert_btn:hover {
+	font-weight: bold;
+	background-color: var(--color-10);
+}

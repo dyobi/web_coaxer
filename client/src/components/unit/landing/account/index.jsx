@@ -51,7 +51,7 @@ const Component = ({ show, close }) => {
 	return ReactDom.createPortal(
 		<>
 			<div className={`modal_container ${show ? 'show' : ''}`} onClick={() => close()}>
-				<div className="modal" onClick={(e) => e.stopPropagation()}>
+				<div className='modal' onClick={(e) => e.stopPropagation()}>
 					<BiXCircle className='close_btn' onClick={() => close()} />
 					<GiHeartBeats className='logo_icon' />
 					<h3>{_ui.lang === 'en_US' ? 'GET STARTED' : '계정 만들기'}</h3>
@@ -67,7 +67,7 @@ const Component = ({ show, close }) => {
 						}
 					</span>
 					<div className='login_btn_container'>
-						<div className="login_btn" onClick={() => _handleGoogleSignin()}>
+						<div className='login_btn' onClick={() => _handleGoogleSignin()}>
 							<img src={GoogleLogo} alt='' />
 							{_ui.lang === 'en_US' ?
 								'Log in with Google'
@@ -75,7 +75,7 @@ const Component = ({ show, close }) => {
 								'Google 계정으로 로그인'
 							}
 						</div>
-						<div className="login_btn" onClick={() => _handleFacebookSignin()}>
+						<div className='login_btn' onClick={() => _handleFacebookSignin()}>
 							<img src={FacebookLogo} alt='' />
 							{_ui.lang === 'en_US' ?
 								'Log in with Facebook'
@@ -83,7 +83,7 @@ const Component = ({ show, close }) => {
 								'Facebook 계정으로 로그인'
 							}
 						</div>
-						<div className="login_btn" onClick={() => _handleGithubSignin()}>
+						<div className='login_btn' onClick={() => _handleGithubSignin()}>
 							<img src={GithubLogo} alt='' />
 							{_ui.lang === 'en_US' ?
 								'Log in with Github'

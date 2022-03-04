@@ -1,4 +1,7 @@
+import './index.css';
+
 const Component = () => {
+
 	return (
 		<div>
 			Chatting

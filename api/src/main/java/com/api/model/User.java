@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -33,8 +32,8 @@ public class User {
 
     private Date dateOfBirth;
 
-    @Column(nullable = false, columnDefinition = "tinyint default 0")
-    private boolean gender;
+    @Column(columnDefinition = "tinyint")
+    private boolean gender = false;
 
     private float latitude;
 
@@ -43,20 +42,17 @@ public class User {
     @Column(columnDefinition = "varchar(500)")
     private String bio;
 
-    @Column(nullable = false, columnDefinition = "tinyint default 1")
-    private boolean notification;
+    @Column(columnDefinition = "tinyint")
+    private boolean notification = true;
 
-    @Column(nullable = false, columnDefinition = "tinyint default 0")
-    private boolean preferredGender;
+    @Column(columnDefinition = "tinyint")
+    private boolean preferredGender = true;
 
-    @ColumnDefault("0")
-    private int preferredMinAge;
+    private int preferredMinAge = 0;
 
-    @ColumnDefault("100")
-    private int preferredMaxAge;
+    private int preferredMaxAge = 100;
 
-    @ColumnDefault("-1")
-    private int preferredMaxDistance;
+    private int preferredMaxDistance = -1;
 
     @NotEmpty
     private String socialType;

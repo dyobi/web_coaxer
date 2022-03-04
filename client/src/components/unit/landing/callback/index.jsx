@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
-// import { useSelector } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+
+import Alert from '../../alert';
 
 import {
 	checkEmail,
-
+	postUser,
 	requestGoogleToken,
 	requestGoogleProfile,
 	requestFacebookToken,
@@ -19,8 +20,14 @@ const Component = () => {
 
 	const { source } = useParams();
 	const location = useLocation().search;
+	const navigate = useNavigate();
 
-	// const _ui = useSelector(state => state.ui);
+	const [alertView, setAlertView] = useState(false);
+	const [alertType, setAlertType] = useState('');
+	const [alertEnDesc, setAlertEnDesc] = useState('');
+	const [alertKrDesc, setAlertKrDesc] = useState('');
+	const [alertCb1, setAlertCb1] = useState(() => () => null);
+	const [alertCb2, setAlertCb2] = useState(() => () => null);
 
 	useEffect(() => {
 
@@ -53,19 +60,43 @@ const Component = () => {
 								checkEmail(user.email, user.socialType, res => {
 									if (res.status === 200 || res.status === 411) {
 										if (res.status === 200) {
-											console.log('put user');
+											postUser(
+												user.userId,
+												user.email,
+												user.firstName,
+												user.lastName,
+												user.picture,
+												user.socialType,
+												res => {
+													if (res.status === 400) {
+														setAlertType('confirm');
+														setAlertEnDesc('Something went wrong during the process. You will be taken to the main page.');
+														setAlertKrDesc('알 수 없는 오류가 발생하였습니다. 확인을 누르시면 메인화면으로 이동합니다.');
+														setAlertCb1(() => () => navigate('/home'));
+														setAlertView(true);
+													}
+												}
+											)
 										}
 										console.log('login');
 									} else if (res.status === 412) {
 										console.log('다른 플랫폼으로 가입이력있음, 계속진행?');
 									} else {
-										console.log('잘못된 접근입니다');
+										setAlertType('confirm');
+										setAlertEnDesc('Something went wrong during the process. You will be taken to the main page.');
+										setAlertKrDesc('알 수 없는 오류가 발생하였습니다. 확인을 누르시면 메인화면으로 이동합니다.');
+										setAlertCb1(() => () => navigate('/home'));
+										setAlertView(true);
 									}
 								});
 							}
 						});
 					} else {
-						console.log('잘못된 접근입니다');
+						setAlertType('confirm');
+						setAlertEnDesc('Something went wrong during the process. You will be taken to the main page.');
+						setAlertKrDesc('알 수 없는 오류가 발생하였습니다. 확인을 누르시면 메인화면으로 이동합니다.');
+						setAlertCb1(() => () => navigate('/home'));
+						setAlertView(true);
 					}
 				}
 			});
@@ -75,11 +106,19 @@ const Component = () => {
 			isCancelled = true;
 		};
 
-	}, [location, source]);
+	}, [location, source, navigate, alertView]);
 
 	return (
 		<div className='oauth_callback_container'>
 			callback page!!!
+			<Alert
+				show={alertView}
+				type={alertType}
+				enDesc={alertEnDesc}
+				krDesc={alertKrDesc}
+				cb1={() => alertCb1()}
+				cb2={() => alertCb2()}
+			/>
 		</div>
 	);
 };
