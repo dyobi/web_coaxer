@@ -79,6 +79,7 @@ const Component = () => {
 											)
 										}
 										console.log('login');
+										navigate('/home');
 									} else if (res.status === 412) {
 										console.log('다른 플랫폼으로 가입이력있음, 계속진행?');
 									} else {
