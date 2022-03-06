@@ -6,6 +6,7 @@ import Alert from '../../alert';
 import {
 	checkEmail,
 	postUser,
+	putUserSocialType,
 	requestGoogleToken,
 	requestGoogleProfile,
 	requestFacebookToken,
@@ -28,6 +29,14 @@ const Component = () => {
 	const [alertKrDesc, setAlertKrDesc] = useState('');
 	const [alertCb1, setAlertCb1] = useState(() => () => null);
 	const [alertCb2, setAlertCb2] = useState(() => () => null);
+
+	const _handleErrorAlert = () => {
+		setAlertType('confirm');
+		setAlertEnDesc('Something went wrong during the process. You will be taken to the main page.');
+		setAlertKrDesc('알 수 없는 오류가 발생하였습니다. 확인을 누르시면 메인화면으로 이동합니다.');
+		setAlertCb1(() => () => navigate('/home'));
+		setAlertView(true);
+	};
 
 	useEffect(() => {
 
@@ -69,35 +78,40 @@ const Component = () => {
 												user.socialType,
 												res => {
 													if (res.status === 400) {
-														setAlertType('confirm');
-														setAlertEnDesc('Something went wrong during the process. You will be taken to the main page.');
-														setAlertKrDesc('알 수 없는 오류가 발생하였습니다. 확인을 누르시면 메인화면으로 이동합니다.');
-														setAlertCb1(() => () => navigate('/home'));
-														setAlertView(true);
+														_handleErrorAlert();
 													}
 												}
 											)
 										}
+										// LOG-IN START
 										console.log('login');
+										// LOG-IN END
 										navigate('/home');
 									} else if (res.status === 412) {
-										console.log('다른 플랫폼으로 가입이력있음, 계속진행?');
-									} else {
-										setAlertType('confirm');
-										setAlertEnDesc('Something went wrong during the process. You will be taken to the main page.');
-										setAlertKrDesc('알 수 없는 오류가 발생하였습니다. 확인을 누르시면 메인화면으로 이동합니다.');
-										setAlertCb1(() => () => navigate('/home'));
+										setAlertType('question');
+										setAlertEnDesc(`Your email is already in use on ${res.obj.toUpperCase()}. Do you want to proceed on ${source.toUpperCase()}? All the user datas will be remained.`);
+										setAlertKrDesc(`이메일이 ${res.obj.toUpperCase()} 에서 이미 사용 중 입니다. ${source.toUpperCase()} 으로 로그인을 진행 하시겠습니까? 사용자 정보는 유지됩니다.`);
+										setAlertCb1(() => () => {
+											putUserSocialType(user.email, source, res => {
+												if (res.status === 400) {
+													_handleErrorAlert();
+												}
+											});
+											// LOG-IN START
+											console.log('login');
+											// LOG-IN END
+											navigate('/home');
+										});
+										setAlertCb2(() => () => navigate('/home'));
 										setAlertView(true);
+									} else {
+										_handleErrorAlert();
 									}
 								});
 							}
 						});
 					} else {
-						setAlertType('confirm');
-						setAlertEnDesc('Something went wrong during the process. You will be taken to the main page.');
-						setAlertKrDesc('알 수 없는 오류가 발생하였습니다. 확인을 누르시면 메인화면으로 이동합니다.');
-						setAlertCb1(() => () => navigate('/home'));
-						setAlertView(true);
+						_handleErrorAlert();
 					}
 				}
 			});
@@ -107,11 +121,23 @@ const Component = () => {
 			isCancelled = true;
 		};
 
-	}, [location, source, navigate, alertView]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [location, source, navigate]);
 
 	return (
 		<div className='oauth_callback_container'>
-			callback page!!!
+			<>
+				<div className='wave' />
+				<div className='wave' />
+				<div className='wave' />
+				<div className='wave' />
+				<div className='wave' />
+				<div className='wave' />
+				<div className='wave' />
+				<div className='wave' />
+				<div className='wave' />
+				<div className='wave' />
+			</>
 			<Alert
 				show={alertView}
 				type={alertType}

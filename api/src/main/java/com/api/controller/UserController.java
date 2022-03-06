@@ -49,6 +49,16 @@ public class UserController {
         return userService.postUser(user);
     }
 
+    @PutMapping("/socialType")
+    public Response putUserSocialType(@RequestBody User user) {
+        //  url:
+        //      /api/user/socialType
+        //  status:
+        //      200: success
+        //      400: failure
+        return userService.putUserSocialType(user);
+    }
+
     @DeleteMapping
     public Response deleteUser(@RequestParam String email) {
         //  url:

@@ -81,6 +81,39 @@ export const postUser = (
 
 /*
 	method: 
+		PUT
+	url: 
+		/api/user/socialType
+	parameter: 
+		email, socialType
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		User
+*/
+export const putUserSocialType = (email, socialType, cb) => {
+	const url = `/api/user/socialType`;
+	const data = {
+		email,
+		socialType
+	};
+
+	Axios.put(url, data)
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+
+/*
+	method: 
 		DELETE
 	url: 
 		/api/user/

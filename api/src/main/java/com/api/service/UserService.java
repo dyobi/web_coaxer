@@ -53,6 +53,18 @@ public class UserService {
         }
     }
 
+    public Response putUserSocialType(User value) {
+        try {
+            User user = userRepository.findByEmail(value.getEmail());
+            user.setSocialType(value.getSocialType());
+            userRepository.save(user);
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
     public Response deleteUser(String email) {
         try {
             userRepository.deleteByEmail(email);

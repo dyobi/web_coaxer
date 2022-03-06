@@ -10,12 +10,14 @@ import {
 import {
 	checkEmail,
 	postUser,
+	putUserSocialType,
 	deleteUser
 } from './user';
 
 export {
 	checkEmail,
 	postUser,
+	putUserSocialType,
 	deleteUser,
 	
 	requestGoogleToken,

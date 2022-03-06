@@ -50,7 +50,20 @@ const Component = () => {
 					}
 				</div>
 			</div>
-			<div style={{ width: '100%', height: '600px' }} />
+			<div style={{ width: '100%', height: '600px', display: 'flex' }}>
+				<>
+					<div className='wave' />
+					<div className='wave' />
+					<div className='wave' />
+					<div className='wave' />
+					<div className='wave' />
+					<div className='wave' />
+					<div className='wave' />
+					<div className='wave' />
+					<div className='wave' />
+					<div className='wave' />
+				</>
+			</div>
 		</>
 	);
 };
