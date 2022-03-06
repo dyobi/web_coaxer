@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import $ from 'jquery';
 
@@ -8,13 +8,24 @@ import './index.css';
 
 const Component = () => {
 
+	const mounted = useRef(false);
 	const _ui = useSelector(state => state.ui);
 	const [width, setWidth] = useState(window.innerWidth);
 	const [accountView, setAccountView] = useState(false);
 
 	$(window).on('resize', () => {
-		setWidth(window.innerWidth);
+		if (mounted.current) {
+			setWidth(window.innerWidth);
+		}
 	});
+
+	useEffect(() => {
+		mounted.current = true;
+
+		return () => {
+			mounted.current = false;
+		};
+	}, []);
 
 	return (
 		<>
