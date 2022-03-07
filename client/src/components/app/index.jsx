@@ -1,32 +1,41 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import cookie from 'react-cookies';
 import Wrapper from 'react-div-100vh';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Header from '../unit/nav';
 import Core from '../core';
 import Callback from '../unit/landing/callback';
+import { ui_color } from '../../store/actions';
 
 import './index.css';
 
 const Component = () => {
 
-	const ui = useSelector(state => state.ui);
+	const _ui = useSelector(state => state.ui);
+	const dispatch = useDispatch();
+
+	const getColor = cookie.load('theme-color');
+
+	if (getColor !== undefined && getColor !== _ui.color) {
+		dispatch(ui_color(getColor));
+	}
 
 	return (
 		<Wrapper>
 			<style>
 				{`
 					:root {
-						--color-100: ${ui.color + 'ff'};
-						--color-90: ${ui.color + 'e6'};
-						--color-80: ${ui.color + 'cc'};
-						--color-70: ${ui.color + 'b3'};
-						--color-60: ${ui.color + '99'};
-						--color-50: ${ui.color + '80'};
-						--color-40: ${ui.color + '66'};
-						--color-30: ${ui.color + '4d'};
-						--color-20: ${ui.color + '33'};
-						--color-10: ${ui.color + '1a'};
+						--color-100: ${_ui.color + 'ff'};
+						--color-90: ${_ui.color + 'e6'};
+						--color-80: ${_ui.color + 'cc'};
+						--color-70: ${_ui.color + 'b3'};
+						--color-60: ${_ui.color + '99'};
+						--color-50: ${_ui.color + '80'};
+						--color-40: ${_ui.color + '66'};
+						--color-30: ${_ui.color + '4d'};
+						--color-20: ${_ui.color + '33'};
+						--color-10: ${_ui.color + '1a'};
 					}
 				`}
 			</style>

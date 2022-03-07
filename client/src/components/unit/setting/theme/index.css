@@ -1,0 +1,24 @@
+.color_container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+
+	width: 100%;
+	height: 100%;
+}
+
+.color_container>.color {
+	width: 28px;
+	height: 28px;
+
+	border-radius: 50%;
+	border: 1.6px solid;
+
+	cursor: pointer;
+	transition: 300ms;
+}
+
+.color_container>.color:hover {
+	opacity: 0.7;
+	transform: scale(1.1);
+}

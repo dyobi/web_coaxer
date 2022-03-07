@@ -1,6 +1,5 @@
 .lookup_container {
 	display: flex;
-	align-items: stretch;
 
 	width: 100%;
 	height: 600px;
@@ -93,7 +92,7 @@
 
 .marker_info_container>.info_pictures_container>img {
 	margin: 16px 8px 16px 0;
-	width: 160px;
+	width: calc(100% - 30px);
 	height: 140px;
 
 	border-radius: 6px;

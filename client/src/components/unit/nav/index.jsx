@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import $ from 'jquery';
@@ -13,12 +13,15 @@ import './index.css';
 
 const Component = () => {
 
+	const mounted = useRef(false);
 	const _ui = useSelector(state => state.ui);
 	const [width, setWidth] = useState(window.innerWidth);
 	const dispatch = useDispatch();
 
 	$(window).on('resize', () => {
-		setWidth(window.innerWidth);
+		if (mounted.current) {
+			setWidth(window.innerWidth);
+		}
 	});
 
 	const _handleLang = () => {
@@ -27,6 +30,14 @@ const Component = () => {
 		});
 		dispatch(ui_lang(_ui.lang === 'en_US' ? 'ko_KR' : 'en_US'));
 	};
+
+	useEffect(() => {
+		mounted.current = true;
+
+		return () => {
+			mounted.current = false;
+		};
+	}, []);
 
 	return (
 		<div>
