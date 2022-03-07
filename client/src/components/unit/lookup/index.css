@@ -26,10 +26,11 @@
 }
 
 .marker_info_container>.info_title {
-	padding: 10px;
 	display: flex;
 	align-items: center;
 	align-self: baseline;
+
+	padding: 10px;
 	width: 100%;
 }
 
@@ -37,6 +38,7 @@
 	flex-basis: calc(80% - 20px);
 
 	font-size: 20px;
+	font-weight: 500;
 	text-align: center;
 	letter-spacing: -0.2px;
 	color: darkslategray;
@@ -70,6 +72,61 @@
 
 .marker_info_container>.info_title>.like_btn:hover {
 	animation: like_animation 800ms linear infinite;
+}
+
+.marker_info_container>.info_pictures_container {
+	display: flex;
+
+	width: calc(100% - 30px);
+	height: auto;
+
+	cursor: pointer;
+	overflow: hidden;
+	transition: 300ms;
+}
+
+.marker_info_container>.info_pictures_container:active {
+	cursor: grabbing;
+	cursor: -webkit-grabbing;
+	transform: scale(1.05);
+}
+
+.marker_info_container>.info_pictures_container>img {
+	margin: 16px 8px 16px 0;
+	width: 160px;
+	height: 140px;
+
+	border-radius: 6px;
+}
+
+.information_container {
+	padding: 0 15px;
+	overflow-y: auto;
+}
+
+.information_container::-webkit-scrollbar {
+	display: none;
+}
+
+.information_container>p {
+	margin: 16px 0;
+	padding: 0;
+	width: 100%;
+
+	color: #414d4d;
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.information_container>span {
+	display: inline-block;
+	margin: 0 0 16px 0;
+	padding: 0;
+	width: 100%;
+
+	color: #556666;
+	font-size: 16px;
+	font-weight: 400;
 }
 
 @keyframes like_animation {
