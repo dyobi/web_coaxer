@@ -5,7 +5,6 @@ const Component = (props) => {
 		<>
 			<div
 				className='marker_container marker_bounce'
-				onClick={() => console.log('hi')}
 			>
 				<img src={props.img} alt='' />
 			</div>
