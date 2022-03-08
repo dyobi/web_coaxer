@@ -108,20 +108,26 @@
 }
 
 .information_container>p {
-	margin: 16px 0;
-	padding: 0;
-	width: 100%;
+	display: flex;
+	align-items: center;
+
+	margin: 12px 0;
+	padding: 0 8px;
+	width: calc(100% - 16px);
+	height: 28px;
 
 	color: #414d4d;
 	font-size: 18px;
 	font-weight: 400;
+	border-radius: 6px;
+	background-color: var(--color-10);
 }
 
 .information_container>span {
 	display: inline-block;
 	margin: 0 0 16px 0;
-	padding: 0;
-	width: 100%;
+	padding: 0 8px;
+	width: calc(100% - 16px);
 
 	color: #556666;
 	font-size: 16px;
