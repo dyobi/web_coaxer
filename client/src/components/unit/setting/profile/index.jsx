@@ -7,6 +7,8 @@ import Notification from './notification';
 import Bio from './bio';
 import Picture from './picture';
 import PreferredGender from './preferredGender';
+import PreferredMaxRange from './preferredMaxRange';
+import PreferredAgeRange from './preferredAgeRange';
 
 import './index.css';
 
@@ -45,6 +47,8 @@ const Component = () => {
 					}
 				</div>
 				<PreferredGender />
+				<PreferredMaxRange />
+				<PreferredAgeRange />
 			</>
 
 		</div>

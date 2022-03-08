@@ -20,11 +20,19 @@ const Component = () => {
 			}
 			<div className='radio_container'>
 				<div className='radio_section'>
-					<span>Male</span>
+					{_ui.lang === 'en_US' ?
+						<span>Male</span>
+						:
+						<span>남성</span>
+					}
 					<input type={'radio'} name='gender' value='0' defaultChecked />
 				</div>
 				<div className='radio_section'>
-					<span>Female</span>
+					{_ui.lang === 'en_US' ?
+						<span>Female</span>
+						:
+						<span>여성</span>
+					}
 					<input type={'radio'} name='gender' value='1' />
 				</div>
 			</div>

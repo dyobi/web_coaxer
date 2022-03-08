@@ -20,11 +20,19 @@ const Component = () => {
 			}
 			<div className='radio_container'>
 				<div className='radio_section'>
-					<span>On</span>
+					{_ui.lang === 'en_US' ?
+						<span>On</span>
+						:
+						<span>켜짐</span>
+					}
 					<input type={'radio'} name='notification' value='1' defaultChecked />
 				</div>
 				<div className='radio_section'>
-					<span>Off</span>
+					{_ui.lang === 'en_US' ?
+						<span>Off</span>
+						:
+						<span>꺼짐</span>
+					}
 					<input type={'radio'} name='notification' value='0' />
 				</div>
 			</div>

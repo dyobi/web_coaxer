@@ -52,7 +52,7 @@ public class User {
 
     private int preferredMaxAge = 100;
 
-    private int preferredMaxDistance = -1;
+    private int preferredMaxDistance = 310;
 
     @NotEmpty
     private String socialType;
