@@ -289,6 +289,10 @@
 	cursor: pointer;
 }
 
+.section>.radio_container>.custom_slider>.custom_thumb.active {
+	outline-style: none;
+}
+
 @keyframes btn_animation {
 	50% {
 		transform: scale(1.2);

@@ -6,14 +6,13 @@ import { BiCheckSquare } from 'react-icons/bi';
 const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
-	const [rangeLeft, setRangeLeft] = useState(0);
-	const [rangeRight, setRangeRight] = useState(100);
+	const [range, setRange] = useState([0, 100]);
 
 	const _handlePreferredAgeRange = (e) => {
 		e.preventDefault();
-		const ageRangeLeft = document.querySelector(`input[name='leftVal']`).value;
-		const ageRangeRight = document.querySelector(`input[name='rightVal']`).value;
-		console.log(ageRangeLeft + ' / ' + ageRangeRight);
+		const minAge = range[0];
+		const maxAge = range[1];
+		console.log(minAge + ' / ' + maxAge);
 	};
 
 	return (
@@ -21,7 +20,7 @@ const Component = () => {
 			{_ui.lang === 'en_US' ?
 				<span>Age Range</span>
 				:
-				<span>나이범위</span>
+				<span>나이</span>
 			}
 			<div className='radio_container'>
 				<Slider
@@ -29,13 +28,14 @@ const Component = () => {
 					thumbClassName='custom_thumb'
 					defaultValue={[0, 100]}
 					minDistance={10}
+					withTracks={false}
+					onChange={(range) => setRange(range)}
 					pearling
 				/>
 				{_ui.lang === 'en_US' ?
-					// <span>{rangeLeft} to {rangeRight}</span>
-					<span>No Limits</span>
+					<span>{range[0]} to {range[1]}</span>
 					:
-					<span>{rangeLeft} ~ {rangeRight}</span>
+					<span>{range[0]} ~ {range[1]}</span>
 				}
 			</div>
 			<BiCheckSquare className='check_btn' onClick={(e) => _handlePreferredAgeRange(e)} />
