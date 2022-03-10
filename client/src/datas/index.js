@@ -9,6 +9,7 @@ import {
 
 import {
 	checkEmail,
+	getUser,
 	postUser,
 	putUserSocialType,
 	deleteUser
@@ -16,6 +17,7 @@ import {
 
 export {
 	checkEmail,
+	getUser,
 	postUser,
 	putUserSocialType,
 	deleteUser,

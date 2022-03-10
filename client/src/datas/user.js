@@ -33,7 +33,41 @@ export const checkEmail = (email, socialType, cb) => {
 			cb(res.data);
 		})
 		.catch(() => {
-			cb(0);
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
+		GET
+	url: 
+		/api/user
+	parameter: 
+		email
+	result:
+		status:
+			200: success
+			400: failure
+		obj:
+			user
+	using at:
+		User
+*/
+export const getUser = (email, cb) => {
+
+	const url = '/api/user';
+	const data = {
+		email
+	};
+
+	Axios.get(url, { params: data })
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
 		});
 };
 

@@ -46,7 +46,7 @@ public class User {
     private boolean notification = true;
 
     @Column(columnDefinition = "tinyint")
-    private boolean preferredGender = true;
+    private boolean preferredGender = false;
 
     private int preferredMinAge = 0;
 
