@@ -1,23 +1,34 @@
 .chat_container {
 	display: flex;
+	align-items: center;
+	justify-content: center;
 
 	width: 100%;
 	height: 600px;
 	border-radius: 10px;
+	background-color: var(--color-10);
 
 	overflow: hidden;
 	transition: 300ms;
 }
 
 .chat_container>.chat_list {
-	padding: 30px 20px;
-	width: calc(100% - 40px);
+	display: flex;
+	flex-direction: column;
+
+	margin: 30px 10px;
+	padding: 0 2px;
+	width: 100%;
 	height: calc(100% - 60px);
 
-	background-color: var(--color-10);
-
 	overflow-y: auto;
+	overflow-x: visible;
 	transition: 300ms;
+}
+
+.chat_container>.chat_list:active {
+	cursor: grabbing;
+	cursor: -webkit-grabbing;
 }
 
 .chat_container>.chat_list::-webkit-scrollbar {
@@ -28,9 +39,10 @@
 	display: flex;
 	align-items: center;
 
-	margin: 12px 0;
+	margin: 6px 0;
 	padding: 5px;
-	width: calc(100% - 200px);
+	width: calc(100% - 12px);
+	max-width: 560px;
 	height: 50px;
 
 	border-radius: 30px;
@@ -39,13 +51,27 @@
 	-webkit-box-shadow: 0 0 4px var(--color-40);
 	box-shadow: 0 0 4px var(--color-40);
 
+	cursor: pointer;
 	transition: 300ms;
+}
+
+.chat_container>.chat_list>.chat_list_each:hover {
+	background-color: #FAFAFA;
 }
 
 .chat_container>.chat_list>.chat_list_each>img {
 	width: 50px;
 	height: 50px;
+
 	border-radius: 50%;
+	opacity: 1;
+
+	transition: 300ms;
+}
+
+.chat_container>.chat_list>.chat_list_each>img:hover {
+	opacity: 0.7;
+	animation: scale_animation 800ms linear infinite;
 }
 
 .chat_container>.chat_list>.chat_list_each>.chat_thumbnail_container {
@@ -99,17 +125,20 @@
 }
 
 .chat_container>.chat_list>.chat_list_each>.chat_delete_container>.chat_delete_btn {
-	width: 24px;
-	height: 24px;
+	width: 28px;
+	height: 28px;
 	color: #D4D4D4;
-	
+
+	visibility: visible;
+	opacity: 1;
+
 	cursor: pointer;
-	transition: 300ms;
+	transition: 800ms;
 }
 
 .chat_container>.chat_list>.chat_list_each>.chat_delete_container>.chat_delete_btn:hover {
 	color: var(--color-40);
-	animation: delete_animation 800ms linear infinite;
+	animation: scale_animation 800ms linear infinite;
 }
 
 .chat_container>.chatroom {
@@ -319,7 +348,7 @@
 	color: var(--color-100);
 }
 
-@keyframes delete_animation {
+@keyframes scale_animation {
 	50% {
 		transform: scale(1.1);
 	}

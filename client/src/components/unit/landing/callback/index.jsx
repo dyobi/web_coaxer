@@ -124,6 +124,8 @@ const Component = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [location, source, navigate]);
 
+	window.history.forward();
+
 	return (
 		<div className='oauth_callback_container'>
 			<>

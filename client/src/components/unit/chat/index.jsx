@@ -1,4 +1,4 @@
-import { BsXCircle } from 'react-icons/bs';
+import { BiXCircle } from 'react-icons/bi';
 import $ from 'jquery';
 
 import Chatroom from './chatroom';
@@ -12,13 +12,25 @@ const Component = () => {
 	const _handleChatroom = (setVal) => {
 		if (setVal) {
 			$('.chat_list').css('width', '60%');
-			$('.chat_list_each').css('width', 'calc(100% - 10px)');
+			$('.chat_delete_btn').css('visibility', 'hidden');
+			$('.chat_delete_btn').css('opacity', '0');
 			$('.chatroom').css('flex-basis', '100%');
 		} else {
 			$('.chat_list').css('width', '100%');
-			$('.chat_list_each').css('width', 'calc(100% - 200px)');
+			$('.chat_delete_btn').css('visibility', 'visible');
+			$('.chat_delete_btn').css('opacity', '1');
 			$('.chatroom').css('flex-basis', '0');
 		}
+	};
+
+	const _handleViewProfile = (e) => {
+		e.stopPropagation();
+		console.log('view profile');
+	};
+
+	const _handleDeleteChat = (e) => {
+		e.stopPropagation();
+		console.log('delete');
 	};
 
 	$(() => {
@@ -57,37 +69,17 @@ const Component = () => {
 
 	return (
 		<div className='chat_container'>
-			<div className='chat_list' onClick={() => _handleChatroom(true)}>
-				<div className='chat_list_each'>
-					<img src={TempImg} alt='' />
+			<div className='chat_list'>
+				<div className='chat_list_each' onClick={() => _handleChatroom(true)}>
+					<img src={TempImg} alt='' onClick={(e) => _handleViewProfile(e)} />
 					<div className='chat_thumbnail_container'>
 						<p>Luke Kim</p>
 						<span>hello hello hello hello hello hello hello hello</span>
 					</div>
-					<div className='chat_delete_container'><BsXCircle className='chat_delete_btn' /></div>
+					<div className='chat_delete_container'>
+						<BiXCircle className='chat_delete_btn' onClick={(e) => _handleDeleteChat(e)} />
+					</div>
 				</div>
-				<div className='chat_list_each'>
-					<img src={TempImg} alt='' />
-				</div>
-				<div className='chat_list_each'>
-					<img src={TempImg} alt='' />
-				</div>
-				<div className='chat_list_each'>
-					<img src={TempImg} alt='' />
-				</div>
-				<div className='chat_list_each'>
-					<img src={TempImg} alt='' />
-				</div>
-				<div className='chat_list_each'>
-					<img src={TempImg} alt='' />
-				</div>
-				<div className='chat_list_each'>
-					<img src={TempImg} alt='' />
-				</div>
-				<div className='chat_list_each'>
-					<img src={TempImg} alt='' />
-				</div>
-				
 			</div>
 			<Chatroom profileImg={TempImg} />
 		</div>

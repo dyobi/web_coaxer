@@ -28,11 +28,13 @@ const Component = ({ profileImg }) => {
 	const _handleChatroom = (setVal) => {
 		if (setVal) {
 			$('.chat_list').css('width', '60%');
-			$('.chat_list_each').css('width', 'calc(100% - 10px)');
+			$('.chat_delete_btn').css('visibility', 'hidden');
+			$('.chat_delete_btn').css('opacity', '0');
 			$('.chatroom').css('flex-basis', '100%');
 		} else {
 			$('.chat_list').css('width', '100%');
-			$('.chat_list_each').css('width', 'calc(100% - 200px)');
+			$('.chat_delete_btn').css('visibility', 'visible');
+			$('.chat_delete_btn').css('opacity', '1');
 			$('.chatroom').css('flex-basis', '0');
 		}
 	};
@@ -108,8 +110,8 @@ const Component = ({ profileImg }) => {
 			</div>
 			<div className='chat_input_container'>
 				<textarea className='chat_input' onFocus={() => _inputFocus(true)} onBlur={() => _inputFocus(false)} />
-				<div className='send_container'>
-					<BiSend className='send_btn' onClick={(e) => _sendChat(e)} />
+				<div className='send_container' onClick={(e) => _sendChat(e)}>
+					<BiSend className='send_btn' />
 				</div>
 			</div>
 		</div>
