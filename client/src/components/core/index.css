@@ -37,8 +37,8 @@
 	align-items: center;
 	justify-content: center;
 
-	min-height: calc(100% - 200px);
 	padding: 100px 20px;
+	min-height: calc(100% - 200px);
 
 	transition: 300ms;
 	background-color: var(--color-10);
@@ -54,7 +54,7 @@
 
 @media(max-width: 999px) {
 	.core_inherit_container {
-		width: 100%;
+		width: calc(100% - 43.6px);
 	}
 }
 

@@ -1,62 +1,95 @@
+import { BsXCircle } from 'react-icons/bs';
 import $ from 'jquery';
-import { BiChevronRightCircle, BiSend } from 'react-icons/bi';
+
+import Chatroom from './chatroom';
 
 import './index.css';
 
-const Component = () => {
+import TempImg from '../../../assets/images/1.jpg';
 
-	const _inputFocus = (status) => {
-		if (status) {
-			$('.chat_input_container').css('box-shadow', '0 0 0 2px var(--color-80) inset');
-		} else {
-			$('.chat_input_container').css('box-shadow', 'none');
-		}
-	};
+const Component = () => {
 
 	const _handleChatroom = (setVal) => {
 		if (setVal) {
 			$('.chat_list').css('width', '60%');
+			$('.chat_list_each').css('width', 'calc(100% - 10px)');
 			$('.chatroom').css('flex-basis', '100%');
 		} else {
 			$('.chat_list').css('width', '100%');
+			$('.chat_list_each').css('width', 'calc(100% - 200px)');
 			$('.chatroom').css('flex-basis', '0');
 		}
 	};
 
-	const _sendChat = (e) => {
-		e.preventDefault();
-		const content = $('textarea');
-		console.log(content.val());
-		content.val('');
-	}
-
 	$(() => {
-		$('textarea').on('keydown', e => {
-			if (e.key === 'Enter' && !e.shiftKey) {
-				_sendChat(e);
-			}
+
+		const slider = document.querySelector('.chat_list');
+		let isDown = false;
+		let startY;
+		let scrollTop;
+
+		slider.addEventListener('mousedown', (e) => {
+			isDown = true;
+			slider.classList.add('active');
+			startY = e.pageY - slider.offsetTop;
+			scrollTop = slider.scrollTop;
 		});
+
+		slider.addEventListener('mouseleave', () => {
+			isDown = false;
+			slider.classList.remove('active');
+		});
+
+		slider.addEventListener('mouseup', () => {
+			isDown = false;
+			slider.classList.remove('active');
+		});
+
+		slider.addEventListener('mousemove', (e) => {
+			e.preventDefault();
+			if (!isDown) return;
+			const y = e.pageY - slider.offsetTop;
+			const walk = (y - startY) * 1.2;
+			slider.scrollTop = scrollTop - walk;
+		});
+
 	});
 
 	return (
 		<div className='chat_container'>
-			<div className='chat_list' onClick={() => _handleChatroom(true)} />
-			<div className='chatroom'>
-				<div className='chatroom_title'>
-					<BiChevronRightCircle
-						className='back_btn'
-						onClick={() => _handleChatroom(false)}
-					/>
-					<div className='chatroom_name'>Luke Kim</div>
-				</div>
-				<div className='chats'></div>
-				<div className='chat_input_container'>
-					<textarea className='chat_input' onFocus={() => _inputFocus(true)} onBlur={() => _inputFocus(false)} />
-					<div className='send_container'>
-						<BiSend className='send_btn' onClick={(e) => _sendChat(e)}/>
+			<div className='chat_list' onClick={() => _handleChatroom(true)}>
+				<div className='chat_list_each'>
+					<img src={TempImg} alt='' />
+					<div className='chat_thumbnail_container'>
+						<p>Luke Kim</p>
+						<span>hello hello hello hello hello hello hello hello</span>
 					</div>
+					<div className='chat_delete_container'><BsXCircle className='chat_delete_btn' /></div>
 				</div>
+				<div className='chat_list_each'>
+					<img src={TempImg} alt='' />
+				</div>
+				<div className='chat_list_each'>
+					<img src={TempImg} alt='' />
+				</div>
+				<div className='chat_list_each'>
+					<img src={TempImg} alt='' />
+				</div>
+				<div className='chat_list_each'>
+					<img src={TempImg} alt='' />
+				</div>
+				<div className='chat_list_each'>
+					<img src={TempImg} alt='' />
+				</div>
+				<div className='chat_list_each'>
+					<img src={TempImg} alt='' />
+				</div>
+				<div className='chat_list_each'>
+					<img src={TempImg} alt='' />
+				</div>
+				
 			</div>
+			<Chatroom profileImg={TempImg} />
 		</div>
 	);
 };

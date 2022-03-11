@@ -1,0 +1,10 @@
+.overview_container {
+	display: flex;
+
+	width: 100%;
+	height: 600px;
+	border-radius: 10px;
+
+	overflow: hidden;
+	transition: 300ms;
+}
