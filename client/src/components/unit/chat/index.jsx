@@ -2,6 +2,7 @@ import { BiXCircle } from 'react-icons/bi';
 import $ from 'jquery';
 
 import Chatroom from './chatroom';
+import Profile from '../../util/pullUser';
 
 import './index.css';
 
@@ -23,9 +24,15 @@ const Component = () => {
 		}
 	};
 
-	const _handleViewProfile = (e) => {
+	const _handleViewProfile = (e, setVal) => {
 		e.stopPropagation();
-		console.log('view profile');
+		if (setVal) {
+			$('.chat_list').css('flex-basis', '0');
+			$('.pull_user_container').css('flex-basis', '100%');
+		} else {
+			$('.chat_list').css('flex-basis', '100%');
+			$('.pull_user_container').css('flex-basis', '0');
+		}
 	};
 
 	const _handleDeleteChat = (e) => {
@@ -69,9 +76,10 @@ const Component = () => {
 
 	return (
 		<div className='chat_container'>
+			<Profile usingFor='chat' />
 			<div className='chat_list'>
 				<div className='chat_list_each' onClick={() => _handleChatroom(true)}>
-					<img src={TempImg} alt='' onClick={(e) => _handleViewProfile(e)} />
+					<img src={TempImg} alt='' onClick={(e) => _handleViewProfile(e, true)} />
 					<div className='chat_thumbnail_container'>
 						<p>Luke Kim</p>
 						<span>hello hello hello hello hello hello hello hello</span>
