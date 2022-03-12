@@ -1,6 +1,8 @@
 import { useSelector } from 'react-redux';
 import $ from 'jquery';
 
+import Temp from '../../../../../assets/images/1.jpg';
+
 const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
@@ -50,6 +52,12 @@ const Component = () => {
 			</div>
 			<div className='picture_container'>
 				{/* pics */}
+				{/* <div className='picture_add' />
+				<div className='picture_add' /> */}
+
+				<img src={Temp} alt='' />
+				<img src={Temp} alt='' />
+				<div className='picture_add'>Hello</div>
 			</div>
 		</div>
 	);

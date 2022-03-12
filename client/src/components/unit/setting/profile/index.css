@@ -51,6 +51,7 @@
 
 	border-radius: 6px;
 	background-color: var(--color-10);
+	overflow: hidden;
 }
 
 .profile_setting_container>.section_title {
@@ -231,9 +232,8 @@
 
 	margin: 0 15px 4px 15px;
 	width: calc(100% - 30px);
-	height: 200px;
+	height: auto;
 
-	background-color: #fff;
 	cursor: pointer;
 	overflow: hidden;
 	transition: 300ms;
@@ -243,6 +243,32 @@
 	cursor: grabbing;
 	cursor: -webkit-grabbing;
 	transform: scale(1.03);
+}
+
+.profile_setting_container>.section_wide>.picture_container>img,
+.profile_setting_container>.section_wide>.picture_container>.picture_add {
+	margin: 0 3px;
+	min-width: calc(50% - 6px);
+	min-height: 140px;
+
+	border-radius: 8px;
+	
+	transition: 300ms;
+}
+
+.profile_setting_container>.section_wide>.picture_container>.picture_add {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	-webkit-box-shadow: 0 0 2px var(--color-100) inset;
+	box-shadow: 0 0 2px var(--color-100) inset;
+
+	background-color: #FFFFFF;
+}
+
+.profile_setting_container>.section_wide>.picture_container>img:hover {
+	opacity: 0.7;
 }
 
 .section>.radio_container>input[type='range'] {

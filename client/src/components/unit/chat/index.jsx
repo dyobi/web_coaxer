@@ -82,7 +82,7 @@ const Component = () => {
 					<img src={TempImg} alt='' onClick={(e) => _handleViewProfile(e, true)} />
 					<div className='chat_thumbnail_container'>
 						<p>Luke Kim</p>
-						<span>hello hello hello hello hello hello hello hello</span>
+						{/* <span>hello hello hello hello hello hello hello hello</span> */}
 					</div>
 					<div className='chat_delete_container'>
 						<BiXCircle className='chat_delete_btn' onClick={(e) => _handleDeleteChat(e)} />

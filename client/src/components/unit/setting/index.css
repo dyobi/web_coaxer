@@ -20,7 +20,7 @@
 
 .setting_container>.profile_container {
 	padding: 20px;
-	width: 100%;
+	width: calc(100% - 90px);
 	min-height: 700px;
 
 	border-radius: 10px;

@@ -113,8 +113,8 @@
 }
 
 .pull_user_container>.info_pictures_container>img {
-	margin: 0 8px 0 0;
-	width: calc(100% - 30px);
+	margin: 0 3px;
+	width: calc(50% - 6px);
 
 	border-radius: 6px;
 }
