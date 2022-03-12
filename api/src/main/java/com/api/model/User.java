@@ -11,6 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity @Getter @Setter
 @DynamicInsert @DynamicUpdate
@@ -32,20 +34,20 @@ public class User {
 
     private Date dateOfBirth;
 
-    @Column(columnDefinition = "tinyint")
+    @Column(columnDefinition = "TINYINT")
     private boolean gender = false;
 
     private float latitude;
 
     private float longitude;
 
-    @Column(columnDefinition = "varchar(500)")
+    @Column(columnDefinition = "VARCHAR(500)")
     private String bio;
 
-    @Column(columnDefinition = "tinyint")
+    @Column(columnDefinition = "TINYINT")
     private boolean notification = true;
 
-    @Column(columnDefinition = "tinyint")
+    @Column(columnDefinition = "TINYINT")
     private boolean preferredGender = false;
 
     private int preferredMinAge = 0;
@@ -57,6 +59,7 @@ public class User {
     @NotEmpty
     private String socialType;
 
-    // TRANSIENT
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Picture> pictures = new ArrayList<>();
 
 }

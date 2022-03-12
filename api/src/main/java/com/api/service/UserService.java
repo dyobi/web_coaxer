@@ -1,11 +1,14 @@
 package com.api.service;
 
+import com.api.model.Picture;
 import com.api.model.Response;
 import com.api.model.User;
 import com.api.repository.UserRepository;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
 
 @Service
 public class UserService {
@@ -16,6 +19,7 @@ public class UserService {
     public Response checkEmail(String email, String socialType) {
         try {
             User user = userRepository.findByEmail(email);
+
             if (user == null) {
                 return new Response(200);
             } else if (user.getSocialType().equals(socialType)) {
@@ -32,6 +36,7 @@ public class UserService {
     public Response getUser(String email) {
         try {
             User user = userRepository.findByEmail(email);
+
             if (user == null) {
                 return new Response(400);
             } else {
@@ -46,6 +51,7 @@ public class UserService {
     public Response postUser(User user) {
         try {
             userRepository.save(user);
+
             return new Response(200);
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,8 +62,10 @@ public class UserService {
     public Response putUserSocialType(User value) {
         try {
             User user = userRepository.findByEmail(value.getEmail());
+
             user.setSocialType(value.getSocialType());
             userRepository.save(user);
+
             return new Response(200);
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,8 +74,19 @@ public class UserService {
     }
 
     public Response deleteUser(String email) {
+        String path = System.getProperty("user.home") + "/Desktop/tmp";
+
         try {
+            User user = userRepository.findByEmail(email);
+
+            for (Picture pic : user.getPictures()) {
+                String filePath = path + "/" + pic.getName() + "." + pic.getType();
+                File file = new File(filePath);
+                if (file.exists()) file.delete();
+            }
+
             userRepository.deleteByEmail(email);
+
             return new Response(200);
         } catch (Exception e) {
             e.printStackTrace();

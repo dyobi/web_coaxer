@@ -1,17 +1,17 @@
 package com.api.repository;
 
-import com.api.model.User;
+import com.api.model.Picture;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface PictureRepository extends JpaRepository<Picture, Long> {
 
-    // USER DATABASE
+    // PICTURE DATABASE
 
-    User findByEmail(String email);
+    Picture findByName(String name);
 
-    void deleteByEmail(String email);
+    void deleteByName(String name);
 
 }
