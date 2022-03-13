@@ -26,3 +26,11 @@
 	border-radius: 10px;
 	background-color: var(--color-10);
 }
+
+.setting_container>.setting_interceptor_container {
+	width: calc(100% - 50px);
+	height: 700px;
+
+	border-radius: 10px;
+	overflow: hidden;
+}

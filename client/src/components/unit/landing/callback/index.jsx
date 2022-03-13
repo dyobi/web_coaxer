@@ -142,6 +142,7 @@ const Component = () => {
 			</>
 			<Alert
 				show={alertView}
+				setShow={() => setAlertView()}
 				type={alertType}
 				enDesc={alertEnDesc}
 				krDesc={alertKrDesc}

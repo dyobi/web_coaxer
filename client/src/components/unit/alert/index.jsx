@@ -4,14 +4,19 @@ import { GiHeartBeats } from 'react-icons/gi';
 
 import './index.css';
 
-const Component = ({ show, type, enDesc, krDesc, cb1, cb2 }) => {
+const Component = ({ show, setShow, type, enDesc, krDesc, cb1, cb2 }) => {
 
 	const _ui = useSelector(state => state.ui);
+
+	const _handleView = (cb) => {
+		setShow(false);
+		cb();
+	};
 
 	return ReactDom.createPortal(
 		<div
 			className={`alert_container ${show ? 'show' : ''}`}
-			onClick={() => type === 'confirm' ? cb1() : cb2()}
+			onClick={() => type === 'confirm' ? _handleView(cb1) : _handleView(cb2)}
 		>
 			<div className='alert' onClick={(e) => e.stopPropagation()}>
 				<GiHeartBeats className='logo_icon' />
@@ -27,15 +32,15 @@ const Component = ({ show, type, enDesc, krDesc, cb1, cb2 }) => {
 				<div className='alert_btn_container'>
 					{type === 'question' ?
 						<>
-							<div className='alert_btn' onClick={() => cb1()}>
+							<div className='alert_btn' onClick={() => _handleView(cb1)}>
 								{_ui.lang === 'en_US' ? 'YES' : '확인'}
 							</div>
-							<div className='alert_btn' onClick={() => cb2()}>
+							<div className='alert_btn' onClick={() => _handleView(cb2)}>
 								{_ui.lang === 'en_US' ? 'NO' : '취소'}
 							</div>
 						</>
 						:
-						<div className='alert_btn' onClick={() => cb1()}>
+						<div className='alert_btn' onClick={() => _handleView(cb1)}>
 							{_ui.lang === 'en_US' ? 'Confirm' : '확인'}
 						</div>
 					}

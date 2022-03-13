@@ -1,14 +1,18 @@
+import { useSelector } from 'react-redux';
 import { BiXCircle } from 'react-icons/bi';
 import $ from 'jquery';
 
 import Chatroom from './chatroom';
 import Profile from '../../util/pullUser';
+import Interceptor from '../../util/interceptor';
 
 import './index.css';
 
 import TempImg from '../../../assets/images/1.jpg';
 
 const Component = () => {
+
+	const _user = useSelector(state => state.user);
 
 	const _handleChatroom = (setVal) => {
 		if (setVal) {
@@ -41,55 +45,61 @@ const Component = () => {
 	};
 
 	$(() => {
+		if (_user.id !== -1) {
+			const slider = document.querySelector('.chat_list');
+			let isDown = false;
+			let startY;
+			let scrollTop;
 
-		const slider = document.querySelector('.chat_list');
-		let isDown = false;
-		let startY;
-		let scrollTop;
+			slider.addEventListener('mousedown', (e) => {
+				isDown = true;
+				slider.classList.add('active');
+				startY = e.pageY - slider.offsetTop;
+				scrollTop = slider.scrollTop;
+			});
 
-		slider.addEventListener('mousedown', (e) => {
-			isDown = true;
-			slider.classList.add('active');
-			startY = e.pageY - slider.offsetTop;
-			scrollTop = slider.scrollTop;
-		});
+			slider.addEventListener('mouseleave', () => {
+				isDown = false;
+				slider.classList.remove('active');
+			});
 
-		slider.addEventListener('mouseleave', () => {
-			isDown = false;
-			slider.classList.remove('active');
-		});
+			slider.addEventListener('mouseup', () => {
+				isDown = false;
+				slider.classList.remove('active');
+			});
 
-		slider.addEventListener('mouseup', () => {
-			isDown = false;
-			slider.classList.remove('active');
-		});
-
-		slider.addEventListener('mousemove', (e) => {
-			e.preventDefault();
-			if (!isDown) return;
-			const y = e.pageY - slider.offsetTop;
-			const walk = (y - startY) * 1.2;
-			slider.scrollTop = scrollTop - walk;
-		});
-
+			slider.addEventListener('mousemove', (e) => {
+				e.preventDefault();
+				if (!isDown) return;
+				const y = e.pageY - slider.offsetTop;
+				const walk = (y - startY) * 1.2;
+				slider.scrollTop = scrollTop - walk;
+			});
+		}
 	});
 
 	return (
 		<div className='chat_container'>
-			<Profile usingFor='chat' />
-			<div className='chat_list'>
-				<div className='chat_list_each' onClick={() => _handleChatroom(true)}>
-					<img src={TempImg} alt='' onClick={(e) => _handleViewProfile(e, true)} />
-					<div className='chat_thumbnail_container'>
-						<p>Luke Kim</p>
-						{/* <span>hello hello hello hello hello hello hello hello</span> */}
+			{_user.id === -1 ?
+				<Interceptor />
+				:
+				<>
+					<Profile usingFor='chat' />
+					<div className='chat_list'>
+						<div className='chat_list_each' onClick={() => _handleChatroom(true)}>
+							<img src={TempImg} alt='' onClick={(e) => _handleViewProfile(e, true)} />
+							<div className='chat_thumbnail_container'>
+								<p>Luke Kim</p>
+								<span>hello hello hello hello hello hello hello hello</span>
+							</div>
+							<div className='chat_delete_container'>
+								<BiXCircle className='chat_delete_btn' onClick={(e) => _handleDeleteChat(e)} />
+							</div>
+						</div>
 					</div>
-					<div className='chat_delete_container'>
-						<BiXCircle className='chat_delete_btn' onClick={(e) => _handleDeleteChat(e)} />
-					</div>
-				</div>
-			</div>
-			<Chatroom profileImg={TempImg} />
+					<Chatroom profileImg={TempImg} />
+				</>
+			}
 		</div>
 	);
 };
