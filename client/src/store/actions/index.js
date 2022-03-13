@@ -18,7 +18,8 @@ export const user_data = (value) => {
             preferredGender: value.preferredGender,
             preferredMinAge: value.preferredMinAge,
             preferredMaxAge: value.preferredMaxAge,
-            preferredMaxDistance: value.preferredMaxDistance
+            preferredMaxDistance: value.preferredMaxDistance,
+            pictures: value.pictures
         }
     };
 };
@@ -103,6 +104,13 @@ export const user_p_maxAge = (value) => {
 export const user_p_maxDistance = (value) => {
     return {
         type: 'USER_P_MAXDISTANCE',
+        payload: value
+    };
+};
+
+export const user_pictures = (value) => {
+    return {
+        type: 'USER_PICTURES',
         payload: value
     };
 };
