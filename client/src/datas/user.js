@@ -127,6 +127,7 @@ export const postUser = (
 		User
 */
 export const putUserLastName = (email, lastName, cb) => {
+
 	const url = '/api/user/lastName';
 	const data = {
 		email,
@@ -159,6 +160,7 @@ export const putUserLastName = (email, lastName, cb) => {
 		User
 */
 export const putUserFirstName = (email, firstName, cb) => {
+
 	const url = '/api/user/firstName';
 	const data = {
 		email,
@@ -191,6 +193,7 @@ export const putUserFirstName = (email, firstName, cb) => {
 		User
 */
 export const putUserDob = (email, dob, cb) => {
+
 	const url = '/api/user/dob';
 	const data = {
 		email: email,
@@ -223,6 +226,7 @@ export const putUserDob = (email, dob, cb) => {
 		User
 */
 export const putUserGender = (email, gender, cb) => {
+
 	const url = '/api/user/gender';
 	const data = {
 		email,
@@ -255,6 +259,7 @@ export const putUserGender = (email, gender, cb) => {
 		User
 */
 export const putUserBio = (email, bio, cb) => {
+
 	const url = '/api/user/bio';
 	const data = {
 		email,
@@ -287,6 +292,7 @@ export const putUserBio = (email, bio, cb) => {
 		User
 */
 export const putUserNotification = (email, notification, cb) => {
+
 	const url = '/api/user/notification';
 	const data = {
 		email,
@@ -319,10 +325,78 @@ export const putUserNotification = (email, notification, cb) => {
 		User
 */
 export const putUserPreferredGender = (email, preferredGender, cb) => {
+
 	const url = '/api/user/preferredGender';
 	const data = {
 		email,
 		preferredGender
+	};
+
+	Axios.put(url, data)
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
+		PUT
+	url: 
+		/api/user/preferredAgeRange
+	parameter: 
+		email, preferredMinAge, preferredMaxAge
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		User
+*/
+export const putUserPreferredAgeRange = (email, preferredMinAge, preferredMaxAge, cb) => {
+
+	const url = '/api/user/preferredAgeRange';
+	const data = {
+		email,
+		preferredMinAge,
+		preferredMaxAge
+	};
+
+	Axios.put(url, data)
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
+		PUT
+	url: 
+		/api/user/preferredMaxRange
+	parameter: 
+		email, preferredMaxRange
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		User
+*/
+export const putUserPreferredMaxRange = (email, preferredMaxRange, cb) => {
+
+	const url = '/api/user/preferredMaxRange';
+	const data = {
+		email,
+		preferredMaxRange
 	};
 
 	Axios.put(url, data)
@@ -351,6 +425,7 @@ export const putUserPreferredGender = (email, preferredGender, cb) => {
 		User
 */
 export const putUserSocialType = (email, socialType, cb) => {
+
 	const url = `/api/user/socialType`;
 	const data = {
 		email,

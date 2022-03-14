@@ -139,6 +139,46 @@ public class UserService {
         }
     }
 
+    public Response putUserPreferredGender(User value) {
+        try {
+            User user = userRepository.findByEmail(value.getEmail());
+
+            user.setPreferredGender(value.isPreferredGender());
+            userRepository.save(user);
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
+    public Response putUserPreferredAgeRange(User value) {
+        try {
+            User user = userRepository.findByEmail(value.getEmail());
+
+            user.setPreferredMinAge(value.getPreferredMinAge());
+            user.setPreferredMaxAge(value.getPreferredMaxAge());
+            userRepository.save(user);
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
+    public Response putUserPreferredMaxRange(User value) {
+        try {
+            User user = userRepository.findByEmail(value.getEmail());
+
+            user.setPreferredMaxRange(value.getPreferredMaxRange());
+            userRepository.save(user);
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
     public Response putUserSocialType(User value) {
         try {
             User user = userRepository.findByEmail(value.getEmail());

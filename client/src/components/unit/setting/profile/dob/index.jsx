@@ -40,13 +40,13 @@ const Component = () => {
 				:
 				<span>생년월일</span>
 			}
-			<select id='birth_year' defaultValue={_user.dateOfBirth !== '' ? _user.dateOfBirth.slice(0, 4) : 'default'}>
+			<select id='birth_year' defaultValue={_user.dateOfBirth !== null ? _user.dateOfBirth.slice(0, 4) : 'default'}>
 				<Year />
 			</select>
-			<select id='birth_month' defaultValue={_user.dateOfBirth !== '' ? _user.dateOfBirth.slice(5, 7) : 'default'}>
+			<select id='birth_month' defaultValue={_user.dateOfBirth !== null ? _user.dateOfBirth.slice(5, 7) : 'default'}>
 				<Month />
 			</select>
-			<select id='birth_date' defaultValue={_user.dateOfBirth !== '' ? _user.dateOfBirth.slice(8, 10) : 'default'}>
+			<select id='birth_date' defaultValue={_user.dateOfBirth !== null ? _user.dateOfBirth.slice(8, 10) : 'default'}>
 				<Date />
 			</select>
 			<BiCheckSquare className='check_btn' onClick={(e) => _handleDOB(e)} />

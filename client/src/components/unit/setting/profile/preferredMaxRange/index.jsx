@@ -1,16 +1,29 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BiCheckSquare } from 'react-icons/bi';
+
+import { putUserPreferredMaxRange } from '../../../../../datas';
+import { user_p_maxRange } from '../../../../../store/actions';
 
 const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
-	const [range, setRange] = useState(310);
+	const _user = useSelector(state => state.user);
+	const dispatch = useDispatch();
+	const [range, setRange] = useState(_user.preferredMaxRange);
 
 	const _handlePreferredMaxRange = (e) => {
 		e.preventDefault();
+
 		const preferredMaxRange = document.querySelector(`input[name='preferredMaxRange']`).value;
-		console.log(preferredMaxRange);
+
+		putUserPreferredMaxRange(_user.email, preferredMaxRange, res => {
+			if (res.status === 200) {
+				dispatch(user_p_maxRange(preferredMaxRange));
+			} else {
+				console.log('handle_error');
+			}
+		});
 	};
 
 	return (
@@ -23,7 +36,7 @@ const Component = () => {
 			<div className='radio_container'>
 				<input type={'range'}
 					name='preferredMaxRange'
-					defaultValue={310}
+					defaultValue={_user.preferredMaxRange}
 					min={10}
 					max={310}
 					step={10}

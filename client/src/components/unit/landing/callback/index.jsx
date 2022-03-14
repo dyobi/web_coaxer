@@ -60,7 +60,7 @@ const Component = () => {
 					preferredGender: res.obj.preferredGender,
 					preferredMinAge: res.obj.preferredMinAge,
 					preferredMaxAge: res.obj.preferredMaxAge,
-					preferredMaxDistance: res.obj.preferredMaxDistance,
+					preferredMaxRange: res.obj.preferredMaxRange,
 					pictures: res.obj.pictures
 				}));
 				navigate('/home');

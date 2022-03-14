@@ -1,18 +1,32 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Slider from 'react-slider';
 import { BiCheckSquare } from 'react-icons/bi';
+
+import { putUserPreferredAgeRange } from '../../../../../datas';
+import { user_p_minAge, user_p_maxAge } from '../../../../../store/actions';
 
 const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
-	const [range, setRange] = useState([0, 100]);
+	const _user = useSelector(state => state.user);
+	const dispatch = useDispatch();
+	const [range, setRange] = useState([_user.preferredMinAge, _user.preferredMaxAge]);
 
 	const _handlePreferredAgeRange = (e) => {
 		e.preventDefault();
+		
 		const minAge = range[0];
 		const maxAge = range[1];
-		console.log(minAge + ' / ' + maxAge);
+
+		putUserPreferredAgeRange(_user.email, minAge, maxAge, res => {
+			if (res.status === 200) {
+				dispatch(user_p_minAge(minAge));
+				dispatch(user_p_maxAge(maxAge));
+			} else {
+				console.log('handle error');
+			}
+		});
 	};
 
 	return (
@@ -26,7 +40,7 @@ const Component = () => {
 				<Slider
 					className='custom_slider'
 					thumbClassName='custom_thumb'
-					defaultValue={[0, 100]}
+					defaultValue={[_user.preferredMinAge, _user.preferredMaxAge]}
 					minDistance={10}
 					withTracks={false}
 					onChange={(range) => setRange(range)}

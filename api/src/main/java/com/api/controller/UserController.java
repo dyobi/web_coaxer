@@ -110,6 +110,36 @@ public class UserController {
         return userService.putUserNotifiaction(user);
     }
 
+    @PutMapping("/preferredGender")
+    public Response putUserPreferredGender(@RequestBody User user) {
+        //  url:
+        //      /api/user/preferredGender
+        //  status:
+        //      200: success
+        //      400: failure
+        return userService.putUserPreferredGender(user);
+    }
+
+    @PutMapping("/preferredAgeRange")
+    public Response putUserPreferredAgeRange(@RequestBody User user) {
+        //  url:
+        //      /api/user/preferredAgeRange
+        //  status:
+        //      200: success
+        //      400: failure
+        return userService.putUserPreferredAgeRange(user);
+    }
+
+    @PutMapping("/preferredMaxRange")
+    public Response putUserPreferredMaxRange(@RequestBody User user) {
+        //  url:
+        //      /api/user/preferredMaxRange
+        //  status:
+        //      200: success
+        //      400: failure
+        return userService.putUserPreferredMaxRange(user);
+    }
+
     @PutMapping("/socialType")
     public Response putUserSocialType(@RequestBody User user) {
         //  url:

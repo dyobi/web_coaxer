@@ -45,7 +45,7 @@ const Component = () => {
 	};
 
 	$(() => {
-		if (_user.id !== -1) {
+		if (_user.isComplete) {
 			const slider = document.querySelector('.chat_list');
 			let isDown = false;
 			let startY;

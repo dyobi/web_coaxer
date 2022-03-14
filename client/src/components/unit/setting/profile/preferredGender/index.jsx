@@ -38,7 +38,7 @@ const Component = () => {
 						:
 						<span>남성</span>
 					}
-					<input type={'radio'} name='preferredGender' value={false} defaultChecked={!_user.gender ? true : false} />
+					<input type={'radio'} name='preferredGender' value={false} defaultChecked={!_user.preferredGender ? true : false} />
 				</div>
 				<div className='radio_section'>
 					{_ui.lang === 'en_US' ?
@@ -46,7 +46,7 @@ const Component = () => {
 						:
 						<span>여성</span>
 					}
-					<input type={'radio'} name='preferredGender' value={true} defaultChecked={_user.gender ? true : false} />
+					<input type={'radio'} name='preferredGender' value={true} defaultChecked={_user.preferredGender ? true : false} />
 				</div>
 			</div>
 			<BiCheckSquare className='check_btn' onClick={(e) => _handlePreferredGender(e)} />

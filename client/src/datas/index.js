@@ -18,6 +18,8 @@ import {
 	putUserBio,
 	putUserNotification,
 	putUserPreferredGender,
+	putUserPreferredAgeRange,
+	putUserPreferredMaxRange,
 	putUserSocialType,
 	deleteUser
 } from './user';
@@ -33,6 +35,8 @@ export {
 	putUserBio,
 	putUserNotification,
 	putUserPreferredGender,
+	putUserPreferredAgeRange,
+	putUserPreferredMaxRange,
 	putUserSocialType,
 	deleteUser,
 

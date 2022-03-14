@@ -22,6 +22,16 @@ const Component = () => {
 	useEffect(() => {
 		mounted.current = true;
 
+		try {
+			window.scroll({
+				top: 0,
+				left: 0,
+				behavior: 'smooth'
+			});
+		} catch {
+			window.scrollTo(0, 0);
+		}
+
 		return () => {
 			mounted.current = false;
 		};
