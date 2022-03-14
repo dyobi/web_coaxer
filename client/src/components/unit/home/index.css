@@ -1,3 +1,15 @@
+@media (min-width: 1300px) {
+	.home_main_img_container {
+		background-size: 100% 100%;
+	}
+}
+
+@media (max-width: 1299px) {
+	.home_main_img_container {
+		background-size: auto 100%;
+	}
+}
+
 .home_main_img_container {
 	display: flex;
 	flex-direction: column;
@@ -10,10 +22,10 @@
 	
 	background-image: url('../../../assets/images/main.jpg');
 	background-repeat: no-repeat;
-	background-size: auto 100%;
 	background-position: center;
 
 	box-shadow: 0 0 4px var(--color-40);
+	transition: 300ms;
 }
 
 .home_main_img_container>.home_title {

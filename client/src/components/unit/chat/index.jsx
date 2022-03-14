@@ -80,7 +80,7 @@ const Component = () => {
 
 	return (
 		<div className='chat_container'>
-			{_user.id === -1 ?
+			{_user.id === -1 || !_user.isComplete ?
 				<Interceptor />
 				:
 				<>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import cookie from 'react-cookies';
 import Wrapper from 'react-div-100vh';
@@ -6,13 +7,14 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from '../unit/nav';
 import Core from '../core';
 import Callback from '../unit/landing/callback';
-import { ui_color } from '../../store/actions';
+import { ui_color, user_isComplete } from '../../store/actions';
 
 import './index.css';
 
 const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
+	const _user = useSelector(state => state.user);
 	const dispatch = useDispatch();
 
 	const getColor = cookie.load('theme-color');
@@ -20,6 +22,24 @@ const Component = () => {
 	if (getColor !== undefined && getColor !== _ui.color) {
 		dispatch(ui_color(getColor));
 	}
+
+	useEffect(() => {
+		if (
+			_user.isComplete !== true &&
+			_user.id !== -1 &&
+			_user.firstName !== '' &&
+			_user.lastName !== '' &&
+			_user.dateOfBirth !== '' &&
+			_user.bio !== '' &&
+			_user.latitude !== 0.0 &&
+			_user.longitue !== 0.0 &&
+			Object.keys(_user.pictures).length !== 0
+		) {
+			dispatch(user_isComplete(true));
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [_user]);
 
 	return (
 		<Wrapper>

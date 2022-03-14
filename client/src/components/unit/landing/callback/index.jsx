@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import Alert from '../../alert';
+import { user_data } from '../../../../store/actions';
 
 import {
 	checkEmail,
+	getUser,
 	postUser,
 	putUserSocialType,
 	requestGoogleToken,
@@ -20,6 +23,7 @@ import '../index.css';
 const Component = () => {
 
 	const { source } = useParams();
+	const dispatch = useDispatch();
 	const location = useLocation().search;
 	const navigate = useNavigate();
 
@@ -36,6 +40,34 @@ const Component = () => {
 		setAlertKrDesc('알 수 없는 오류가 발생하였습니다. 확인을 누르시면 메인화면으로 이동합니다.');
 		setAlertCb1(() => () => navigate('/home'));
 		setAlertView(true);
+	};
+
+	const _handleLogin = (email) => {
+		getUser(email, res => {
+			if (res.status === 200) {
+				dispatch(user_data({
+					id: res.obj.id,
+					userId: res.obj.userId,
+					email: res.obj.email,
+					firstName: res.obj.firstName,
+					lastName: res.obj.lastName,
+					dateOfBirth: res.obj.dateOfBirth,
+					gender: res.obj.gender,
+					bio: res.obj.bio,
+					latitude: res.obj.latitude,
+					longitude: res.obj.longitude,
+					notification: res.obj.notification,
+					preferredGender: res.obj.preferredGender,
+					preferredMinAge: res.obj.preferredMinAge,
+					preferredMaxAge: res.obj.preferredMaxAge,
+					preferredMaxDistance: res.obj.preferredMaxDistance,
+					pictures: res.obj.pictures
+				}));
+				navigate('/home');
+			} else {
+				_handleErrorAlert();
+			}
+		});
 	};
 
 	useEffect(() => {
@@ -67,26 +99,23 @@ const Component = () => {
 							const user = res;
 							if (!isCancelled) {
 								checkEmail(user.email, user.socialType, res => {
-									if (res.status === 200 || res.status === 411) {
-										if (res.status === 200) {
-											postUser(
-												user.userId,
-												user.email,
-												user.firstName,
-												user.lastName,
-												user.picture,
-												user.socialType,
-												res => {
-													if (res.status === 400) {
-														_handleErrorAlert();
-													}
+									if (res.status === 200) {
+										postUser(
+											user.userId,
+											user.email,
+											user.firstName,
+											user.lastName,
+											user.socialType,
+											res => {
+												if (res.status === 200) {
+													_handleLogin(user.email);
+												} else {
+													_handleErrorAlert();
 												}
-											)
-										}
-										// LOG-IN START
-										console.log('login');
-										// LOG-IN END
-										navigate('/home');
+											}
+										);
+									} else if (res.status === 411) {
+										_handleLogin(user.email);
 									} else if (res.status === 412) {
 										setAlertType('question');
 										setAlertEnDesc(`Your email is already in use on ${res.obj.toUpperCase()}. Do you want to proceed on ${source.toUpperCase()}? All the user datas will be remained.`);
@@ -97,10 +126,7 @@ const Component = () => {
 													_handleErrorAlert();
 												}
 											});
-											// LOG-IN START
-											console.log('login');
-											// LOG-IN END
-											navigate('/home');
+											_handleLogin(user.email);
 										});
 										setAlertCb2(() => () => navigate('/home'));
 										setAlertView(true);

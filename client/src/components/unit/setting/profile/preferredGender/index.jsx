@@ -1,14 +1,27 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BiCheckSquare } from 'react-icons/bi';
+
+import { putUserPreferredGender } from '../../../../../datas';
+import { user_p_gender } from '../../../../../store/actions';
 
 const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
+	const _user = useSelector(state => state.user);
+	const dispatch = useDispatch();
 
 	const _handlePreferredGender = (e) => {
 		e.preventDefault();
+
 		const preferredGender = document.querySelector(`input[name='preferredGender']:checked`).value;
-		console.log(preferredGender);
+
+		putUserPreferredGender(_user.email, preferredGender, res => {
+			if (res.status === 200) {
+				dispatch(user_p_gender(Boolean(preferredGender)));
+			} else {
+				console.log('error handle');
+			}
+		});
 	};
 
 	return (
@@ -20,12 +33,20 @@ const Component = () => {
 			}
 			<div className='radio_container'>
 				<div className='radio_section'>
-					<span>Male</span>
-					<input type={'radio'} name='preferredGender' value='0' defaultChecked />
+					{_ui.lang === 'en_US' ?
+						<span>Male</span>
+						:
+						<span>남성</span>
+					}
+					<input type={'radio'} name='preferredGender' value={false} defaultChecked={!_user.gender ? true : false} />
 				</div>
 				<div className='radio_section'>
-					<span>Female</span>
-					<input type={'radio'} name='preferredGender' value='1' />
+					{_ui.lang === 'en_US' ?
+						<span>Female</span>
+						:
+						<span>여성</span>
+					}
+					<input type={'radio'} name='preferredGender' value={true} defaultChecked={_user.gender ? true : false} />
 				</div>
 			</div>
 			<BiCheckSquare className='check_btn' onClick={(e) => _handlePreferredGender(e)} />

@@ -7,7 +7,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController @RequestMapping("/api/user")
+@RestController
+@RequestMapping("/api/user")
 public class UserController {
 
     @Setter(onMethod = @__({@Autowired}))
@@ -47,6 +48,66 @@ public class UserController {
         //      200: success
         //      400: failure
         return userService.postUser(user);
+    }
+
+    @PutMapping("/lastName")
+    public Response putUserLastName(@RequestBody User user) {
+        //  url:
+        //      /api/user/firstName
+        //  status:
+        //      200: success
+        //      400: failure
+        return userService.putUserLastName(user);
+    }
+
+    @PutMapping("/firstName")
+    public Response putUserFirstName(@RequestBody User user) {
+        //  url:
+        //      /api/user/firstName
+        //  status:
+        //      200: success
+        //      400: failure
+        return userService.putUserFirstName(user);
+    }
+
+    @PutMapping("/dob")
+    public Response putUserDob(@RequestBody User user) {
+        //  url:
+        //      /api/user/dob
+        //  status:
+        //      200: success
+        //      400: failure
+        return userService.putUserDob(user);
+    }
+
+    @PutMapping("/gender")
+    public Response putUserGender(@RequestBody User user) {
+        //  url:
+        //      /api/user/gender
+        //  status:
+        //      200: success
+        //      400: failure
+        return userService.putUserGender(user);
+    }
+
+    @PutMapping("/bio")
+    public Response putUserBio(@RequestBody User user) {
+        //  url:
+        //      /api/user/bio
+        //  status:
+        //      200: success
+        //      400: failure
+        return userService.putUserBio(user);
+    }
+
+    @PutMapping("/notification")
+    public Response putUserNotification(@RequestBody User user) {
+        //  url:
+        //      /api/user/notification
+        //  status:
+        //      200: success
+        //      400: failure
+        return userService.putUserNotifiaction(user);
     }
 
     @PutMapping("/socialType")

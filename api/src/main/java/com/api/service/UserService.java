@@ -59,6 +59,86 @@ public class UserService {
         }
     }
 
+    public Response putUserLastName(User value) {
+        try {
+            User user = userRepository.findByEmail(value.getEmail());
+
+            user.setLastName(value.getLastName());
+            userRepository.save(user);
+
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
+    public Response putUserFirstName(User value) {
+        try {
+            User user = userRepository.findByEmail(value.getEmail());
+
+            user.setFirstName(value.getFirstName());
+            userRepository.save(user);
+
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
+    public Response putUserDob(User value) {
+        try {
+            User user = userRepository.findByEmail(value.getEmail());
+
+            user.setDateOfBirth(value.getDateOfBirth());
+            userRepository.save(user);
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
+    public Response putUserGender(User value) {
+        try {
+            User user = userRepository.findByEmail(value.getEmail());
+
+            user.setGender(value.isGender());
+            userRepository.save(user);
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
+    public Response putUserBio(User value) {
+        try {
+            User user = userRepository.findByEmail(value.getEmail());
+
+            user.setBio(value.getBio());
+            userRepository.save(user);
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
+    public Response putUserNotifiaction(User value) {
+        try {
+            User user = userRepository.findByEmail(value.getEmail());
+
+            user.setNotification(value.isNotification());
+            userRepository.save(user);
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
     public Response putUserSocialType(User value) {
         try {
             User user = userRepository.findByEmail(value.getEmail());

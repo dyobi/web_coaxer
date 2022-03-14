@@ -88,7 +88,7 @@ export const getUser = (email, cb) => {
 		User
 */
 export const postUser = (
-	userId, email, firstName, lastName, picture, socialType, cb
+	userId, email, firstName, lastName, socialType, cb
 ) => {
 
 	const url = '/api/user';
@@ -97,7 +97,6 @@ export const postUser = (
 		email,
 		firstName,
 		lastName,
-		picture,
 		socialType
 	};
 
@@ -109,6 +108,230 @@ export const postUser = (
 			cb({ status: 400 });
 		});
 
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
+		PUT
+	url: 
+		/api/user/firstName
+	parameter: 
+		email, firstName
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		User
+*/
+export const putUserLastName = (email, lastName, cb) => {
+	const url = '/api/user/lastName';
+	const data = {
+		email,
+		lastName
+	};
+
+	Axios.put(url, data)
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
+		PUT
+	url: 
+		/api/user/firstName
+	parameter: 
+		email, firstName
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		User
+*/
+export const putUserFirstName = (email, firstName, cb) => {
+	const url = '/api/user/firstName';
+	const data = {
+		email,
+		firstName
+	};
+
+	Axios.put(url, data)
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
+		PUT
+	url: 
+		/api/user/dob
+	parameter: 
+		email, dob
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		User
+*/
+export const putUserDob = (email, dob, cb) => {
+	const url = '/api/user/dob';
+	const data = {
+		email: email,
+		dateOfBirth: dob
+	};
+
+	Axios.put(url, data)
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
+		PUT
+	url: 
+		/api/user/gender
+	parameter: 
+		email, gender
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		User
+*/
+export const putUserGender = (email, gender, cb) => {
+	const url = '/api/user/gender';
+	const data = {
+		email,
+		gender
+	};
+
+	Axios.put(url, data)
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
+		PUT
+	url: 
+		/api/user/bio
+	parameter: 
+		email, bio
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		User
+*/
+export const putUserBio = (email, bio, cb) => {
+	const url = '/api/user/bio';
+	const data = {
+		email,
+		bio
+	};
+
+	Axios.put(url, data)
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
+		PUT
+	url: 
+		/api/user/notification
+	parameter: 
+		email, notification
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		User
+*/
+export const putUserNotification = (email, notification, cb) => {
+	const url = '/api/user/notification';
+	const data = {
+		email,
+		notification
+	};
+
+	Axios.put(url, data)
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
+		PUT
+	url: 
+		/api/user/preferredGender
+	parameter: 
+		email, preferredGender
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		User
+*/
+export const putUserPreferredGender = (email, preferredGender, cb) => {
+	const url = '/api/user/preferredGender';
+	const data = {
+		email,
+		preferredGender
+	};
+
+	Axios.put(url, data)
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
 };
 
 /* ----------------------------------------------------- */

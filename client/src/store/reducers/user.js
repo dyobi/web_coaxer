@@ -14,7 +14,8 @@ const data = {
 	preferredMinAge: 0,
 	preferredMaxAge: 100,
 	preferredMaxDistance: 310,
-	pictures: {}
+	pictures: {},
+	isComplete: false
 };
 
 const Reducer = (state = data, action) => {
@@ -42,7 +43,7 @@ const Reducer = (state = data, action) => {
 			return Object.assign({}, state, {
 				firstName: action.payload
 			});
-		case 'USER_LASTTNAME':
+		case 'USER_LASTNAME':
 			return Object.assign({}, state, {
 				lastName: action.payload
 			});
@@ -87,6 +88,10 @@ const Reducer = (state = data, action) => {
 				preferredMaxDistance: action.payload
 			});
 		case 'USER_PICTURES':
+			return Object.assign({}, state, {
+				pictures: action.payload
+			});
+		case 'USER_ISCOMPLETE':
 			return Object.assign({}, state, {
 				pictures: action.payload
 			});

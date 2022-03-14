@@ -10,7 +10,7 @@ const Component = () => {
 
 	return (
 		<div className='overview_container'>
-			{_user.id === -1 ?
+			{_user.id === -1 || !_user.isComplete ?
 				<Interceptor />
 				:
 				''

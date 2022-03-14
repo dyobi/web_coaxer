@@ -1,14 +1,27 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BiCheckSquare } from 'react-icons/bi';
+
+import { putUserNotification } from '../../../../../datas';
+import { user_notification } from '../../../../../store/actions';
 
 const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
+	const _user = useSelector(state => state.user);
+	const dispatch = useDispatch();
 
 	const _handleNotification = (e) => {
 		e.preventDefault();
+
 		const notification = document.querySelector(`input[name='notification']:checked`).value;
-		console.log(notification);
+
+		putUserNotification(_user.email, notification, res => {
+			if (res.status === 200) {
+				dispatch(user_notification(Boolean(notification)));
+			} else {
+				console.log('handle error');
+			}
+		});
 	};
 
 	return (
@@ -25,7 +38,7 @@ const Component = () => {
 						:
 						<span>켜짐</span>
 					}
-					<input type={'radio'} name='notification' value='1' defaultChecked />
+					<input type={'radio'} name='notification' value={true} defaultChecked={_user.notification ? true : false} />
 				</div>
 				<div className='radio_section'>
 					{_ui.lang === 'en_US' ?
@@ -33,7 +46,7 @@ const Component = () => {
 						:
 						<span>꺼짐</span>
 					}
-					<input type={'radio'} name='notification' value='0' />
+					<input type={'radio'} name='notification' value={false} defaultChecked={!_user.notification ? true : false} />
 				</div>
 			</div>
 			<BiCheckSquare className='check_btn' onClick={(e) => _handleNotification(e)} />

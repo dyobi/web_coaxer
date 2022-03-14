@@ -115,6 +115,13 @@ export const user_pictures = (value) => {
     };
 };
 
+export const user_isComplete = (value) => {
+    return {
+        type: 'USER_ISCOMPLETE',
+        payload: value
+    };
+};
+
 /***************************************************/
 
 export const ui_lang = (value) => {

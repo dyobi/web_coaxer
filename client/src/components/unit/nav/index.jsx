@@ -39,7 +39,9 @@ const Component = () => {
 			preferredGender: 0,
 			preferredMinAge: 0,
 			preferredMaxAge: 100,
-			preferredMaxDistance: 310
+			preferredMaxDistance: 310,
+			pictures: {},
+			isComplete: false
 		}));
 		navigate('/home');
 	};

@@ -28,7 +28,7 @@ const Component = () => {
 
 	return (
 		<div className='lookup_container'>
-			{_user.id === -1 ?
+			{_user.id === -1 || !_user.isComplete ?
 				<Interceptor />
 				:
 				<>

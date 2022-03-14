@@ -1,14 +1,27 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BiCheckSquare } from 'react-icons/bi';
+
+import { putUserBio } from '../../../../../datas';
+import { user_bio } from '../../../../../store/actions';
 
 const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
+	const _user = useSelector(state => state.user);
+	const dispatch = useDispatch();
 
 	const _handleBio = (e) => {
 		e.preventDefault();
+
 		const bio = document.querySelector(`textarea[name='bio']`).value;
-		console.log(bio);
+
+		putUserBio(_user.email, bio, res => {
+			if (res.status === 200) {
+				dispatch(user_bio(bio));
+			} else {
+				console.log('handle error');
+			}
+		});
 	};
 
 	return (
@@ -21,7 +34,7 @@ const Component = () => {
 				}
 				<BiCheckSquare className='check_btn' onClick={(e) => _handleBio(e)} />
 			</div>
-			<textarea name='bio' />
+			<textarea name='bio' defaultValue={_user.bio} />
 		</div>
 	);
 };
