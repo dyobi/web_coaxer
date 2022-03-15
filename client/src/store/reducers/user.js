@@ -93,7 +93,7 @@ const Reducer = (state = data, action) => {
 			});
 		case 'USER_ISCOMPLETE':
 			return Object.assign({}, state, {
-				pictures: action.payload
+				isComplete: action.payload
 			});
 		default:
 			return state;

@@ -23,23 +23,26 @@ const Component = () => {
 		dispatch(ui_color(getColor));
 	}
 
-	useEffect(() => {
+	const _handleUser = () => {
 		if (
-			_user.isComplete !== true &&
-			_user.id !== -1 &&
-			_user.firstName !== '' &&
-			_user.lastName !== '' &&
-			_user.dateOfBirth !== '' &&
-			_user.bio !== '' &&
-			_user.latitude !== 0.0 &&
-			_user.longitue !== 0.0 &&
-			Object.keys(_user.pictures).length !== 0
+			_user.id === -1 ||
+			_user.lastName === '' || _user.lastName === null || _user.lastName === undefined ||
+			_user.firstName === '' || _user.firstName === null || _user.firstName === undefined ||
+			_user.dateOfBirth === '' || _user.dateOfBirth === null || _user.dateOfBirth === undefined ||
+			_user.bio === '' || _user.bio === null || _user.bio === undefined ||
+			_user.pictures === [] || _user.pictures === null || _user.pictures === undefined
 		) {
+			dispatch(user_isComplete(false));
+		} else {
 			dispatch(user_isComplete(true));
 		}
+	};
+
+	useEffect(() => {
+		_handleUser();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [_user]);
+	}, [dispatch, _user.id]);
 
 	return (
 		<Wrapper>

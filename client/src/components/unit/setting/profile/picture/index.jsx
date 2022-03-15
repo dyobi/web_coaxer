@@ -1,11 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
 import $ from 'jquery';
-import { BiPlusCircle } from 'react-icons/bi';
+import { BiPlusCircle, BiXCircle } from 'react-icons/bi';
 
-import { getPicture, postPicture } from '../../../../../datas';
+import { getPicture, postPicture, deletePicture } from '../../../../../datas';
 import { user_pictures } from '../../../../../store/actions';
-
-import Temp from '../../../../../assets/images/1.jpg';
 
 const Component = () => {
 
@@ -43,8 +41,23 @@ const Component = () => {
 				} else {
 					console.log('handle error');
 				}
-			})
+			});
 		}
+	};
+
+	const _handlePicDel = (e, i, name) => {
+		e.stopPropagation();
+
+		deletePicture(name, res => {
+			if (res.status === 200) {
+				const pictures = _user.pictures;
+				pictures.splice(i, 1);
+
+				dispatch(user_pictures(pictures));
+			} else {
+				console.log('handle_error');
+			}
+		});
 	};
 
 	$(() => {
@@ -91,8 +104,16 @@ const Component = () => {
 				}
 			</div>
 			<div className='picture_container'>
-				<img src={Temp} alt='' />
-				<img src={Temp} alt='' />
+				{_user.pictures ?
+					_user.pictures.map((pic, index) =>
+						<div className='picture_each' key={index}>
+							<img src={process.env.PUBLIC_URL + `/tmp/${pic.name}.${pic.type}`} alt='' />
+							<BiXCircle className='delete_btn' onClick={(e) => _handlePicDel(e, index, pic.name)} />
+						</div>
+					)
+					:
+					''
+				}
 				<div className='picture_add' onClick={(e) => _handlePicChoose(e)}>
 					<BiPlusCircle className='add_btn' />
 					<input id='input_pic' type={'file'} accept='image/*' onChange={(e) => _handlePicAdd(e)} style={{ display: 'none' }} />

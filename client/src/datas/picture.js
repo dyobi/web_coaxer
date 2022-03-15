@@ -64,3 +64,36 @@ export const postPicture = (formData, cb) => {
 };
 
 /* ----------------------------------------------------- */
+
+/*
+	method: 
+		DELETE
+	url: 
+		/api/picture/
+	parameter: 
+		name
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		Picture
+*/
+export const deletePicture = (name, cb) => {
+
+	const url = '/api/picture';
+	const data = {
+		name
+	};
+
+	Axios.delete(url, { params: data })
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+
+};
+
+/* ----------------------------------------------------- */

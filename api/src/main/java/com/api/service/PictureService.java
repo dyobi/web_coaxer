@@ -41,7 +41,7 @@ public class PictureService {
 
         String name = UUID.randomUUID().toString();
         String type = Objects.requireNonNull(data.getContentType()).split("/")[1];
-        String path = System.getProperty("user.home") + "/Desktop/tmp";
+        String path = System.getProperty("user.dir") + "/../client/public/tmp";
         String filePath = path + "/" + name + "." + type;
         File desc = new File(filePath);
 
@@ -65,7 +65,7 @@ public class PictureService {
     }
 
     public Response deletePicture(String name) {
-        String path = System.getProperty("user.home") + "/Desktop/tmp";
+        String path = System.getProperty("user.dir") + "/../client/public/tmp";
 
         try {
             Picture picture = pictureRepository.findByName(name);

@@ -26,7 +26,8 @@ import {
 
 import {
 	getPicture,
-	postPicture
+	postPicture,
+	deletePicture
 } from './picture';
 
 export {
@@ -47,6 +48,7 @@ export {
 
 	getPicture,
 	postPicture,
+	deletePicture,
 
 	requestGoogleToken,
 	requestGoogleProfile,
