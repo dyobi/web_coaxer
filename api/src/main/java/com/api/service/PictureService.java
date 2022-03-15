@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -22,6 +23,17 @@ public class PictureService {
 
     @Setter(onMethod = @__({@Autowired}))
     private PictureRepository pictureRepository;
+
+    public Response getPicture(long id) {
+        try {
+            ArrayList<Picture> obj = pictureRepository.findByUserId(id);
+
+            return new Response(200, obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
 
     public Response postPicture(long id, MultipartFile data) {
         User user = userRepository.findById(id).orElse(null);

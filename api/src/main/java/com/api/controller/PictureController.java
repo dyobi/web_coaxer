@@ -13,6 +13,18 @@ public class PictureController {
     @Setter(onMethod = @__({@Autowired}))
     private PictureService pictureService;
 
+    @GetMapping
+    public Response getPicture(@RequestParam long id) {
+        //  url:
+        //      /api/picture
+        //  status:
+        //      200: success
+        //      400: failure
+        //  obj:
+        //      picture array
+        return pictureService.getPicture(id);
+    }
+
     @PostMapping
     public Response postPicture(@RequestParam("id") long id, @RequestParam("picture") MultipartFile picture) {
         //  url:

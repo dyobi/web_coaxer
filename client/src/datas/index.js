@@ -24,6 +24,11 @@ import {
 	deleteUser
 } from './user';
 
+import {
+	getPicture,
+	postPicture
+} from './picture';
+
 export {
 	checkEmail,
 	getUser,
@@ -39,6 +44,9 @@ export {
 	putUserPreferredMaxRange,
 	putUserSocialType,
 	deleteUser,
+
+	getPicture,
+	postPicture,
 
 	requestGoogleToken,
 	requestGoogleProfile,

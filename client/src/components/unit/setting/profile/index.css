@@ -264,7 +264,20 @@
 	-webkit-box-shadow: 0 0 2px var(--color-100) inset;
 	box-shadow: 0 0 2px var(--color-100) inset;
 
-	background-color: #FFFFFF;
+	color: var(--color-20);
+	background: #FFFFFF;
+
+	transition: 300ms;
+}
+
+.profile_setting_container>.section_wide>.picture_container>.picture_add:hover {
+	color: var(--color-60);
+	background: linear-gradient(to left top, var(--color-10), #FFFFFF);
+}
+
+.profile_setting_container>.section_wide>.picture_container>.picture_add>.add_btn {
+	width: 40px;
+	height: 40px;
 }
 
 .profile_setting_container>.section_wide>.picture_container>img:hover {

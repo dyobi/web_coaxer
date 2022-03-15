@@ -10,6 +10,8 @@ import {
 	APP_REDIRECT_URL
 } from '../constants';
 
+/* ----------------------------------------------------- */
+
 export const requestGoogleToken = (code, cb) => {
 
 	const url = 'https://oauth2.googleapis.com/token';
@@ -57,6 +59,8 @@ export const requestGoogleProfile = (token, cb) => {
 
 };
 
+/* ----------------------------------------------------- */
+
 export const requestFacebookToken = (code, cb) => {
 
 	const url = `https://graph.facebook.com/v6.0/oauth/access_token`;
@@ -103,6 +107,8 @@ export const requestFacebookProfile = (token, cb) => {
 
 };
 
+/* ----------------------------------------------------- */
+
 export const requestGithubToken = (code, cb) => {
 
 	const url = '/login/oauth/access_token';
@@ -148,3 +154,5 @@ export const requestGithubProfile = (token, cb) => {
 		});
 
 };
+
+/* ----------------------------------------------------- */

@@ -1,11 +1,51 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import $ from 'jquery';
+import { BiPlusCircle } from 'react-icons/bi';
+
+import { getPicture, postPicture } from '../../../../../datas';
+import { user_pictures } from '../../../../../store/actions';
 
 import Temp from '../../../../../assets/images/1.jpg';
 
 const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
+	const _user = useSelector(state => state.user);
+	const dispatch = useDispatch();
+
+	const _handlePicChoose = (e) => {
+		e.stopPropagation();
+
+		document.getElementById('input_pic').click();
+	};
+
+	const _handlePicAdd = (e) => {
+		e.stopPropagation();
+
+		if (e.target.files) {
+			const picture = e.target.files[0];
+			const formData = new FormData();
+
+			formData.append('id', _user.id);
+			formData.append('picture', picture);
+
+			e.target.value = '';
+
+			postPicture(formData, res => {
+				if (res.status === 200) {
+					getPicture(_user.id, res => {
+						if (res.status === 200) {
+							dispatch(user_pictures(res.obj));
+						} else {
+							console.log('handle error');
+						}
+					})
+				} else {
+					console.log('handle error');
+				}
+			})
+		}
+	};
 
 	$(() => {
 
@@ -51,13 +91,12 @@ const Component = () => {
 				}
 			</div>
 			<div className='picture_container'>
-				{/* pics */}
-				{/* <div className='picture_add' />
-				<div className='picture_add' /> */}
-
 				<img src={Temp} alt='' />
 				<img src={Temp} alt='' />
-				<div className='picture_add'>Hello</div>
+				<div className='picture_add' onClick={(e) => _handlePicChoose(e)}>
+					<BiPlusCircle className='add_btn' />
+					<input id='input_pic' type={'file'} accept='image/*' onChange={(e) => _handlePicAdd(e)} style={{ display: 'none' }} />
+				</div>
 			</div>
 		</div>
 	);
