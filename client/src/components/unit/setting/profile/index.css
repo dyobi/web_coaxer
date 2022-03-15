@@ -290,7 +290,9 @@
 .profile_setting_container>.section_wide>.picture_container>.picture_add>.add_btn {
 	width: 40px;
 	height: 40px;
+}
 
+.profile_setting_container>.section_wide>.picture_container>.picture_add:hover>.add_btn {
 	animation: btn_animation 800ms linear infinite;
 }
 

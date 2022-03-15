@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { LastName, FirstName } from './name';
 import Gender from './gender';
@@ -10,11 +11,29 @@ import PreferredGender from './preferredGender';
 import PreferredAgeRange from './preferredAgeRange';
 import PreferredMaxRange from './preferredMaxRange';
 
+import { user_isComplete } from '../../../../store/actions';
+
 import './index.css';
 
 const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
+	const _user = useSelector(state => state.user);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (
+			_user.lastName === '' || _user.lastName === null ||
+			_user.firstName === '' || _user.firstName === null ||
+			_user.dateOfBirth === '' || _user.dateOfBirth === null ||
+			_user.bio === '' || _user.bio === null ||
+			_user.pictures.length === 0
+		) {
+			dispatch(user_isComplete(false));
+		} else {
+			dispatch(user_isComplete(true));
+		}
+	}, [dispatch, _user.lastName, _user.firstName, _user.dateOfBirth, _user.bio, _user.pictures.length]);
 
 	return (
 		<div className='profile_setting_container'>

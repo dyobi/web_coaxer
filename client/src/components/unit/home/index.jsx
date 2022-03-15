@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import $ from 'jquery';
 
 import AccountModal from '../landing/account';
@@ -9,7 +10,11 @@ import './index.css';
 const Component = () => {
 
 	const mounted = useRef(false);
+	const navigate = useNavigate();
+
 	const _ui = useSelector(state => state.ui);
+	const _user = useSelector(state => state.user);
+
 	const [width, setWidth] = useState(window.innerWidth);
 	const [accountView, setAccountView] = useState(false);
 
@@ -54,15 +59,45 @@ const Component = () => {
 						'콕서®'
 					}
 				</div>
-				<div className='home_account_btn'
-					onClick={() => setAccountView(!accountView)}
-				>
-					{_ui.lang === 'en_US' ?
-						'CREATE AN ACCOUNT'
-						:
-						'계정 만들기'
-					}
-				</div>
+				{_user.id === -1 ?
+					<div className='home_account_btn'
+						onClick={() => setAccountView(!accountView)}
+					>
+						{_ui.lang === 'en_US' ?
+							'CREATE AN ACCOUNT'
+							:
+							'계정 만들기'
+						}
+					</div>
+					:
+					''
+				}
+				{_user.id !== -1 && !_user.isComplete ?
+					<div className='home_account_btn'
+						onClick={() => navigate('/setting')}
+					>
+						{_ui.lang === 'en_US' ?
+							'GO TO SETTINGS'
+							:
+							'기본정보 설정'
+						}
+					</div>
+					:
+					''
+				}
+				{_user.isComplete ?
+					<div className='home_account_btn'
+						onClick={() => navigate('/lookup')}
+					>
+						{_ui.lang === 'en_US' ?
+							'GO GET MY BABE'
+							:
+							'나의 반쪽 찾으러 가기'
+						}
+					</div>
+					:
+					''
+				}
 				<div className='home_description'>
 					{_ui.lang === 'en_US' ?
 						'All photos and models are used for illustrative purposes only'

@@ -26,11 +26,11 @@ const Component = () => {
 	const _handleUser = () => {
 		if (
 			_user.id === -1 ||
-			_user.lastName === '' || _user.lastName === null || _user.lastName === undefined ||
-			_user.firstName === '' || _user.firstName === null || _user.firstName === undefined ||
-			_user.dateOfBirth === '' || _user.dateOfBirth === null || _user.dateOfBirth === undefined ||
-			_user.bio === '' || _user.bio === null || _user.bio === undefined ||
-			_user.pictures === [] || _user.pictures === null || _user.pictures === undefined
+			_user.lastName === '' || _user.lastName === null ||
+			_user.firstName === '' || _user.firstName === null ||
+			_user.dateOfBirth === '' || _user.dateOfBirth === null ||
+			_user.bio === '' || _user.bio === null ||
+			_user.pictures.length === 0
 		) {
 			dispatch(user_isComplete(false));
 		} else {
@@ -42,7 +42,7 @@ const Component = () => {
 		_handleUser();
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dispatch, _user.id]);
+	}, [_user.id]);
 
 	return (
 		<Wrapper>
