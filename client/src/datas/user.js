@@ -75,6 +75,40 @@ export const getUser = (email, cb) => {
 
 /*
 	method: 
+		GET
+	url: 
+		/api/user/idealUsers
+	parameter: 
+		id
+	result:
+		status:
+			200: success
+			400: failure
+		obj:
+			user list
+	using at:
+		LookUp
+*/
+export const getIdealUsers = (id, cb) => {
+
+	const url = '/api/user/idealUsers';
+	const data = {
+		id
+	};
+
+	Axios.get(url, { params: data })
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
 		POST
 	url: 
 		/api/user/

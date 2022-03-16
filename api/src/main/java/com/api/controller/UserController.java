@@ -13,11 +13,6 @@ public class UserController {
     @Setter(onMethod = @__({@Autowired}))
     private UserService userService;
 
-    @GetMapping("/temp")
-    public Response hello(@RequestParam long id){
-        return userService.temp(id);
-    }
-
     @GetMapping("/checkEmail")
     public Response checkEmail(@RequestParam String email, @RequestParam String socialType) {
         //  url:
@@ -42,6 +37,18 @@ public class UserController {
         //  obj:
         //      user
         return userService.getUser(email);
+    }
+
+    @GetMapping("/idealUsers")
+    public Response getIdealUsers(@RequestParam long id){
+        //  url:
+        //      /api/user/idealUsers
+        //  status:
+        //      200: success
+        //      400: failure
+        //  obj:
+        //      user list
+        return userService.getIdealUsers(id);
     }
 
     @PostMapping

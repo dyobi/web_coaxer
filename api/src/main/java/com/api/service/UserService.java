@@ -14,22 +14,6 @@ import java.util.ArrayList;
 @Service
 public class UserService {
 
-    public Response temp(long id) {
-        try {
-            User user = userRepository.findById(id).orElse(null);
-
-            if (user == null) {
-                return new Response(400);
-            } else {
-                ArrayList<User> obj = userRepository.getIdealUsers(user);
-                return new Response(200, obj);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Response(400);
-        }
-    }
-
     @Setter(onMethod = @__({@Autowired}))
     private UserRepository userRepository;
 
@@ -58,6 +42,22 @@ public class UserService {
                 return new Response(400);
             } else {
                 return new Response(200, user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
+    public Response getIdealUsers(long id) {
+        try {
+            User user = userRepository.findById(id).orElse(null);
+
+            if (user == null) {
+                return new Response(400);
+            } else {
+                ArrayList<User> idealUsers = userRepository.getIdealUsers(user);
+                return new Response(200, idealUsers);
             }
         } catch (Exception e) {
             e.printStackTrace();

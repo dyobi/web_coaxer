@@ -10,6 +10,7 @@ import {
 import {
 	checkEmail,
 	getUser,
+	getIdealUsers,
 	postUser,
 	putUserLastName,
 	putUserFirstName,
@@ -33,6 +34,7 @@ import {
 export {
 	checkEmail,
 	getUser,
+	getIdealUsers,
 	postUser,
 	putUserLastName,
 	putUserFirstName,

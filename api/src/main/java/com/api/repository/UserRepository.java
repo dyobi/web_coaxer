@@ -23,7 +23,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "preferred_max_range, preferred_gender, preferred_min_age, preferred_max_age, " +
             "(3959 * acos(cos(radians(:#{#user.latitude})) * cos(radians(latitude)) * cos(radians(longitude) - " +
             "radians(:#{#user.longitude})) + sin(radians(:#{#user.latitude})) * sin(radians(latitude)))) AS distance " +
-            "FROM user WHERE id != :#{#user.id} AND gender = :#{#user.preferredGender}",
+            "FROM user WHERE id != :#{#user.id} AND gender = :#{#user.preferredGender} AND " +
+            "(YEAR(CURDATE()) - YEAR(date_of_birth) BETWEEN :#{#user.preferredMinAge} AND :#{#user.preferredMaxAge}) AND " +
+            "((3959 * acos(cos(radians(:#{#user.latitude})) * cos(radians(latitude)) * cos(radians(longitude) - " +
+            "radians(:#{#user.longitude})) + sin(radians(:#{#user.latitude})) * sin(radians(latitude))) " +
+            "<= :#{#user.preferredMaxRange}) OR :#{#user.preferredMaxRange} = 310) ORDER BY distance",
             nativeQuery = true)
     ArrayList<User> getIdealUsers(@Param("user") User user);
 
