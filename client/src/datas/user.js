@@ -79,7 +79,7 @@ export const getUser = (email, cb) => {
 	url: 
 		/api/user/
 	parameter: 
-		userId, email, firstName, lastName, picture, socialType
+		email, firstName, lastName, picture, socialType
 	result:
 		status:
 			200 : success
@@ -88,12 +88,11 @@ export const getUser = (email, cb) => {
 		User
 */
 export const postUser = (
-	userId, email, firstName, lastName, socialType, cb
+	email, firstName, lastName, socialType, cb
 ) => {
 
 	const url = '/api/user';
 	const data = {
-		userId: `${userId}-${Math.floor(Math.random() * 100000)}`,
 		email,
 		firstName,
 		lastName,

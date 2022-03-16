@@ -9,9 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.ArrayList;
 
 @Service
 public class UserService {
+
+    public Response temp(long id) {
+        try {
+            User user = userRepository.findById(id).orElse(null);
+
+            if (user == null) {
+                return new Response(400);
+            } else {
+                ArrayList<User> obj = userRepository.getIdealUsers(user);
+                return new Response(200, obj);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
 
     @Setter(onMethod = @__({@Autowired}))
     private UserRepository userRepository;

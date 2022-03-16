@@ -5,7 +5,6 @@ export const user_data = (value) => {
         type: 'USER_DATA',
         payload: {
             id: value.id,
-            userId: value.userId,
             email: value.email,
             firstName: value.firstName,
             lastName: value.lastName,

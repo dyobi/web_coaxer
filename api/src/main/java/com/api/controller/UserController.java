@@ -13,6 +13,11 @@ public class UserController {
     @Setter(onMethod = @__({@Autowired}))
     private UserService userService;
 
+    @GetMapping("/temp")
+    public Response hello(@RequestParam long id){
+        return userService.temp(id);
+    }
+
     @GetMapping("/checkEmail")
     public Response checkEmail(@RequestParam String email, @RequestParam String socialType) {
         //  url:

@@ -26,7 +26,6 @@ const Component = () => {
 	const _handleLogout = () => {
 		dispatch(user_data({
 			id: -1,
-			userId: '',
 			email: '',
 			firstName: '',
 			lastName: '',

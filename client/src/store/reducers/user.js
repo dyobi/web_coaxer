@@ -1,6 +1,5 @@
 const data = {
 	id: -1,
-	userId: '',
 	email: '',
 	firstName: '',
 	lastName: '',
@@ -23,7 +22,6 @@ const Reducer = (state = data, action) => {
 		case 'USER_DATA':
 			return Object.assign({}, state, {
 				id: action.payload.id,
-				userId: action.payload.userId,
 				email: action.payload.email,
 				firstName: action.payload.firstName,
 				lastName: action.payload.lastName,

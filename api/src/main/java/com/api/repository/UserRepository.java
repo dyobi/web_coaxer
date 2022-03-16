@@ -2,8 +2,12 @@ package com.api.repository;
 
 import com.api.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 
 @Transactional @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -13,5 +17,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
     void deleteByEmail(String email);
+
+    @Query(value ="SELECT id, email, last_name, first_name, YEAR(CURDATE()) - YEAR(date_of_birth) AS age, " +
+            "date_of_birth, gender, latitude, longitude, bio, notification, social_type, " +
+            "preferred_max_range, preferred_gender, preferred_min_age, preferred_max_age, " +
+            "(3959 * acos(cos(radians(:#{#user.latitude})) * cos(radians(latitude)) * cos(radians(longitude) - " +
+            "radians(:#{#user.longitude})) + sin(radians(:#{#user.latitude})) * sin(radians(latitude)))) AS distance " +
+            "FROM user WHERE id != :#{#user.id} AND gender = :#{#user.preferredGender}",
+            nativeQuery = true)
+    ArrayList<User> getIdealUsers(@Param("user") User user);
 
 }

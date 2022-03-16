@@ -47,7 +47,6 @@ const Component = () => {
 			if (res.status === 200) {
 				dispatch(user_data({
 					id: res.obj.id,
-					userId: res.obj.userId,
 					email: res.obj.email,
 					firstName: res.obj.firstName,
 					lastName: res.obj.lastName,
@@ -101,7 +100,6 @@ const Component = () => {
 								checkEmail(user.email, user.socialType, res => {
 									if (res.status === 200) {
 										postUser(
-											user.userId,
 											user.email,
 											user.firstName,
 											user.lastName,

@@ -22,7 +22,7 @@ public class Picture {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonIgnore @ManyToOne @JoinColumn(name = "userId")
+    @JsonIgnore @ManyToOne @JoinColumn(name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 

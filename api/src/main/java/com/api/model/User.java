@@ -22,9 +22,6 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty @Column(unique = true)
-    private String userId;
-
     @NotEmpty @Column(unique = true) @Email
     private String email;
 
@@ -34,12 +31,14 @@ public class User {
 
     private Date dateOfBirth;
 
+    private Integer age;
+
     @Column(columnDefinition = "TINYINT")
     private boolean gender = false;
 
-    private float latitude;
+    private Double latitude;
 
-    private float longitude;
+    private Double longitude;
 
     @Column(columnDefinition = "VARCHAR(500)")
     private String bio;
@@ -50,11 +49,13 @@ public class User {
     @Column(columnDefinition = "TINYINT")
     private boolean preferredGender = false;
 
-    private int preferredMinAge = 0;
+    private Integer preferredMinAge = 0;
 
-    private int preferredMaxAge = 100;
+    private Integer preferredMaxAge = 100;
 
-    private int preferredMaxRange = 310;
+    private Integer preferredMaxRange = 310;
+
+    private Float distance;
 
     @NotEmpty
     private String socialType;
