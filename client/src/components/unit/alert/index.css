@@ -68,6 +68,11 @@
 	border: 0.4px solid var(--color-20);
 }
 
+.alert>img {
+	width: 290px;
+	height: auto;
+}
+
 .alert>.alert_btn_container {
 	display: flex;
 	align-self: flex-end;

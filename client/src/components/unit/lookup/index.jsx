@@ -17,16 +17,6 @@ const Component = () => {
 	const [index, setIndex] = useState(-1);
 	const [idealUsers, setIdealUsers] = useState({});
 
-	const _handleMarkerInfo = (i, setVal) => {
-		setIndex(i);
-
-		if (setVal) {
-			$('.pull_user_container').css('flex-basis', '100%');
-		} else {
-			$('.pull_user_container').css('flex-basis', '0');
-		}
-	};
-
 	useEffect(() => {
 		getIdealUsers(_user.id, res => {
 			if (res.status === 200) {
@@ -53,20 +43,23 @@ const Component = () => {
 						defaultZoom={12}
 					>
 						{idealUsers.length ?
-							idealUsers.map((user, index) =>
-								< Marker
-									key={index}
+							idealUsers.map((user, idx) =>
+								<Marker
+									key={idx}
 									lat={user.latitude}
 									lng={user.longitude}
 									img={process.env.PUBLIC_URL + `/tmp/${user.pictures[0].name}.${user.pictures[0].type}`}
-									click={() => _handleMarkerInfo(index, true)}
+									click={async () => {
+										await setIndex(idx);
+										$('.pull_user_container').css('flex-basis', '100%');
+									}}
 								/>
 							)
 							:
 							''
 						}
 					</Maps>
-					<Profile usingFor='lookup' />
+					<Profile usingFor='lookup' user={idealUsers[index]} />
 				</>
 			}
 		</div>
