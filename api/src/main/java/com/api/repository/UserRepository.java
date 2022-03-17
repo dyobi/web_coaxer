@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     void deleteByEmail(String email);
 
-    @Query(value ="SELECT id, email, last_name, first_name, YEAR(CURDATE()) - YEAR(date_of_birth) AS age, " +
+    @Query(value = "SELECT id, email, last_name, first_name, YEAR(CURDATE()) - YEAR(date_of_birth) AS age, " +
             "date_of_birth, gender, latitude, longitude, bio, notification, social_type, " +
             "preferred_max_range, preferred_gender, preferred_min_age, preferred_max_age, " +
             "(3959 * acos(cos(radians(:#{#user.latitude})) * cos(radians(latitude)) * cos(radians(longitude) - " +

@@ -4,7 +4,7 @@ const Component = (props) => {
 	return (
 		<>
 			<div
-				className='marker_container marker_bounce'
+				className='marker_container marker_bounce' onClick={() => props.click()}
 			>
 				<img src={props.img} alt='' />
 			</div>
