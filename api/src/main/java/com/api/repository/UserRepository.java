@@ -29,7 +29,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "radians(:#{#user.longitude})) + sin(radians(:#{#user.latitude})) * sin(radians(latitude))) " +
             "<= :#{#user.preferredMaxRange}) OR :#{#user.preferredMaxRange} = 310) AND last_name IS NOT NULL AND " +
             "first_name IS NOT NULL AND bio IS NOT NULL AND date_of_birth IS NOT NULL AND " +
-            "latitude != 0 AND longitude != 0 AND (SELECT COUNT(*) FROM picture WHERE user_id = user.id) > 0 " +
+            "latitude IS NOT NULL AND longitude IS NOT NULL AND (SELECT COUNT(*) FROM picture WHERE user_id = user.id) > 0 " +
             "ORDER BY distance",
             nativeQuery = true)
     ArrayList<User> getIdealUsers(@Param("user") User user);

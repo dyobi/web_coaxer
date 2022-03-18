@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import cookie from 'react-cookies';
 import Wrapper from 'react-div-100vh';
@@ -7,7 +7,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Header from '../unit/nav';
 import Core from '../core';
 import Callback from '../unit/landing/callback';
-import { ui_color, user_isComplete } from '../../store/actions';
+import { ui_color, user_isComplete, user_latitude, user_longitude } from '../../store/actions';
+import { putPosition } from '../../datas';
 
 import './index.css';
 
@@ -15,6 +16,8 @@ const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
 	const _user = useSelector(state => state.user);
+	const [lat, setLat] = useState(0);
+	const [long, setLong] = useState(0);
 	const dispatch = useDispatch();
 
 	const getColor = cookie.load('theme-color');
@@ -39,7 +42,32 @@ const Component = () => {
 	};
 
 	useEffect(() => {
+
+		let positionComplete = false;
+
 		_handleUser();
+
+		if (!positionComplete && lat === 0 && long === 0) {
+			navigator.geolocation.getCurrentPosition(position => {
+				setLat(position.coords.latitude);
+				setLong(position.coords.longitude);
+			});
+
+			return () => positionComplete = true;
+		}
+
+		if (_user.id !== -1 && positionComplete) {
+			console.log(lat);
+			console.log(long);
+			putPosition(_user.email, lat, long, res => {
+				if (res === 200) {
+					dispatch(user_latitude(lat));
+					dispatch(user_longitude(long));
+				}
+			});
+		}
+
+		return () => positionComplete = true;
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [_user.id]);

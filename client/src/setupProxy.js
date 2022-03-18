@@ -1,7 +1,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const API_IP = 'localhost';
-const API_PORT = 8081;
+const API_PORT = 8080;
 
 module.exports = (app) => {
 	app.use(

@@ -91,6 +91,16 @@ public class UserController {
         return userService.putUserDob(user);
     }
 
+    @PutMapping("/position")
+    public Response putPosition(@RequestBody User user) {
+        //  url:
+        //      /api/user/position
+        //  status:
+        //      200: success
+        //      400: failure
+        return userService.putPosition(user);
+    }
+
     @PutMapping("/gender")
     public Response putUserGender(@RequestBody User user) {
         //  url:

@@ -248,6 +248,40 @@ export const putUserDob = (email, dob, cb) => {
 	method: 
 		PUT
 	url: 
+		/api/user/position
+	parameter: 
+		email, latitude, longitude
+	result:
+		status:
+			200 : success
+			400 : failure
+	using at:
+		User
+*/
+export const putPosition = (email, latitude, longitude, cb) => {
+
+	const url = '/api/user/position';
+	const data = {
+		email,
+		latitude,
+		longitude
+	};
+
+	Axios.put(url, data)
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */
+
+/*
+	method: 
+		PUT
+	url: 
 		/api/user/gender
 	parameter: 
 		email, gender

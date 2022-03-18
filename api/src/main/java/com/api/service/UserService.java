@@ -110,6 +110,22 @@ public class UserService {
 
             user.setDateOfBirth(value.getDateOfBirth());
             userRepository.save(user);
+
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
+        }
+    }
+
+    public Response putPosition(User value) {
+        try {
+            User user = userRepository.findByEmail(value.getEmail());
+
+            user.setLatitude(value.getLatitude());
+            user.setLongitude(value.getLongitude());
+            userRepository.save(user);
+
             return new Response(200);
         } catch (Exception e) {
             e.printStackTrace();

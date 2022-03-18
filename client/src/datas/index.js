@@ -15,6 +15,7 @@ import {
 	putUserLastName,
 	putUserFirstName,
 	putUserDob,
+	putPosition,
 	putUserGender,
 	putUserBio,
 	putUserNotification,
@@ -31,6 +32,10 @@ import {
 	deletePicture
 } from './picture';
 
+import {
+	postHookup
+} from './hookup';
+
 export {
 	checkEmail,
 	getUser,
@@ -39,6 +44,7 @@ export {
 	putUserLastName,
 	putUserFirstName,
 	putUserDob,
+	putPosition,
 	putUserGender,
 	putUserBio,
 	putUserNotification,
@@ -51,6 +57,8 @@ export {
 	getPicture,
 	postPicture,
 	deletePicture,
+
+	postHookup,
 
 	requestGoogleToken,
 	requestGoogleProfile,

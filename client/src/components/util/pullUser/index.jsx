@@ -84,7 +84,6 @@ const Component = ({ usingFor, user }) => {
 						{usingFor === 'lookup' ?
 							<BiHeartCircle
 								className='right_btn for_lookup'
-								style={{ color: `${false ? '#D2042D' : '#D4D4D4'}` }}
 								onClick={() => _handleLikes()}
 							/>
 							:

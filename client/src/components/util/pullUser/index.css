@@ -86,6 +86,7 @@
 }
 
 .pull_user_container>.info_title>.right_btn.for_lookup:hover {
+	color: var(--color-20);
 	animation: like_animation 800ms linear infinite;
 }
 
