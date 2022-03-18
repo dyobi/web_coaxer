@@ -65,10 +65,10 @@ public class User {
 
     // Transient
 
-    @Transient @OneToMany(fetch = FetchType.EAGER, mappedBy = "from")
-    private List<Hookup> froms = new ArrayList<>();
+//    @Transient @OneToMany(fetch = FetchType.EAGER, mappedBy = "from")
+//    private List<Hookup> froms = new ArrayList<>();
 
-    @Transient @OneToMany(fetch = FetchType.EAGER, mappedBy = "to")
-    private List<Hookup> tos = new ArrayList<>();
+//    @Transient @OneToMany(fetch = FetchType.EAGER, mappedBy = "to")
+//    private List<Hookup> tos = new ArrayList<>();
 
 }

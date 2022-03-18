@@ -16,8 +16,7 @@ const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
 	const _user = useSelector(state => state.user);
-	const [lat, setLat] = useState(0);
-	const [long, setLong] = useState(0);
+	const [position, setPosition] = useState({});
 	const dispatch = useDispatch();
 
 	const getColor = cookie.load('theme-color');
@@ -41,36 +40,37 @@ const Component = () => {
 		}
 	};
 
-	useEffect(() => {
+	window.onload = async () => {
 
-		let positionComplete = false;
+		const getCoords = async () => {
+			const pos = await new Promise((resolve, reject) => {
+				navigator.geolocation.getCurrentPosition(resolve, reject);
+			});
+
+			return {
+				lat: pos.coords.latitude,
+				long: pos.coords.longitude
+			};
+		};
+
+		setPosition(await getCoords());
+	};
+
+	useEffect(() => {
 
 		_handleUser();
 
-		if (!positionComplete && lat === 0 && long === 0) {
-			navigator.geolocation.getCurrentPosition(position => {
-				setLat(position.coords.latitude);
-				setLong(position.coords.longitude);
-			});
-
-			return () => positionComplete = true;
-		}
-
-		if (_user.id !== -1 && positionComplete) {
-			console.log(lat);
-			console.log(long);
-			putPosition(_user.email, lat, long, res => {
+		if (_user.id !== -1 && position.length !== 0) {
+			putPosition(_user.email, position.lat, position.long, res => {
 				if (res === 200) {
-					dispatch(user_latitude(lat));
-					dispatch(user_longitude(long));
+					dispatch(user_latitude(position.lat));
+					dispatch(user_longitude(position.long));
 				}
 			});
 		}
 
-		return () => positionComplete = true;
-
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [_user.id]);
+	}, [_user.id, position]);
 
 	return (
 		<Wrapper>
