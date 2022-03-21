@@ -36,6 +36,14 @@ import {
 	postHookup
 } from './hookup';
 
+import {
+	getChatroom
+} from './chatroom';
+
+import {
+	postMessage
+} from './message';
+
 export {
 	checkEmail,
 	getUser,
@@ -59,6 +67,10 @@ export {
 	deletePicture,
 
 	postHookup,
+
+	getChatroom,
+
+	postMessage,
 
 	requestGoogleToken,
 	requestGoogleProfile,

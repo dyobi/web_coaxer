@@ -106,26 +106,48 @@ const Component = ({ usingFor, user }) => {
 					</div>
 					<div className='information_container'>
 						<hr style={{ width: '100%', margin: '0', padding: '0' }} />
-						{_ui.lang === 'en_US' ?
-							<>
-								<p>Distance</p>
-								<span>{(user.distance).toFixed(2)} miles away</span>
-								<hr style={{ width: '100%', margin: '0', padding: '0' }} />
-								<p>Age</p>
-								<span>{user.dateOfBirth.replace(/-/gi, '.')} / {user.age}</span>
-								<hr style={{ width: '100%', margin: '0', padding: '0' }} />
-								<p>Bio</p>
-							</>
+						{usingFor === 'lookup' ?
+							_ui.lang === 'en_US' ?
+								<>
+									<p>Distance</p>
+									<span>{(user.distance).toFixed(2)} miles away</span>
+									<hr style={{ width: '100%', margin: '0', padding: '0' }} />
+									<p>Age</p>
+									<span>{user.dateOfBirth.replace(/-/gi, '.')} / {user.age}</span>
+									<hr style={{ width: '100%', margin: '0', padding: '0' }} />
+									<p>Bio</p>
+								</>
+								:
+								<>
+									<p>나와의 거리</p>
+									<span>{(user.distance * 1.60934).toFixed(2)} km 떨어짐</span>
+									<hr style={{ width: '100%', margin: '0', padding: '0' }} />
+									<p>나이</p>
+									<span>{user.dateOfBirth.replace(/-/gi, '.')} / {user.age}세</span>
+									<hr style={{ width: '100%', margin: '0', padding: '0' }} />
+									<p>자기 소개</p>
+								</>
 							:
-							<>
-								<p>나와의 거리</p>
-								<span>{(user.distance * 1.60934).toFixed(2)} km 떨어짐</span>
-								<hr style={{ width: '100%', margin: '0', padding: '0' }} />
-								<p>나이</p>
-								<span>{user.dateOfBirth.replace(/-/gi, '.')} / {user.age}세</span>
-								<hr style={{ width: '100%', margin: '0', padding: '0' }} />
-								<p>자기 소개</p>
-							</>
+							_ui.lang === 'en_US' ?
+								<>
+									<hr style={{ width: '100%', margin: '0', padding: '0' }} />
+									<p>Age</p>
+									<span>
+										{user.dateOfBirth.replace(/-/gi, '.')} / {new Date().getFullYear() - new Date(user.dateOfBirth).getFullYear()}
+									</span>
+									<hr style={{ width: '100%', margin: '0', padding: '0' }} />
+									<p>Bio</p>
+								</>
+								:
+								<>
+									<hr style={{ width: '100%', margin: '0', padding: '0' }} />
+									<p>나이</p>
+									<span>
+										{user.dateOfBirth.replace(/-/gi, '.')} / {new Date().getFullYear() - new Date(user.dateOfBirth).getFullYear()}세
+									</span>
+									<hr style={{ width: '100%', margin: '0', padding: '0' }} />
+									<p>자기 소개</p>
+								</>
 						}
 						<span>{user.bio}</span>
 					</div>

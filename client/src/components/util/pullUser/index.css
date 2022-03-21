@@ -69,6 +69,8 @@
 	width: 38px;
 	height: 38px;
 
+	color: var(--color-20);
+
 	cursor: pointer;
 	transition: 300ms;
 }
@@ -86,7 +88,7 @@
 }
 
 .pull_user_container>.info_title>.right_btn.for_lookup:hover {
-	color: var(--color-20);
+	color: var(--color-80);
 	animation: like_animation 800ms linear infinite;
 }
 

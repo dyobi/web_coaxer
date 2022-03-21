@@ -11,12 +11,15 @@ public class CorsConfig {
 
     @Bean
     public FilterRegistrationBean<CorsFilter> corsFilterRegistration() {
+
         FilterRegistrationBean<CorsFilter> registration = new FilterRegistrationBean<>();
+
         registration.setFilter(new CorsFilter());
-        registration.addUrlPatterns("/*");
+        registration.addUrlPatterns("/api");
         registration.setName("coreFilter");
         registration.setOrder(1);
         registration.setEnabled(false);
+
         return registration;
     }
 

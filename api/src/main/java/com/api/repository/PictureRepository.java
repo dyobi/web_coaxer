@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
-@Transactional @Repository
+@Repository
 public interface PictureRepository extends JpaRepository<Picture, Long> {
 
     // PICTURE DATABASE
@@ -16,6 +16,7 @@ public interface PictureRepository extends JpaRepository<Picture, Long> {
 
     ArrayList<Picture> findByUserId(long userId);
 
+    @Transactional
     void deleteByName(String name);
 
 }

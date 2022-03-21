@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BiXCircle } from 'react-icons/bi';
 import $ from 'jquery';
@@ -5,6 +6,8 @@ import $ from 'jquery';
 import Chatroom from './chatroom';
 import Profile from '../../util/pullUser';
 import Interceptor from '../../util/interceptor';
+import { getChatroom } from '../../../datas';
+import { stomp } from '../../app';
 
 import './index.css';
 
@@ -12,7 +15,11 @@ import TempImg from '../../../assets/images/1.jpg';
 
 const Component = () => {
 
+	const _ui = useSelector(state => state.ui);
 	const _user = useSelector(state => state.user);
+	const [chatroom, setChatroom] = useState({});
+	const [profile, setProfile] = useState(undefined);
+	const [chatIdx, setChatIdx] = useState(-1);
 
 	const _handleChatroom = (setVal) => {
 		if (setVal) {
@@ -45,7 +52,7 @@ const Component = () => {
 	};
 
 	$(() => {
-		if (_user.isComplete) {
+		if (_user.isComplete && profile !== undefined) {
 			const slider = document.querySelector('.chat_list');
 			let isDown = false;
 			let startY;
@@ -78,28 +85,89 @@ const Component = () => {
 		}
 	});
 
+	useEffect(() => {
+		if (!chatroom.length) {
+			getChatroom(_user.id, res => {
+				if (res.status === 200) {
+					setChatroom(res.obj);
+					console.log(res.obj)
+					if (stomp !== undefined) {
+						for (let i = 0; i < res.obj.length; i++) {
+							stomp.subscribe('/room/' + res.obj[i].id, () => { });
+						}
+					}
+				} else {
+					console.log('handle err')
+				}
+			})
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [_user.id]);
+
 	return (
 		<div className='chat_container'>
-			{_user.id === -1 || !_user.isComplete ?
+			{/* {_user.id === -1 || !_user.isComplete ?
 				<Interceptor />
-				:
-				<>
-					<Profile usingFor='chat' />
-					<div className='chat_list'>
-						<div className='chat_list_each' onClick={() => _handleChatroom(true)}>
-							<img src={TempImg} alt='' onClick={(e) => _handleViewProfile(e, true)} />
-							<div className='chat_thumbnail_container'>
-								<p>Luke Kim</p>
-								<span>hello hello hello hello hello hello hello hello</span>
-							</div>
-							<div className='chat_delete_container'>
-								<BiXCircle className='chat_delete_btn' onClick={(e) => _handleDeleteChat(e)} />
-							</div>
-						</div>
-					</div>
-					<Chatroom profileImg={TempImg} />
-				</>
-			}
+				: */}
+			<>
+				<Profile
+					usingFor='chat'
+					user={profile}
+				/>
+				<div className='chat_list'>
+					{chatroom.length > 0 ?
+						chatroom.map((chat, idx) => {
+
+							let user = chat.user1.id === _user.id ? chat.user2 : chat.user1;
+							let message = chat.messages;
+
+							return (
+								<div className='chat_list_each'
+									key={idx}
+									onClick={async () => {
+										await setChatIdx(idx);
+										_handleChatroom(true);
+									}}
+								>
+									{user.pictures.length > 0 ?
+										<img
+											src={process.env.PUBLIC_URL + `/tmp/${user.pictures[0].name}.${user.pictures[0].type}`}
+											alt=''
+											onClick={async (e) => {
+												e.stopPropagation();
+												await setProfile(user);
+												_handleViewProfile(e, true);
+											}}
+										/>
+										:
+										''
+									}
+									<div className='chat_thumbnail_container'>
+										{_ui.lang === 'en_US' ?
+											<p>{user.firstName} {user.lastName}</p>
+											:
+											<p>{user.lastName} {user.firstName}</p>
+										}
+										{chat.messages.length > 0 ?
+											<span>{message[message.length - 1].content}</span>
+											:
+											''
+										}
+									</div>
+									<div className='chat_delete_container'>
+										<BiXCircle className='chat_delete_btn' onClick={(e) => _handleDeleteChat(e)} />
+									</div>
+								</div>
+							);
+						})
+						:
+						''
+					}
+				</div>
+				<Chatroom chatInfo={chatroom[chatIdx]} />
+			</>
+			{/* } */}
 		</div>
 	);
 };

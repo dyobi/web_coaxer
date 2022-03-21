@@ -1,9 +1,20 @@
+import { useSelector } from 'react-redux';
 import $ from 'jquery';
 import { BiChevronRightCircle, BiSend } from 'react-icons/bi';
 
+import { stomp } from '../../../app';
+
 import '../index.css';
 
-const Component = ({ profileImg }) => {
+const Component = ({ chatInfo }) => {
+
+	const _ui = useSelector(state => state.ui);
+	const _user = useSelector(state => state.user);
+	let _other;
+
+	if (chatInfo !== null && chatInfo !== undefined) {
+		_other = chatInfo.user1.id === _user.id ? chatInfo.user2 : chatInfo.user1;
+	}
 
 	const _inputFocus = (status) => {
 		if (status) {
@@ -20,7 +31,15 @@ const Component = ({ profileImg }) => {
 		const _blank = /^\s+|\s+$/g;
 
 		if (content.val().replace(_blank, '') !== '') {
-			console.log(content.val());
+
+			stomp.send('/send/' + chatInfo.id, {},
+				JSON.stringify({
+					'sender': _user.id,
+					'content': content.val()
+				}));
+
+
+
 			content.val('');
 		}
 	}
@@ -41,80 +60,98 @@ const Component = ({ profileImg }) => {
 
 	$(() => {
 
-		$('.chats').scrollTop($('.chats').height());
+		if (chatInfo !== null && chatInfo !== undefined) {
+			$('.chats').scrollTop($('.chats').height());
 
-		$('textarea').on('keydown', e => {
-			if (e.key === 'Enter' && !e.shiftKey) {
-				_sendChat(e);
-			}
-		});
+			$('textarea').on('keydown', e => {
+				if (e.key === 'Enter' && !e.shiftKey) {
+					_sendChat(e);
+				}
+			});
 
-		const slider = document.querySelector('.chats');
-		let isDown = false;
-		let startY;
-		let scrollTop;
+			const slider = document.querySelector('.chats');
+			let isDown = false;
+			let startY;
+			let scrollTop;
 
-		slider.addEventListener('mousedown', (e) => {
-			isDown = true;
-			slider.classList.add('active');
-			startY = e.pageY - slider.offsetTop;
-			scrollTop = slider.scrollTop;
-		});
+			slider.addEventListener('mousedown', (e) => {
+				isDown = true;
+				slider.classList.add('active');
+				startY = e.pageY - slider.offsetTop;
+				scrollTop = slider.scrollTop;
+			});
 
-		slider.addEventListener('mouseleave', () => {
-			isDown = false;
-			slider.classList.remove('active');
-		});
+			slider.addEventListener('mouseleave', () => {
+				isDown = false;
+				slider.classList.remove('active');
+			});
 
-		slider.addEventListener('mouseup', () => {
-			isDown = false;
-			slider.classList.remove('active');
-		});
+			slider.addEventListener('mouseup', () => {
+				isDown = false;
+				slider.classList.remove('active');
+			});
 
-		slider.addEventListener('mousemove', (e) => {
-			e.preventDefault();
-			if (!isDown) return;
-			const y = e.pageY - slider.offsetTop;
-			const walk = (y - startY) * 1.2;
-			slider.scrollTop = scrollTop - walk;
-		});
+			slider.addEventListener('mousemove', (e) => {
+				e.preventDefault();
+				if (!isDown) return;
+				const y = e.pageY - slider.offsetTop;
+				const walk = (y - startY) * 1.2;
+				slider.scrollTop = scrollTop - walk;
+			});
+		}
 
 	});
 
 	return (
-		<div className='chatroom'>
-			<div className='chatroom_title'>
-				<BiChevronRightCircle
-					className='back_btn'
-					onClick={() => _handleChatroom(false)}
-				/>
-				<div className='chatroom_name'>Luke Kim</div>
-			</div>
-			<div className='chats'>
-				{/* CHAT MAP */}
-				<div className='from_me'><div>Hello </div></div>
-				<div className='from_you_container'>
-					<img src={profileImg} alt='' />
-					<div className='from_you'>hello</div>
+		<>
+			{chatInfo !== undefined && chatInfo !== null ?
+				<div className='chatroom'>
+					<div className='chatroom_title'>
+						<BiChevronRightCircle
+							className='back_btn'
+							onClick={() => _handleChatroom(false)}
+						/>
+						<div className='chatroom_name'>
+							{_ui.lang === 'en_US' ?
+								<>{_other.firstName} {_other.lastName}</>
+								:
+								<>{_other.lastName} {_other.firstName}</>
+							}
+						</div>
+					</div>
+					<div className='chats'>
+						{chatInfo.messages.length > 0 ?
+							chatInfo.messages.map((msg, idx) =>
+								msg.sender.id === _user.id ?
+									<div className='from_me' key={idx}><div>{msg.content}</div></div>
+									:
+									<div className='from_you_container' key={idx}>
+										{_other.pictures.length > 0 ?
+											<img
+												src={process.env.PUBLIC_URL + `/tmp/${_other.pictures[0].name}.${_other.pictures[0].type}`}
+												alt=''
+											/>
+											:
+											''
+										}
+										<div className='from_you'>{msg.content}</div>
+									</div>
+							)
+							:
+							''
+						}
+					</div>
+					<div className='chat_input_container'>
+						<textarea className='chat_input' onFocus={() => _inputFocus(true)} onBlur={() => _inputFocus(false)} />
+						<div className='send_container' onClick={(e) => _sendChat(e)}>
+							<BiSend className='send_btn' />
+						</div>
+					</div>
 				</div>
-				<div className='from_me'>h</div>
-				<div className='from_you_container'>
-					<img src={profileImg} alt='' />
-					<div className='from_you'>HFDIdfsa</div>
-				</div>
-				<div className='from_me'>!world my name is Luke. Nice to meet you !Hello world my name is Luke. Nice to meet you !Hello world my name is Luke. Nice to meet you </div>
-				<div className='from_you_container'>
-					<img src={profileImg} alt='' />
-					<div className='from_you'>!world my name is Luke. Nice to meet you !Hello world my name is Luke. Nice to meet you !Hello world my name is Luke. Nice to meet you !world my name is Luke. Nice to meet you !Hello world my name is Luke. Nice to meet you !Hello world my name is Luke. Nice to meet you </div>
-				</div>
-			</div>
-			<div className='chat_input_container'>
-				<textarea className='chat_input' onFocus={() => _inputFocus(true)} onBlur={() => _inputFocus(false)} />
-				<div className='send_container' onClick={(e) => _sendChat(e)}>
-					<BiSend className='send_btn' />
-				</div>
-			</div>
-		</div>
+				:
+				''
+			}
+		</>
 	);
 };
 

@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import cookie from 'react-cookies';
 import Wrapper from 'react-div-100vh';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 
 import Header from '../unit/nav';
 import Core from '../core';
@@ -11,6 +13,8 @@ import { ui_color, user_isComplete, user_latitude, user_longitude } from '../../
 import { putPosition } from '../../datas';
 
 import './index.css';
+
+export let stomp;
 
 const Component = () => {
 
@@ -40,6 +44,16 @@ const Component = () => {
 		}
 	};
 
+	const _stompConnect = () => {
+		if (_user.id !== -1) {
+			stomp = Stomp.over(() => new SockJS('/api/stomp'));
+			stomp.connect({}, () => { });
+		} else if (stomp) {
+			stomp.disconnect();
+			stomp = undefined;
+		}
+	};
+
 	window.onload = async () => {
 
 		const getCoords = async () => {
@@ -55,6 +69,12 @@ const Component = () => {
 
 		setPosition(await getCoords());
 	};
+
+	useEffect(() => {
+		_stompConnect();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [_user.id]);
 
 	useEffect(() => {
 

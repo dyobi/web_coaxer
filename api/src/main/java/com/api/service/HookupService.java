@@ -1,8 +1,10 @@
 package com.api.service;
 
+import com.api.model.Chatroom;
 import com.api.model.Hookup;
 import com.api.model.Response;
 import com.api.model.User;
+import com.api.repository.ChatroomRepository;
 import com.api.repository.HookupRepository;
 import com.api.repository.UserRepository;
 import lombok.Setter;
@@ -19,6 +21,9 @@ public class HookupService {
 
     @Setter(onMethod = @__({@Autowired}))
     private HookupRepository hookupRepository;
+
+    @Setter(onMethod = @__({@Autowired}))
+    private ChatroomRepository chatroomRepository;
 
     public Response getHookupByFrom(long from) {
         try {
@@ -44,6 +49,16 @@ public class HookupService {
                 return new Response(400);
             } else {
                 hookupRepository.save(hookup);
+
+                if (hookupRepository.existsByUsers(from, to) &&
+                        !chatroomRepository.existsByUsers(from, to)) {
+
+                    Chatroom chatroom = new Chatroom();
+                    chatroom.setUser1(from_user);
+                    chatroom.setUser2(to_user);
+                    chatroomRepository.save(chatroom);
+                }
+
                 return new Response(200);
             }
         } catch (Exception e) {

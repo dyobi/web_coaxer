@@ -9,13 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
-@Transactional @Repository
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     // USER DATABASE
 
     User findByEmail(String email);
 
+    @Transactional
     void deleteByEmail(String email);
 
     @Query(value = "SELECT id, email, last_name, first_name, YEAR(CURDATE()) - YEAR(date_of_birth) AS age, " +
