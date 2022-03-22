@@ -9,7 +9,7 @@ import NarrowView from './narrowView';
 import Alert from '../alert';
 
 import { ui_lang } from '../../../store/actions';
-import { user_data } from '../../../store/actions';
+import { user_data, user_chat } from '../../../store/actions';
 
 import './index.css';
 
@@ -42,6 +42,7 @@ const Component = () => {
 			pictures: {},
 			isComplete: false
 		}));
+		dispatch(user_chat({}));
 		navigate('/home');
 	};
 

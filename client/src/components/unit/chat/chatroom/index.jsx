@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import $ from 'jquery';
 import { BiChevronRightCircle, BiSend } from 'react-icons/bi';
@@ -6,14 +7,15 @@ import { stomp } from '../../../app';
 
 import '../index.css';
 
-const Component = ({ chatInfo }) => {
+const Component = ({ index }) => {
 
 	const _ui = useSelector(state => state.ui);
 	const _user = useSelector(state => state.user);
+
 	let _other;
 
-	if (chatInfo !== null && chatInfo !== undefined) {
-		_other = chatInfo.user1.id === _user.id ? chatInfo.user2 : chatInfo.user1;
+	if (index !== -1 && _user.chat[index].id !== undefined) {
+		_other = _user.chat[index].user1.id === _user.id ? _user.chat[index].user2 : _user.chat[index].user1;
 	}
 
 	const _inputFocus = (status) => {
@@ -32,17 +34,17 @@ const Component = ({ chatInfo }) => {
 
 		if (content.val().replace(_blank, '') !== '') {
 
-			stomp.send('/send/' + chatInfo.id, {},
+			stomp.send('/send/msg', {},
 				JSON.stringify({
+					'roomId': _user.chat[index].id,
 					'sender': _user.id,
 					'content': content.val()
 				}));
-
-
-
 			content.val('');
+
 		}
-	}
+
+	};;
 
 	const _handleChatroom = (setVal) => {
 		if (setVal) {
@@ -55,13 +57,16 @@ const Component = ({ chatInfo }) => {
 			$('.chat_delete_btn').css('visibility', 'visible');
 			$('.chat_delete_btn').css('opacity', '1');
 			$('.chatroom').css('flex-basis', '0');
+
+			$('.chats').scrollTop($('.chats')[0].scrollHeight);
 		}
 	};
 
 	$(() => {
 
-		if (chatInfo !== null && chatInfo !== undefined) {
-			$('.chats').scrollTop($('.chats').height());
+		if (index !== -1 && _other !== undefined) {
+
+			$('.chats').scrollTop($('.chats')[0].scrollHeight);
 
 			$('textarea').on('keydown', e => {
 				if (e.key === 'Enter' && !e.shiftKey) {
@@ -102,9 +107,17 @@ const Component = ({ chatInfo }) => {
 
 	});
 
+	useEffect(() => {
+		if (index !== -1 && _other !== undefined) {
+			$('.chats').scrollTop($('.chats')[0].scrollHeight);
+		}
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [_user.chat, index]);
+
 	return (
 		<>
-			{chatInfo !== undefined && chatInfo !== null ?
+			{index !== -1 && _other !== undefined ?
 				<div className='chatroom'>
 					<div className='chatroom_title'>
 						<BiChevronRightCircle
@@ -120,10 +133,10 @@ const Component = ({ chatInfo }) => {
 						</div>
 					</div>
 					<div className='chats'>
-						{chatInfo.messages.length > 0 ?
-							chatInfo.messages.map((msg, idx) =>
+						{_user.chat[index].messages.length > 0 ?
+							_user.chat[index].messages.map((msg, idx) =>
 								msg.sender.id === _user.id ?
-									<div className='from_me' key={idx}><div>{msg.content}</div></div>
+									<div className='from_me' key={idx}>{msg.content}</div>
 									:
 									<div className='from_you_container' key={idx}>
 										{_other.pictures.length > 0 ?

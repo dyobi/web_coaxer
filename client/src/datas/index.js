@@ -40,10 +40,6 @@ import {
 	getChatroom
 } from './chatroom';
 
-import {
-	postMessage
-} from './message';
-
 export {
 	checkEmail,
 	getUser,
@@ -69,8 +65,6 @@ export {
 	postHookup,
 
 	getChatroom,
-
-	postMessage,
 
 	requestGoogleToken,
 	requestGoogleProfile,

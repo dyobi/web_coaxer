@@ -1,6 +1,5 @@
 package com.api.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +8,7 @@ import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import javax.persistence.OrderBy;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +27,7 @@ public class Chatroom {
     private User user2;
 
     @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
+    @OrderBy("sendDate asc")
     private Set<Message> messages = new HashSet<>();
     
 }

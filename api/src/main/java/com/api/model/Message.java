@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.*;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Entity @Getter @Setter
 @DynamicInsert @DynamicUpdate
 @NoArgsConstructor @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Message {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,7 +31,7 @@ public class Message {
 
     private String content;
 
-    @CreatedDate @Column(updatable = false)
+    @CreatedDate
     private LocalDateTime sendDate;
 
 }

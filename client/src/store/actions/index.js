@@ -114,6 +114,13 @@ export const user_pictures = (value) => {
     };
 };
 
+export const user_chat = (value) => {
+    return {
+        type: 'USER_CHAT',
+        payload: value
+    };
+};
+
 export const user_isComplete = (value) => {
     return {
         type: 'USER_ISCOMPLETE',

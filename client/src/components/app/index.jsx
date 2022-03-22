@@ -9,8 +9,8 @@ import { Stomp } from '@stomp/stompjs';
 import Header from '../unit/nav';
 import Core from '../core';
 import Callback from '../unit/landing/callback';
-import { ui_color, user_isComplete, user_latitude, user_longitude } from '../../store/actions';
-import { putPosition } from '../../datas';
+import { ui_color, user_isComplete, user_latitude, user_longitude, user_chat } from '../../store/actions';
+import { putPosition, getChatroom } from '../../datas';
 
 import './index.css';
 
@@ -44,14 +44,24 @@ const Component = () => {
 		}
 	};
 
-	const _stompConnect = () => {
-		if (_user.id !== -1) {
-			stomp = Stomp.over(() => new SockJS('/api/stomp'));
-			stomp.connect({}, () => { });
-		} else if (stomp) {
-			stomp.disconnect();
-			stomp = undefined;
+	const showChat = (msg) => {
+
+		let appendedChat = _user.chat;
+
+		for (let i = 0; i < appendedChat.length; i++) {
+			if (appendedChat[i].id === msg.roomId) {
+				appendedChat[i].messages.push({
+					id: -1,
+					sender: { id: msg.sender },
+					content: msg.content,
+					sendDate: ''
+				});
+				break;
+			}
 		}
+
+		dispatch(user_chat(appendedChat));
+
 	};
 
 	window.onload = async () => {
@@ -71,7 +81,26 @@ const Component = () => {
 	};
 
 	useEffect(() => {
-		_stompConnect();
+		if (_user.id !== -1) {
+			stomp = Stomp.over(() => new SockJS('/api/stomp'));
+			stomp.connect({}, () => {
+				getChatroom(_user.id, res => {
+					if (res.status === 200) {
+						dispatch(user_chat(res.obj));
+						for (let i = 0; i < res.obj.length; i++) {
+							stomp.subscribe('/room/' + res.obj[i].id, (msg) => {
+								showChat(JSON.parse(msg.body));
+							}, { id: res.obj[i].id });
+						}
+					} else {
+						console.log('handle err')
+					}
+				})
+			});
+		} else if (stomp) {
+			stomp.disconnect();
+			stomp = undefined;
+		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [_user.id]);

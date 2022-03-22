@@ -2,7 +2,6 @@ package com.api.service;
 
 import com.api.model.Chatroom;
 import com.api.model.Message;
-import com.api.model.Response;
 import com.api.model.User;
 import com.api.repository.ChatroomRepository;
 import com.api.repository.MessageRepository;
@@ -23,26 +22,17 @@ public class MessageService {
     @Setter(onMethod = @__({@Autowired}))
     private MessageRepository messageRepository;
 
-    public Response postMessage(long chat_id, long user_id, String content) {
-        try {
-            Chatroom chatroom = chatroomRepository.findById(chat_id).orElse(null);
-            User user =  userRepository.findById(user_id).orElse(null);
+    public void postMessage(long chat_id, long user_id, String content) {
+        Chatroom chatroom = chatroomRepository.findById(chat_id).orElse(null);
+        User user = userRepository.findById(user_id).orElse(null);
 
-            if (chatroom == null || user == null) {
-                return new Response(400);
-            } else {
-                Message message = new Message();
+        if (chatroom != null && user != null) {
+            Message message = new Message();
 
-                message.setRoom(chatroom);
-                message.setSender(user);
-                message.setContent(content);
-                messageRepository.save(message);
-
-                return new Response(200);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Response(400);
+            message.setRoom(chatroom);
+            message.setSender(user);
+            message.setContent(content);
+            messageRepository.save(message);
         }
     }
 }

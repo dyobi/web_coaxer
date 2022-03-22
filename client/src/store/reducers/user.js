@@ -14,6 +14,7 @@ const data = {
 	preferredMaxAge: 100,
 	preferredMaxRange: 310,
 	pictures: {},
+	chat: {},
 	isComplete: false
 };
 
@@ -88,6 +89,10 @@ const Reducer = (state = data, action) => {
 		case 'USER_PICTURES':
 			return Object.assign({}, state, {
 				pictures: action.payload
+			});
+		case 'USER_CHAT':
+			return Object.assign({}, state, {
+				chat: action.payload
 			});
 		case 'USER_ISCOMPLETE':
 			return Object.assign({}, state, {
