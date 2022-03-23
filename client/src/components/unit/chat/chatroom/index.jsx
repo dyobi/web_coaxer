@@ -17,7 +17,7 @@ const Component = ({ index }) => {
 	if (index !== -1 && _user.chat[index].id !== undefined) {
 		_other = _user.chat[index].user1.id === _user.id ? _user.chat[index].user2 : _user.chat[index].user1;
 	}
-
+	
 	const _inputFocus = (status) => {
 		if (status) {
 			$('.chat_input_container').css('box-shadow', '0 0 4px var(--color-40), 0 0 0 2px var(--color-80) inset');
@@ -33,15 +33,14 @@ const Component = ({ index }) => {
 		const _blank = /^\s+|\s+$/g;
 
 		if (content.val().replace(_blank, '') !== '') {
-
 			stomp.send('/send/msg', {},
 				JSON.stringify({
 					'roomId': _user.chat[index].id,
 					'sender': _user.id,
 					'content': content.val()
-				}));
+				})
+			);
 			content.val('');
-
 		}
 
 	};;

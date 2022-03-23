@@ -51,10 +51,10 @@ const Component = () => {
 		console.log('delete');
 	};
 
-	const showChat = (msg) => {
+	const showChat = (msg, chat) => {
 
-		let appendedChat = _user.chat;
-
+		let appendedChat = chat;
+		
 		for (let i = 0; i < appendedChat.length; i++) {
 			if (appendedChat[i].id === msg.roomId) {
 				appendedChat[i].messages.push({
@@ -114,7 +114,7 @@ const Component = () => {
 						for (let i = 0; i < res.obj.length; i++) {
 							if (stomp._stompHandler._subscriptions[res.obj[i].id] === undefined) {
 								stomp.subscribe('/room/' + res.obj[i].id, (msg) => {
-									showChat(JSON.parse(msg.body));
+									showChat(JSON.parse(msg.body), res.obj);
 								}, { id: res.obj[i].id });
 							}
 						}
