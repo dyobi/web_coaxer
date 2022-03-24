@@ -9,6 +9,8 @@ import { Stomp } from '@stomp/stompjs';
 import Header from '../unit/nav';
 import Core from '../core';
 import Callback from '../unit/landing/callback';
+import Error from '../unit/error';
+
 import { ui_color, user_isComplete, user_latitude, user_longitude, user_chat } from '../../store/actions';
 import { putPosition, getChatroom } from '../../datas';
 
@@ -149,6 +151,7 @@ const Component = () => {
 					<Route path='/chat' element={<Core page='3' />} />
 					<Route path='/setting' element={<Core page='4' />} />
 					<Route path='/oauth/:source' element={<Callback />} />
+					<Route path='*' element={<Error />} />
 				</Routes>
 			</BrowserRouter>
 		</Wrapper>

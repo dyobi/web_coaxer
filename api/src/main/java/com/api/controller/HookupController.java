@@ -12,6 +12,18 @@ public class HookupController {
     @Setter(onMethod = @__({@Autowired}))
     private HookupService hookupService;
 
+    @GetMapping
+    public Response getHookupOverview(@RequestParam long id) {
+        //  url:
+        //      /api/hookup
+        //  status:
+        //      200: success
+        //      400: failure
+        //  obj:
+        //      fromMe, fromOther, matched
+        return hookupService.getHookupOverview(id);
+    }
+
     @PostMapping
     public Response postHookup(@RequestParam("from") long from, @RequestParam("to") long to) {
         //  url:
@@ -20,11 +32,6 @@ public class HookupController {
         //      200: success
         //      400: failure
         return hookupService.postHookup(from, to);
-    }
-
-    @GetMapping
-    public Response getHookupByFrom(@RequestParam long from) {
-        return hookupService.getHookupByFrom(from);
     }
 
 }

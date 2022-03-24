@@ -2,6 +2,7 @@ package com.api.service;
 
 import com.api.model.Chatroom;
 import com.api.model.Hookup;
+import com.api.wrapper.Overview;
 import com.api.wrapper.Response;
 import com.api.model.User;
 import com.api.repository.ChatroomRepository;
@@ -25,11 +26,15 @@ public class HookupService {
     @Setter(onMethod = @__({@Autowired}))
     private ChatroomRepository chatroomRepository;
 
-    public Response getHookupByFrom(long from) {
+    public Response getHookupOverview(long id) {
         try {
-            User user = userRepository.findById(from).orElse(null);
-            ArrayList<Hookup> list = hookupRepository.findAllByFrom(user);
-            return new Response(200, list);
+            ArrayList<User> fromMe = userRepository.getHookupFromMe(id);
+            ArrayList<User> fromOther = userRepository.getHookupFromOther(id);
+            ArrayList<User> matched = userRepository.getHookupMatched(id);
+
+            Overview overview = new Overview(fromMe, fromOther, matched);
+
+            return new Response(200, overview);
         } catch (Exception e) {
             e.printStackTrace();
             return new Response(400);
@@ -50,8 +55,8 @@ public class HookupService {
             } else {
                 hookupRepository.save(hookup);
 
-                if (hookupRepository.existsByUsers(from, to) &&
-                        !chatroomRepository.existsByUsers(from, to)) {
+                if (!hookupRepository.existsByUsers(from, to) &&
+                        !chatroomRepository.existsByUsers(to, from)) {
 
                     Chatroom chatroom = new Chatroom();
                     chatroom.setUser1(from_user);

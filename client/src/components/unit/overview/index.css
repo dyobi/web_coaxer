@@ -1,10 +1,113 @@
 .overview_container {
-	display: flex;
-
 	width: 100%;
 	height: 600px;
 	border-radius: 10px;
 
-	overflow: hidden;
+	overflow-y: auto;
 	transition: 300ms;
+}
+
+.overview_container::-webkit-scrollbar {
+	display: none;
+}
+
+.overview_container>.overview_each {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	margin: 15px 0;
+	padding: 0 20px;
+	width: calc(100% - 42px);
+	min-height: 180px;
+
+	border-radius: 20px;
+	border: 1px dashed var(--color-20);
+
+	overflow: hidden;
+}
+
+.overview_container>.overview_each>h3 {
+	margin: 8px 0;
+
+	color: darkslategray;
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 24px;
+}
+
+.overview_container>.overview_each>.section_divider {
+	align-self: center;
+
+	margin: 10px 0;
+	width: calc(100% - 20px);
+	height: 0.2px;
+	background-color: var(--color-100);
+}
+
+.overview_container>.overview_each>.overview_content {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+
+	width: calc(100% - 20px);
+	height: 98px;
+}
+
+.overview_container>.overview_each>.log_content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+
+	width: calc(100% - 20px);
+	min-height: 98px;
+}
+
+.overview_container>.overview_each>.log_content>h4,
+.overview_container>.overview_each>.overview_content>h4 {
+	margin: 2px 0;
+	padding: 0;
+
+	color: darkslategray;
+	font-size: 17px;
+	font-weight: 400;
+	line-height: 24px;
+	letter-spacing: -0.4px;
+}
+
+.overview_container>.overview_each>.overview_content>.overview_user {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	width: 80px;
+	height: 98px;
+}
+
+.overview_container>.overview_each>.overview_content>.overview_user>img {
+	width: 76px;
+	height: 76px;
+
+	border: 2px solid var(--color-100);
+	border-radius: 50%;
+
+	cursor: pointer;
+	transition: 300ms;
+}
+
+.overview_container>.overview_each>.overview_content>.overview_user>img:hover {
+	opacity: 0.6;
+}
+
+.overview_container>.overview_each>.overview_content>.overview_user>span {
+	margin: 0;
+	padding: 0;
+
+	color: darkslategray;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 18px;
 }

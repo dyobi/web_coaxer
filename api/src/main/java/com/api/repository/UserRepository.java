@@ -35,4 +35,19 @@ public interface UserRepository extends JpaRepository<User, Long> {
             nativeQuery = true)
     ArrayList<User> getIdealUsers(@Param("user") User user);
 
+    @Query(value = "SELECT * FROM user WHERE id IN (SELECT to_id FROM hookup WHERE from_id = :id) AND " +
+            "id NOT IN (SELECT from_id FROM hookup WHERE to_id = :id)",
+            nativeQuery = true)
+    ArrayList<User> getHookupFromMe(@Param("id") long id);
+
+    @Query(value = "SELECT * FROM user WHERE id IN (SELECT from_id FROM hookup WHERE to_id = :id) AND " +
+            "id NOT IN (SELECT to_id FROM hookup WHERE from_id = :id)",
+            nativeQuery = true)
+    ArrayList<User> getHookupFromOther(@Param("id") long id);
+
+    @Query(value = "SELECT * FROM user WHERE id IN (SELECT from_id FROM hookup WHERE to_id = :id) AND " +
+            "id IN (SELECT to_id FROM hookup WHERE from_id = :id)",
+            nativeQuery = true)
+    ArrayList<User> getHookupMatched(@Param("id") long id);
+
 }

@@ -33,6 +33,7 @@ import {
 } from './picture';
 
 import {
+	getHookupOverview,
 	postHookup
 } from './hookup';
 
@@ -62,6 +63,7 @@ export {
 	postPicture,
 	deletePicture,
 
+	getHookupOverview,
 	postHookup,
 
 	getChatroom,
