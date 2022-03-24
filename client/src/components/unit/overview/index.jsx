@@ -1,20 +1,20 @@
 import { useSelector } from 'react-redux';
 
-import Interceptor from '../../util/interceptor';
+// import Interceptor from '../../util/interceptor';
 
 import './index.css';
 
 const Component = () => {
 
-	const _user = useSelector(state => state.user);
+	// const _user = useSelector(state => state.user);
 
 	return (
 		<div className='overview_container'>
-			{_user.id === -1 || !_user.isComplete ?
+			{/* {_user.id === -1 || !_user.isComplete ?
 				<Interceptor />
 				:
 				''
-			}
+			} */}
 		</div>
 	);
 };

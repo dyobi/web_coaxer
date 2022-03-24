@@ -63,12 +63,4 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<Picture> pictures = new ArrayList<>();
 
-    // Transient
-
-//    @Transient @OneToMany(fetch = FetchType.EAGER, mappedBy = "from")
-//    private List<Hookup> froms = new ArrayList<>();
-
-//    @Transient @OneToMany(fetch = FetchType.EAGER, mappedBy = "to")
-//    private List<Hookup> tos = new ArrayList<>();
-
 }

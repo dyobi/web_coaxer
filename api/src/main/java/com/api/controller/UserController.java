@@ -1,6 +1,6 @@
 package com.api.controller;
 
-import com.api.model.Response;
+import com.api.wrapper.Response;
 import com.api.model.User;
 import com.api.service.UserService;
 import lombok.Setter;

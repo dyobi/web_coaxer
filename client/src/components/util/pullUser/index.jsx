@@ -7,15 +7,11 @@ import Alert from '../../unit/alert';
 
 import './index.css';
 
-const Component = ({ usingFor, user }) => {
+const Component = ({ usingFor, user, _handleLikes }) => {
 
 	const _ui = useSelector(state => state.ui);
 	const [alertView, setAlertView] = useState(false);
 	const [picture, setPicture] = useState({});
-
-	const _handleLikes = () => {
-		console.log('Liked');
-	};
 
 	const _handleMarkerInfo = () => {
 		$('.pull_user_container').css('flex-basis', '0');
@@ -84,7 +80,7 @@ const Component = ({ usingFor, user }) => {
 						{usingFor === 'lookup' ?
 							<BiHeartCircle
 								className='right_btn for_lookup'
-								onClick={() => _handleLikes()}
+								onClick={(e) => _handleLikes(e)}
 							/>
 							:
 							<BiBlock className='right_btn for_chat' />

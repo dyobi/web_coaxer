@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BiCheckSquare } from 'react-icons/bi';
+
+import ErrorAlert from '../../../../util/errorAlert';
 
 import { putUserNotification } from '../../../../../datas';
 import { user_notification } from '../../../../../store/actions';
@@ -8,6 +11,7 @@ const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
 	const _user = useSelector(state => state.user);
+	const [alertView, setAlertView] = useState(false);
 	const dispatch = useDispatch();
 
 	const _handleNotification = (e) => {
@@ -19,38 +23,41 @@ const Component = () => {
 			if (res.status === 200) {
 				dispatch(user_notification(Boolean(notification)));
 			} else {
-				console.log('handle error');
+				setAlertView(!alertView);
 			}
 		});
 	};
 
 	return (
-		<div className='section'>
-			{_ui.lang === 'en_US' ?
-				<span>Notification</span>
-				:
-				<span>알림</span>
-			}
-			<div className='radio_container'>
-				<div className='radio_section'>
-					{_ui.lang === 'en_US' ?
-						<span>On</span>
-						:
-						<span>켜짐</span>
-					}
-					<input type={'radio'} name='notification' value={true} defaultChecked={_user.notification ? true : false} />
+		<>
+			<div className='section'>
+				{_ui.lang === 'en_US' ?
+					<span>Notification</span>
+					:
+					<span>알림</span>
+				}
+				<div className='radio_container'>
+					<div className='radio_section'>
+						{_ui.lang === 'en_US' ?
+							<span>On</span>
+							:
+							<span>켜짐</span>
+						}
+						<input type={'radio'} name='notification' value={true} defaultChecked={_user.notification ? true : false} />
+					</div>
+					<div className='radio_section'>
+						{_ui.lang === 'en_US' ?
+							<span>Off</span>
+							:
+							<span>꺼짐</span>
+						}
+						<input type={'radio'} name='notification' value={false} defaultChecked={!_user.notification ? true : false} />
+					</div>
 				</div>
-				<div className='radio_section'>
-					{_ui.lang === 'en_US' ?
-						<span>Off</span>
-						:
-						<span>꺼짐</span>
-					}
-					<input type={'radio'} name='notification' value={false} defaultChecked={!_user.notification ? true : false} />
-				</div>
+				<BiCheckSquare className='check_btn' onClick={(e) => _handleNotification(e)} />
 			</div>
-			<BiCheckSquare className='check_btn' onClick={(e) => _handleNotification(e)} />
-		</div>
+			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
+		</>
 	);
 };
 

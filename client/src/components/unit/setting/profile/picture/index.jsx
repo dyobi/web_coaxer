@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import $ from 'jquery';
 import { BiPlusCircle, BiXCircle } from 'react-icons/bi';
+
+import ErrorAlert from '../../../../util/errorAlert';
 
 import { getPicture, postPicture, deletePicture } from '../../../../../datas';
 import { user_pictures } from '../../../../../store/actions';
@@ -9,6 +12,7 @@ const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
 	const _user = useSelector(state => state.user);
+	const [alertView, setAlertView] = useState(false);
 	const dispatch = useDispatch();
 
 	const _handlePicChoose = (e) => {
@@ -35,11 +39,11 @@ const Component = () => {
 						if (res.status === 200) {
 							dispatch(user_pictures(res.obj));
 						} else {
-							console.log('handle error');
+							setAlertView(!alertView);
 						}
 					})
 				} else {
-					console.log('handle error');
+					setAlertView(!alertView);
 				}
 			});
 		}
@@ -55,7 +59,7 @@ const Component = () => {
 
 				dispatch(user_pictures(pictures));
 			} else {
-				console.log('handle_error');
+				setAlertView(!alertView);
 			}
 		});
 	};
@@ -95,31 +99,34 @@ const Component = () => {
 	});
 
 	return (
-		<div className='section_wide'>
-			<div className='section_wide_head'>
-				{_ui.lang === 'en_US' ?
-					<span>Picture</span>
-					:
-					<span>사진</span>
-				}
-			</div>
-			<div className='picture_container'>
-				{_user.pictures ?
-					_user.pictures.map((pic, index) =>
-						<div className='picture_each' key={index}>
-							<img src={process.env.PUBLIC_URL + `/tmp/${pic.name}.${pic.type}`} alt='' />
-							<BiXCircle className='delete_btn' onClick={(e) => _handlePicDel(e, index, pic.name)} />
-						</div>
-					)
-					:
-					''
-				}
-				<div className='picture_add' onClick={(e) => _handlePicChoose(e)}>
-					<BiPlusCircle className='add_btn' />
-					<input id='input_pic' type={'file'} accept='image/*' onChange={(e) => _handlePicAdd(e)} style={{ display: 'none' }} />
+		<>
+			<div className='section_wide'>
+				<div className='section_wide_head'>
+					{_ui.lang === 'en_US' ?
+						<span>Picture</span>
+						:
+						<span>사진</span>
+					}
+				</div>
+				<div className='picture_container'>
+					{_user.pictures ?
+						_user.pictures.map((pic, index) =>
+							<div className='picture_each' key={index}>
+								<img src={process.env.PUBLIC_URL + `/tmp/${pic.name}.${pic.type}`} alt='' />
+								<BiXCircle className='delete_btn' onClick={(e) => _handlePicDel(e, index, pic.name)} />
+							</div>
+						)
+						:
+						''
+					}
+					<div className='picture_add' onClick={(e) => _handlePicChoose(e)}>
+						<BiPlusCircle className='add_btn' />
+						<input id='input_pic' type={'file'} accept='image/*' onChange={(e) => _handlePicAdd(e)} style={{ display: 'none' }} />
+					</div>
 				</div>
 			</div>
-		</div>
+			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
+		</>
 	);
 };
 

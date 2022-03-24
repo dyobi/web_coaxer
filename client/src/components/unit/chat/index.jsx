@@ -6,6 +6,7 @@ import $ from 'jquery';
 import Chatroom from './chatroom';
 import Profile from '../../util/pullUser';
 import Interceptor from '../../util/interceptor';
+import ErrorAlert from '../../util/errorAlert';
 import { getChatroom } from '../../../datas';
 import { user_chat } from '../../../store/actions';
 import { stomp } from '../../app';
@@ -20,6 +21,7 @@ const Component = () => {
 
 	const [profile, setProfile] = useState(undefined);
 	const [chatIdx, setChatIdx] = useState(-1);
+	const [alertView, setAlertView] = useState(false);
 
 	const _handleChatroom = (setVal) => {
 		if (setVal) {
@@ -54,7 +56,7 @@ const Component = () => {
 	const showChat = (msg, chat) => {
 
 		let appendedChat = chat;
-		
+
 		for (let i = 0; i < appendedChat.length; i++) {
 			if (appendedChat[i].id === msg.roomId) {
 				appendedChat[i].messages.push({
@@ -120,7 +122,7 @@ const Component = () => {
 						}
 					}
 				} else {
-					console.log('handle err')
+					setAlertView(!alertView);
 				}
 			});
 		}
@@ -129,69 +131,72 @@ const Component = () => {
 	}, [_user.id]);
 
 	return (
-		<div className='chat_container'>
-			{_user.id === -1 || !_user.isComplete ?
-				<Interceptor />
-				:
-				<>
-					<Profile
-						usingFor='chat'
-						user={profile}
-					/>
-					<div className='chat_list'>
-						{_user.chat.length > 0 ?
-							_user.chat.map((chat, idx) => {
+		<>
+			<div className='chat_container'>
+				{_user.id === -1 || !_user.isComplete ?
+					<Interceptor />
+					:
+					<>
+						<Profile
+							usingFor='chat'
+							user={profile}
+						/>
+						<div className='chat_list'>
+							{_user.chat.length > 0 ?
+								_user.chat.map((chat, idx) => {
 
-								let user = chat.user1.id === _user.id ? chat.user2 : chat.user1;
-								let message = chat.messages;
+									let user = chat.user1.id === _user.id ? chat.user2 : chat.user1;
+									let message = chat.messages;
 
-								return (
-									<div className='chat_list_each'
-										key={idx}
-										onClick={async () => {
-											await setChatIdx(idx);
-											_handleChatroom(true);
-										}}
-									>
-										{user.pictures.length > 0 ?
-											<img
-												src={process.env.PUBLIC_URL + `/tmp/${user.pictures[0].name}.${user.pictures[0].type}`}
-												alt=''
-												onClick={async (e) => {
-													e.stopPropagation();
-													await setProfile(user);
-													_handleViewProfile(e, true);
-												}}
-											/>
-											:
-											''
-										}
-										<div className='chat_thumbnail_container'>
-											{_ui.lang === 'en_US' ?
-												<p>{user.firstName} {user.lastName}</p>
-												:
-												<p>{user.lastName} {user.firstName}</p>
-											}
-											{chat.messages.length > 0 ?
-												<span>{message[message.length - 1].content}</span>
+									return (
+										<div className='chat_list_each'
+											key={idx}
+											onClick={async () => {
+												await setChatIdx(idx);
+												_handleChatroom(true);
+											}}
+										>
+											{user.pictures.length > 0 ?
+												<img
+													src={process.env.PUBLIC_URL + `/tmp/${user.pictures[0].name}.${user.pictures[0].type}`}
+													alt=''
+													onClick={async (e) => {
+														e.stopPropagation();
+														await setProfile(user);
+														_handleViewProfile(e, true);
+													}}
+												/>
 												:
 												''
 											}
+											<div className='chat_thumbnail_container'>
+												{_ui.lang === 'en_US' ?
+													<p>{user.firstName} {user.lastName}</p>
+													:
+													<p>{user.lastName} {user.firstName}</p>
+												}
+												{chat.messages.length > 0 ?
+													<span>{message[message.length - 1].content}</span>
+													:
+													''
+												}
+											</div>
+											<div className='chat_delete_container'>
+												<BiXCircle className='chat_delete_btn' onClick={(e) => _handleDeleteChat(e)} />
+											</div>
 										</div>
-										<div className='chat_delete_container'>
-											<BiXCircle className='chat_delete_btn' onClick={(e) => _handleDeleteChat(e)} />
-										</div>
-									</div>
-								);
-							})
-							:
-							''
-						}
-					</div>
-					<Chatroom index={chatIdx} />
-				</>
-			}
-		</div>
+									);
+								})
+								:
+								''
+							}
+						</div>
+						<Chatroom index={chatIdx} />
+					</>
+				}
+			</div>
+			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
+		</>
 	);
 };
 

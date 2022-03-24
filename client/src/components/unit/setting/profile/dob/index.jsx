@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BiCheckSquare } from 'react-icons/bi';
+
+import ErrorAlert from '../../../../util/errorAlert';
 
 import { putUserDob } from '../../../../../datas';
 import { Year, Month, Date } from '../util';
@@ -9,6 +12,7 @@ const Component = () => {
 
 	const _ui = useSelector(state => state.ui);
 	const _user = useSelector(state => state.user);
+	const [alertView, setAlertView] = useState(false);
 	const dispatch = useDispatch();
 
 	const _handleDOB = (e) => {
@@ -27,30 +31,33 @@ const Component = () => {
 				if (res.status === 200) {
 					dispatch(user_dob(year + '-' + month + '-' + date));
 				} else {
-					console.log('handle error');
+					setAlertView(!alertView);
 				}
 			});
 		}
 	};
 
 	return (
-		<div className='section'>
-			{_ui.lang === 'en_US' ?
-				<span>Date of Birth</span>
-				:
-				<span>생년월일</span>
-			}
-			<select id='birth_year' defaultValue={_user.dateOfBirth !== null ? _user.dateOfBirth.slice(0, 4) : 'default'}>
-				<Year />
-			</select>
-			<select id='birth_month' defaultValue={_user.dateOfBirth !== null ? _user.dateOfBirth.slice(5, 7) : 'default'}>
-				<Month />
-			</select>
-			<select id='birth_date' defaultValue={_user.dateOfBirth !== null ? _user.dateOfBirth.slice(8, 10) : 'default'}>
-				<Date />
-			</select>
-			<BiCheckSquare className='check_btn' onClick={(e) => _handleDOB(e)} />
-		</div>
+		<>
+			<div className='section'>
+				{_ui.lang === 'en_US' ?
+					<span>Date of Birth</span>
+					:
+					<span>생년월일</span>
+				}
+				<select id='birth_year' defaultValue={_user.dateOfBirth !== null ? _user.dateOfBirth.slice(0, 4) : 'default'}>
+					<Year />
+				</select>
+				<select id='birth_month' defaultValue={_user.dateOfBirth !== null ? _user.dateOfBirth.slice(5, 7) : 'default'}>
+					<Month />
+				</select>
+				<select id='birth_date' defaultValue={_user.dateOfBirth !== null ? _user.dateOfBirth.slice(8, 10) : 'default'}>
+					<Date />
+				</select>
+				<BiCheckSquare className='check_btn' onClick={(e) => _handleDOB(e)} />
+			</div>
+			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
+		</>
 	);
 };
 

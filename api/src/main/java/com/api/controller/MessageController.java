@@ -1,6 +1,6 @@
 package com.api.controller;
 
-import com.api.model.Stomp;
+import com.api.wrapper.Stomp;
 import com.api.service.MessageService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;

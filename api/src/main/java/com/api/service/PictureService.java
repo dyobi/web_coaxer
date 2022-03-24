@@ -1,7 +1,7 @@
 package com.api.service;
 
 import com.api.model.Picture;
-import com.api.model.Response;
+import com.api.wrapper.Response;
 import com.api.model.User;
 import com.api.repository.PictureRepository;
 import com.api.repository.UserRepository;

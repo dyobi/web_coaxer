@@ -24,7 +24,7 @@ export const postHookup = (from, to, cb) => {
 		to
 	};
 
-	Axios.post(url, { params: data })
+	Axios.post(url, {}, { params: data })
 		.then(res => {
 			cb(res.data);
 		})

@@ -1,4 +1,4 @@
-package com.api.model;
+package com.api.wrapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -29,9 +29,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "((3959 * acos(cos(radians(:#{#user.latitude})) * cos(radians(latitude)) * cos(radians(longitude) - " +
             "radians(:#{#user.longitude})) + sin(radians(:#{#user.latitude})) * sin(radians(latitude))) " +
             "<= :#{#user.preferredMaxRange}) OR :#{#user.preferredMaxRange} = 310) AND last_name IS NOT NULL AND " +
-            "first_name IS NOT NULL AND bio IS NOT NULL AND date_of_birth IS NOT NULL AND " +
-            "latitude IS NOT NULL AND longitude IS NOT NULL AND (SELECT COUNT(*) FROM picture WHERE user_id = user.id) > 0 " +
-            "ORDER BY distance",
+            "first_name IS NOT NULL AND bio IS NOT NULL AND date_of_birth IS NOT NULL AND latitude IS NOT NULL AND " +
+            "longitude IS NOT NULL AND (SELECT COUNT(*) FROM picture WHERE user_id = user.id) > 0 AND " +
+            "id NOT IN (SELECT to_id FROM hookup WHERE from_id = :#{#user.id}) ORDER BY distance",
             nativeQuery = true)
     ArrayList<User> getIdealUsers(@Param("user") User user);
 

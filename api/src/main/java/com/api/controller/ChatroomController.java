@@ -1,6 +1,6 @@
 package com.api.controller;
 
-import com.api.model.Response;
+import com.api.wrapper.Response;
 import com.api.service.ChatroomService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
