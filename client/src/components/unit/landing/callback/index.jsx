@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { deviceType, osName, osVersion, browserName, browserVersion } from 'react-device-detect';
 
 import Alert from '../../alert';
 import { user_data } from '../../../../store/actions';
@@ -10,6 +11,8 @@ import {
 	getUser,
 	postUser,
 	putUserSocialType,
+	postLog,
+
 	requestGoogleToken,
 	requestGoogleProfile,
 	requestFacebookToken,
@@ -45,24 +48,34 @@ const Component = () => {
 	const _handleLogin = (email) => {
 		getUser(email, res => {
 			if (res.status === 200) {
-				dispatch(user_data({
-					id: res.obj.id,
-					email: res.obj.email,
-					firstName: res.obj.firstName,
-					lastName: res.obj.lastName,
-					dateOfBirth: res.obj.dateOfBirth,
-					gender: res.obj.gender,
-					bio: res.obj.bio,
-					latitude: res.obj.latitude,
-					longitude: res.obj.longitude,
-					notification: res.obj.notification,
-					preferredGender: res.obj.preferredGender,
-					preferredMinAge: res.obj.preferredMinAge,
-					preferredMaxAge: res.obj.preferredMaxAge,
-					preferredMaxRange: res.obj.preferredMaxRange,
-					pictures: res.obj.pictures
-				}));
-				navigate('/home');
+				const user = res.obj;
+				const device = `${deviceType === '' ? 'PC' : deviceType.toUpperCase()}`;
+				const info = `${osName} ${osVersion} - ${browserName} ${browserVersion}`;
+
+				postLog(user.id, device, info, res => {
+					if (res.status === 200) {
+						dispatch(user_data({
+							id: user.id,
+							email: user.email,
+							firstName: user.firstName,
+							lastName: user.lastName,
+							dateOfBirth: user.dateOfBirth,
+							gender: user.gender,
+							bio: user.bio,
+							latitude: user.latitude,
+							longitude: user.longitude,
+							notification: user.notification,
+							preferredGender: user.preferredGender,
+							preferredMinAge: user.preferredMinAge,
+							preferredMaxAge: user.preferredMaxAge,
+							preferredMaxRange: user.preferredMaxRange,
+							pictures: user.pictures
+						}));
+						navigate('/home');
+					} else {
+						_handleErrorAlert();
+					}
+				});
 			} else {
 				_handleErrorAlert();
 			}

@@ -106,7 +106,7 @@ const Component = ({ usingFor, user, _handleLikes }) => {
 							_ui.lang === 'en_US' ?
 								<>
 									<p>Distance</p>
-									<span>{(user.distance).toFixed(2)} miles away</span>
+									<span>{(user.distance * 1).toFixed(2)} miles away</span>
 									<hr style={{ width: '100%', margin: '0', padding: '0' }} />
 									<p>Age</p>
 									<span>{user.dateOfBirth.replace(/-/gi, '.')} / {user.age}</span>

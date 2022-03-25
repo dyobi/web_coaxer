@@ -34,7 +34,7 @@ const Component = () => {
 				setIndex(-1);
 				setIdealUsers(splicedIdealUsers);
 			} else {
-				setAlertView(!alertView)
+				setAlertView(!alertView);
 			}
 		});
 	};

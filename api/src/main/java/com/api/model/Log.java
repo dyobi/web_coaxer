@@ -9,27 +9,30 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 
 @Entity @Getter @Setter
 @DynamicInsert @DynamicUpdate
 @NoArgsConstructor @AllArgsConstructor
-public class Picture {
+@EntityListeners(AuditingEntityListener.class)
+public class Log {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @JsonIgnore @ManyToOne @JoinColumn(name = "user_id")
+    @JsonIgnore @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @NotEmpty @Column(unique = true)
-    private String name;
+    private String deviceType;
 
-    private String path;
+    private String info;
 
-    private String type;
+    @CreatedDate
+    private LocalDateTime logDate;
 
 }

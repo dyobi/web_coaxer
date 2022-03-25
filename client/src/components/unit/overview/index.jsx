@@ -2,115 +2,145 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import Interceptor from '../../util/interceptor';
-import { getHookupOverview } from '../../../datas';
+import ErrorAlert from '../../util/errorAlert';
+import { getHookupOverview, getLog } from '../../../datas';
 
 import './index.css';
 
-import Temp from '../../../assets/images/1.jpg';
+const Overview = ({ type, enTitle, krTitle, enDesc, krDesc, bgc, obj }) => {
+
+	const _ui = useSelector(state => state.ui);
+
+	return (
+		<>
+			{obj ?
+				<div className='overview_each' style={{ backgroundColor: `${bgc}` }}>
+					{_ui.lang === 'en_US' ?
+						<h3>{enTitle}</h3>
+						:
+						<h3>{krTitle}</h3>
+					}
+					<div className='section_divider' />
+					{type === 'overview' ?
+						<div className='overview_content'>
+							{obj.length > 0 ?
+								obj.slice(0, 5).reverse().map((user, idx) =>
+									<div className='overview_user' key={idx}>
+										{user.pictures.length > 0 ?
+											<img
+												src={process.env.PUBLIC_URL + `/tmp/${user.pictures[0].name}.${user.pictures[0].type}`}
+												alt=''
+											/>
+											:
+											''
+										}
+										{_ui.lang === 'en_US' ?
+											<span>{user.firstName} {user.lastName}</span>
+											:
+											<span>{user.lastName} {user.firstName}</span>
+										}
+									</div>
+								)
+								:
+								_ui.lang === 'en_US' ?
+									<h4>{enDesc}</h4>
+									:
+									<h4>{krDesc}</h4>
+							}
+						</div>
+						:
+						<div className='log_content'>
+							{obj.length > 0 ?
+								obj.map((log, idx) =>
+									<h4 key={idx}>[{log.deviceType}] {log.info} - {log.logDate.replace('T', ' ')}</h4>
+								)
+								:
+								''
+							}
+						</div>
+					}
+				</div>
+				:
+				''
+			}
+		</>
+	);
+}
 
 const Component = () => {
 
-	const _ui = useSelector(state => state.ui);
 	const _user = useSelector(state => state.user);
+	const [alertView, setAlertView] = useState(false);
+	const [overview, setOverview] = useState({});
+	const [log, setLog] = useState({});
 
 	useEffect(() => {
 		if (_user.id !== -1) {
 			getHookupOverview(_user.id, res => {
 				if (res.status === 200) {
-					console.log(res.obj);
+					setOverview(res.obj);
 				} else {
-
+					setAlertView(!alertView);
 				}
-			})
+			});
+			getLog(_user.id, res => {
+				if (res.status === 200) {
+					setLog(res.obj);
+				} else {
+					setAlertView(!alertView);
+				}
+			});
 		}
-	}, [_user.id]);
+	}, [_user.id, alertView]);
 
 	return (
-		<div className='overview_container'>
-			{_user.id === -1 || !_user.isComplete ?
-				<Interceptor />
-				:
-				<>
-					<div className='overview_each' style={{ backgroundColor: 'var(--color-10)' }}>
-						{_ui.lang === 'en_US' ?
-							<h3>Who Liked Me Recently ?</h3>
-							:
-							<h3>최근 내가 관심있는 사람 ?</h3>
-						}
-						<div className='section_divider' />
-						<div className='overview_content'>
-							<div className='overview_user'>
-								<img src={Temp} alt='' />
-								<span>hello</span>
-							</div>
-							{_ui.lang === 'en_US' ?
-								<h4>Can't find your ideal partner yet?</h4>
-								:
-								<h4>아직 마음에 드는 사람을 못찾으셨나요?</h4>
-							}
-						</div>
-					</div>
-					<div className='overview_each' style={{ backgroundColor: '#FAFAFA' }}>
-						{_ui.lang === 'en_US' ?
-							<h3>Whom I Liked Recently ?</h3>
-							:
-							<h3>최근 나에게 관심있는 사람 ?</h3>
-						}
-						<div className='section_divider' />
-						<div className='overview_content'>
-							<div className='overview_user'>
-								<img src={Temp} alt='' />
-								<span>hello</span>
-							</div>
-							{_ui.lang === 'en_US' ?
-								<h4>Sorry, currently no one exists yet.</h4>
-								:
-								<h4>남들의 이목을 끌 수 있는 사진을 올려볼까요?</h4>
-							}
-						</div>
-					</div>
-					<div className='overview_each' style={{ backgroundColor: 'var(--color-10)' }}>
-						{_ui.lang === 'en_US' ?
-							<h3>We Just Got Matched !</h3>
-							:
-							<h3>나와 매치된 사람 !</h3>
-						}
-						<div className='section_divider' />
-						<div className='overview_content'>
-							<div className='overview_user'>
-								<img src={Temp} alt='' />
-								<span>hello</span>
-							</div>
-							{_ui.lang === 'en_US' ?
-								<h4>There is none yet. Go get your one!</h4>
-								:
-								<h4>매칭된 사람이 아직 없어요. 하지만 좌절하진 마세요 )</h4>
-							}
-						</div>
-					</div>
-					<div className='overview_each' style={{ backgroundColor: '#FAFAFA' }}>
-						{_ui.lang === 'en_US' ?
-							<h3>Logs</h3>
-							:
-							<h3>로그 기록</h3>
-						}
-						<div className='section_divider' />
-						<div className='log_content'>
-							<h4>2000 - 201- - mac goa</h4>
-							<h4>2000 - 201- - mac goa</h4>
-							<h4>2000 - 201- - mac goa</h4>
-							<h4>2000 - 201- - mac goa</h4>
-							<h4>2000 - 201- - mac goa</h4>
-							<h4>2000 - 201- - mac goa</h4>
-							<h4>2000 - 201- - mac goa</h4>
-							<h4>2000 - 201- - mac goa</h4>
-							<h4>2000 - 201- - mac goa</h4>
-							<h4>2000 - 201- - mac goa</h4>
-						</div>
-					</div>
-				</>
-			}
-		</div>
+		<>
+			<div className='overview_container'>
+				{_user.id === -1 || !_user.isComplete ?
+					<Interceptor />
+					:
+					<>
+						<Overview
+							type={'overview'}
+							enTitle={'Who Liked Me Recently ?'}
+							krTitle={'최근 내가 관심있는 사람 ?'}
+							enDesc={'Can\'t find your ideal partner yet?'}
+							krDesc={'아직 마음에 드는 사람을 못찾으셨나요?'}
+							bgc={'var(--color-10)'}
+							obj={overview.fromOther}
+						/>
+						<Overview
+							type={'overview'}
+							enTitle={'Whom I Liked Recently ?'}
+							krTitle={'최근 나에게 관심있는 사람 ?'}
+							enDesc={'Sorry, currently no one exists yet.'}
+							krDesc={'남들의 이목을 끌 수 있는 사진을 올려볼까요?'}
+							bgc={'#FAFAFA'}
+							obj={overview.fromMe}
+						/>
+						<Overview
+							type={'overview'}
+							enTitle={'We Just Got Matched !'}
+							krTitle={'나와 매치된 사람 !'}
+							enDesc={'There is none yet. Go get your one!'}
+							krDesc={'매칭된 사람이 아직 없어요. 하지만 좌절하진 마세요 )'}
+							bgc={'var(--color-10)'}
+							obj={overview.matched}
+						/>
+						<Overview
+							type={'logs'}
+							enTitle={'Logs'}
+							krTitle={'로그 기록'}
+							enDesc={''}
+							krDesc={''}
+							bgc={'#FAFAFA'}
+							obj={log}
+						/>
+					</>
+				}
+			</div>
+			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
+		</>
 	);
 };
 

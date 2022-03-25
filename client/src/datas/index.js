@@ -41,6 +41,11 @@ import {
 	getChatroom
 } from './chatroom';
 
+import {
+	getLog,
+	postLog
+} from './log';
+
 export {
 	checkEmail,
 	getUser,
@@ -67,6 +72,9 @@ export {
 	postHookup,
 
 	getChatroom,
+
+	getLog,
+	postLog,
 
 	requestGoogleToken,
 	requestGoogleProfile,
