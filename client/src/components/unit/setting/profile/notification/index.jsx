@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BiCheckSquare } from 'react-icons/bi';
 
+import Submit from '../button';
 import ErrorAlert from '../../../../util/errorAlert';
 
 import { putUserNotification } from '../../../../../datas';
@@ -54,7 +54,7 @@ const Component = () => {
 						<input type={'radio'} name='notification' value={false} defaultChecked={!_user.notification ? true : false} />
 					</div>
 				</div>
-				<BiCheckSquare className='check_btn' onClick={(e) => _handleNotification(e)} />
+				<Submit onClick={(e) => _handleNotification(e)} />
 			</div>
 			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
 		</>

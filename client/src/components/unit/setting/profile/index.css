@@ -108,21 +108,84 @@
 	border: 2px solid var(--color-80);
 }
 
-.profile_setting_container>.section>.check_btn,
-.profile_setting_container>.section_wide>div>.check_btn {
+.submit_btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	margin: 0 14px 0 auto;
-	width: 26px;
-	height: 26px;
+	width: 60px;
+	height: 24px;
+
+	background-color: white;
 	color: var(--color-60);
 
+	border: 2px solid var(--color-60);
+	border-radius: 16px;
+
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: -0.2px;
+
 	cursor: pointer;
-	transition: 300ms;
+	overflow: hidden;
+	transition: all 300ms;
 }
 
-.profile_setting_container>.section>.check_btn:hover,
-.profile_setting_container>.section_wide>div>.check_btn:hover {
+.submit_btn:hover {
+	background: var(--color-60);
+	color: #fff;
+}
+
+.submit_btn>span {
+	position: relative;
+	opacity: 1;
+	visibility: visible;
+	transition: all 300ms;
+}
+
+.submit_btn>.success {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+
+	width: 24px;
+	height: 24px;
+	background: #fff;
+	border-radius: 50%;
+	z-index: 1;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 300ms;
+}
+
+.submit_btn>.success>.success_icon {
+	margin-top: 50%;
+	width: 22px;
+	height: 22px;
 	color: var(--color-100);
-	animation: btn_animation 800ms linear infinite;
+	transform-origin: 50% 50%;
+	transform: translateY(-50%) rotate(0deg) scale(0);
+	transition: all 300ms;
+}
+
+.submit_btn.is_active {
+	width: 24px;
+	height: 24px;
+}
+
+.submit_btn.is_active>.success {
+	opacity: 1;
+	visibility: visible;
+}
+
+.submit_btn.is_active>.success>.success_icon {
+	transform: translateY(-50%) rotate(720deg) scale(1);
+}
+
+.submit_btn.is_active>span {
+	opacity: 0;
+	visibility: hidden;
 }
 
 .profile_setting_container>.section>select {
@@ -256,7 +319,7 @@
 	max-height: 140px;
 
 	border-radius: 8px;
-	
+
 	overflow: hidden;
 	transition: 300ms;
 }
@@ -272,7 +335,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
+
 	-webkit-box-shadow: 0 0 2px var(--color-100) inset;
 	box-shadow: 0 0 2px var(--color-100) inset;
 
@@ -373,3 +436,9 @@
 		transform: scale(1.2);
 	}
 }
+
+
+
+
+
+

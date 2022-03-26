@@ -165,7 +165,7 @@
 }
 
 .chat_container>.chatroom>.chatroom_title>.back_btn {
-	flex-basis: 10%;
+	flex-basis: 38px;
 
 	width: 38px;
 	height: 38px;
@@ -181,7 +181,7 @@
 }
 
 .chat_container>.chatroom>.chatroom_title>.chatroom_name {
-	flex-basis: calc(80% - 20px);
+	flex-basis: calc(100% - 76px);
 
 	font-size: 20px;
 	font-weight: 500;
@@ -195,15 +195,15 @@
 	flex-direction: column;
 
 	margin-top: 5px;
+	padding: 5px 0;
 	width: calc(100% - 40px);
-	height: 466px;
+	height: 456px;
 
 	border-radius: 12px;
 	background-color: #FAFAFA;
 
 	color: darkslategray;
-	font-family: 'Segoe UI';
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 400;
 
 	cursor: pointer;
@@ -217,6 +217,13 @@
 .chat_container>.chatroom>.chats:active {
 	cursor: grabbing;
 	cursor: -webkit-grabbing;
+}
+
+.chat_container>.chatroom>.chats>span {
+	margin: 12px 0;
+
+	font-weight: 600;
+	text-align: center;
 }
 
 .chat_container>.chatroom>.chats>.from_me {

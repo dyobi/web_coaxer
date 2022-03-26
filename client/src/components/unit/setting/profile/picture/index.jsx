@@ -65,7 +65,6 @@ const Component = () => {
 	};
 
 	$(() => {
-
 		const slider = document.querySelector('.picture_container');
 		let isDown = false;
 		let startX;
@@ -95,7 +94,6 @@ const Component = () => {
 			const walk = (x - startX) * 1.2;
 			slider.scrollLeft = scrollLeft - walk;
 		});
-
 	});
 
 	return (

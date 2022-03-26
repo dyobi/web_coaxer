@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Slider from 'react-slider';
-import { BiCheckSquare } from 'react-icons/bi';
 
+import Submit from '../button';
 import ErrorAlert from '../../../../util/errorAlert';
 
 import { putUserPreferredAgeRange } from '../../../../../datas';
@@ -57,7 +57,7 @@ const Component = () => {
 						<span>{range[0]} ~ {range[1]}</span>
 					}
 				</div>
-				<BiCheckSquare className='check_btn' onClick={(e) => _handlePreferredAgeRange(e)} />
+				<Submit onClick={(e) => _handlePreferredAgeRange(e)} />
 			</div>
 			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
 		</>

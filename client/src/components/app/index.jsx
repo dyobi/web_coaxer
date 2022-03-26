@@ -111,7 +111,7 @@ const Component = () => {
 
 		_handleUser();
 
-		if (_user.id !== -1 && position.length !== 0) {
+		if (_user.id !== -1 && Object.keys(position).length > 0) {
 			putPosition(_user.email, position.lat, position.long, res => {
 				if (res === 200) {
 					dispatch(user_latitude(position.lat));

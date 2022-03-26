@@ -17,7 +17,7 @@ const Component = ({ index }) => {
 	if (index !== -1 && _user.chat[index].id !== undefined) {
 		_other = _user.chat[index].user1.id === _user.id ? _user.chat[index].user2 : _user.chat[index].user1;
 	}
-	
+
 	const _inputFocus = (status) => {
 		if (status) {
 			$('.chat_input_container').css('box-shadow', '0 0 4px var(--color-40), 0 0 0 2px var(--color-80) inset');
@@ -46,19 +46,21 @@ const Component = ({ index }) => {
 	};;
 
 	const _handleChatroom = (setVal) => {
-		if (setVal) {
-			$('.chat_list').css('width', '60%');
-			$('.chat_delete_btn').css('visibility', 'hidden');
-			$('.chat_delete_btn').css('opacity', '0');
-			$('.chatroom').css('flex-basis', '100%');
-		} else {
-			$('.chat_list').css('width', '100%');
-			$('.chat_delete_btn').css('visibility', 'visible');
-			$('.chat_delete_btn').css('opacity', '1');
-			$('.chatroom').css('flex-basis', '0');
+		setTimeout(() => {
+			if (setVal) {
+				$('.chat_list').css('width', '60%');
+				$('.chat_delete_btn').css('visibility', 'hidden');
+				$('.chat_delete_btn').css('opacity', '0');
+				$('.chatroom').css('flex-basis', '100%');
+			} else {
+				$('.chat_list').css('width', '100%');
+				$('.chat_delete_btn').css('visibility', 'visible');
+				$('.chat_delete_btn').css('opacity', '1');
+				$('.chatroom').css('flex-basis', '0');
 
-			$('.chats').scrollTop($('.chats')[0].scrollHeight);
-		}
+				$('.chats').scrollTop($('.chats')[0].scrollHeight);
+			}
+		}, 100);
 	};
 
 	$(() => {
@@ -150,7 +152,10 @@ const Component = ({ index }) => {
 									</div>
 							)
 							:
-							''
+							_ui.lang === 'en_US' ?
+								<span>There's no messages yet.</span>
+								:
+								<span>아직 메세지가 없어요.</span>
 						}
 					</div>
 					<div className='chat_input_container'>

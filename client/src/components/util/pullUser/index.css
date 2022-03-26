@@ -157,6 +157,7 @@
 	color: #556666;
 	font-size: 16px;
 	font-weight: 400;
+	white-space: pre-line;
 }
 
 @keyframes like_animation {

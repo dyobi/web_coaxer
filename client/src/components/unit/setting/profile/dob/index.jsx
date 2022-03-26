@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BiCheckSquare } from 'react-icons/bi';
 
+import Submit from '../button';
 import ErrorAlert from '../../../../util/errorAlert';
 
 import { putUserDob } from '../../../../../datas';
@@ -54,7 +54,7 @@ const Component = () => {
 				<select id='birth_date' defaultValue={_user.dateOfBirth !== null ? _user.dateOfBirth.slice(8, 10) : 'default'}>
 					<Date />
 				</select>
-				<BiCheckSquare className='check_btn' onClick={(e) => _handleDOB(e)} />
+				<Submit onClick={(e) => _handleDOB(e)} />
 			</div>
 			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
 		</>

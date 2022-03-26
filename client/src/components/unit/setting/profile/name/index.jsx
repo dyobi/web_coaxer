@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BiCheckSquare } from 'react-icons/bi';
 
+import Submit from '../button';
 import ErrorAlert from '../../../../util/errorAlert';
 
 import { putUserLastName, putUserFirstName } from '../../../../../datas';
@@ -16,7 +16,7 @@ export const LastName = () => {
 
 	const _handleLastName = (e) => {
 		e.preventDefault();
-
+		
 		const lastName = document.getElementById('lastName').value;
 
 		putUserLastName(_user.email, lastName, res => {
@@ -37,7 +37,7 @@ export const LastName = () => {
 					<span>성</span>
 				}
 				<input id='lastName' type={'text'} className='input_name' defaultValue={_user.lastName} />
-				<BiCheckSquare className='check_btn' onClick={(e) => _handleLastName(e)} />
+				<Submit onClick={(e) => _handleLastName(e)} />
 			</div>
 			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
 		</>
@@ -74,7 +74,7 @@ export const FirstName = () => {
 					<span>이름</span>
 				}
 				<input id='firstName' type={'text'} className='input_name' defaultValue={_user.firstName} />
-				<BiCheckSquare className='check_btn' onClick={(e) => _handleFirstName(e)} />
+				<Submit onClick={(e) => _handleFirstName(e)} />
 			</div>
 			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
 		</>

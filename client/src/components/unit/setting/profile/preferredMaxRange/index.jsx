@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BiCheckSquare } from 'react-icons/bi';
 
+import Submit from '../button';
 import ErrorAlert from '../../../../util/errorAlert';
 
 import { putUserPreferredMaxRange } from '../../../../../datas';
@@ -68,7 +68,7 @@ const Component = () => {
 					</span>
 
 				</div>
-				<BiCheckSquare className='check_btn' onClick={(e) => _handlePreferredMaxRange(e)} />
+				<Submit onClick={(e) => _handlePreferredMaxRange(e)} />
 			</div>
 			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
 		</>

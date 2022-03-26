@@ -31,8 +31,6 @@ public class User {
 
     private Date dateOfBirth;
 
-    private Integer age;
-
     @Column(columnDefinition = "TINYINT")
     private boolean gender = false;
 
@@ -55,12 +53,16 @@ public class User {
 
     private Integer preferredMaxRange = 310;
 
-    private Float distance;
-
     @NotEmpty
     private String socialType;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<Picture> pictures = new ArrayList<>();
+
+    // Only For Wrapping
+    private Integer age;
+
+    // Only For Wrapping
+    private Float distance;
 
 }

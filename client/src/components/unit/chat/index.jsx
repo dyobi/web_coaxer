@@ -24,28 +24,33 @@ const Component = () => {
 	const [alertView, setAlertView] = useState(false);
 
 	const _handleChatroom = (setVal) => {
-		if (setVal) {
-			$('.chat_list').css('width', '60%');
-			$('.chat_delete_btn').css('visibility', 'hidden');
-			$('.chat_delete_btn').css('opacity', '0');
-			$('.chatroom').css('flex-basis', '100%');
-		} else {
-			$('.chat_list').css('width', '100%');
-			$('.chat_delete_btn').css('visibility', 'visible');
-			$('.chat_delete_btn').css('opacity', '1');
-			$('.chatroom').css('flex-basis', '0');
-		}
+		setTimeout(() => {
+			if (setVal) {
+				$('.chat_list').css('width', '60%');
+				$('.chat_delete_btn').css('visibility', 'hidden');
+				$('.chat_delete_btn').css('opacity', '0');
+				$('.chatroom').css('flex-basis', '100%');
+			} else {
+				$('.chat_list').css('width', '100%');
+				$('.chat_delete_btn').css('visibility', 'visible');
+				$('.chat_delete_btn').css('opacity', '1');
+				$('.chatroom').css('flex-basis', '0');
+			}
+		}, 100);
 	};
 
 	const _handleViewProfile = (e, setVal) => {
 		e.stopPropagation();
-		if (setVal) {
-			$('.chat_list').css('flex-basis', '0');
-			$('.pull_user_container').css('flex-basis', '100%');
-		} else {
-			$('.chat_list').css('flex-basis', '100%');
-			$('.pull_user_container').css('flex-basis', '0');
-		}
+
+		setTimeout(() => {
+			if (setVal) {
+				$('.chat_list').css('flex-basis', '0');
+				$('.pull_user_container').css('flex-basis', '100%');
+			} else {
+				$('.chat_list').css('flex-basis', '100%');
+				$('.pull_user_container').css('flex-basis', '0');
+			}
+		}, 100);
 	};
 
 	const _handleDeleteChat = (e) => {
@@ -105,6 +110,7 @@ const Component = () => {
 				slider.scrollTop = scrollTop - walk;
 			});
 		}
+
 	});
 
 	useEffect(() => {

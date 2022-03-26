@@ -29,10 +29,12 @@ const Component = () => {
 				let splicedIdealUsers = idealUsers;
 
 				$('.pull_user_container').css('flex-basis', '0');
-				splicedIdealUsers.splice(index, 1);
+				setTimeout(() => {
+					splicedIdealUsers.splice(index, 1);
 
-				setIndex(-1);
-				setIdealUsers(splicedIdealUsers);
+					setIndex(-1);
+					setIdealUsers(splicedIdealUsers);
+				}, 300);
 			} else {
 				setAlertView(!alertView);
 			}

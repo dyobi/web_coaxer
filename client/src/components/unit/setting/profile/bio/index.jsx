@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BiCheckSquare } from 'react-icons/bi';
 
+import Submit from '../button';
 import ErrorAlert from '../../../../util/errorAlert';
 
 import { putUserBio } from '../../../../../datas';
@@ -37,7 +37,7 @@ const Component = () => {
 						:
 						<span>자기소개</span>
 					}
-					<BiCheckSquare className='check_btn' onClick={(e) => _handleBio(e)} />
+					<Submit onClick={(e) => _handleBio(e)} />
 				</div>
 				<textarea name='bio' defaultValue={_user.bio} />
 			</div>
