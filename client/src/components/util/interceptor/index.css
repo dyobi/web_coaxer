@@ -46,7 +46,7 @@
 	width: 274px;
 	height: 54px;
 	color: white;
-	background: linear-gradient(to left top, var(--color-60), var(--color-100));
+	background: linear-gradient(to left top, var(--color-20), var(--color-80));
 
 	font-size: 17px;
 	font-weight: 600;
@@ -59,7 +59,31 @@
 }
 
 .interceptor_container>.interceptor>.interceptor_account_btn:hover {
-	opacity: 0.5;
+	opacity: 0.7;
+}
+
+.interceptor_container>.interceptor>.interceptor_account_btn>span {
+	display: inline-block;
+	position: relative;
+	transition: 500ms;
+}
+
+.interceptor_container>.interceptor>.interceptor_account_btn>span:after {
+	position: absolute;
+	content: '\00bb';
+	opacity: 0;
+	right: -16px;
+	visibility: hidden;
+	transition: 500ms;
+}
+
+.interceptor_container>.interceptor>.interceptor_account_btn:hover>span:after {
+	opacity: 1;
+	visibility: visible;
+}
+
+.interceptor_container>.interceptor>.interceptor_account_btn:hover>span {
+	padding-right: 16px;
 }
 
 .interceptor_container>.interceptor>.interceptor_description {
@@ -67,6 +91,7 @@
 	padding: 12px;
 	max-width: 400px;
 
+	color: darkslategray;
 	font-size: 14px;
 	font-weight: 600;
 	line-height: 20px;

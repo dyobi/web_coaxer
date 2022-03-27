@@ -121,7 +121,7 @@ const Component = () => {
 					if (stomp !== undefined) {
 						for (let i = 0; i < res.obj.length; i++) {
 							if (stomp._stompHandler._subscriptions[res.obj[i].id] === undefined) {
-								stomp.subscribe('/room/' + res.obj[i].id, (msg) => {
+								stomp.subscribe(`/room/${res.obj[i].id}`, (msg) => {
 									showChat(JSON.parse(msg.body), res.obj);
 								}, { id: res.obj[i].id });
 							}

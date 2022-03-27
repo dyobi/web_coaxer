@@ -33,9 +33,9 @@ const Component = () => {
 							onClick={() => setAccountView(!accountView)}
 						>
 							{_ui.lang === 'en_US' ?
-								'CREATE AN ACCOUNT'
+								<span>CREATE AN ACCOUNT</span>
 								:
-								'계정 만들기'
+								<span>계정 만들기</span>
 							}
 						</div>
 						:
@@ -43,9 +43,9 @@ const Component = () => {
 							onClick={() => navigate('/setting')}
 						>
 							{_ui.lang === 'en_US' ?
-								'GO TO SETTINGS'
+								<span>GO TO SETTINGS</span>
 								:
-								'기본정보 설정'
+								<span>기본정보 설정</span>
 							}
 						</div>
 					}

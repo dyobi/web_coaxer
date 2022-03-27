@@ -57,7 +57,7 @@
 	width: 320px;
 	height: 60px;
 	color: white;
-	background: linear-gradient(to left top, var(--color-60), var(--color-100));
+	background: linear-gradient(to left top, var(--color-40), var(--color-80));
 
 	font-size: 18px;
 	font-weight: 600;
@@ -70,7 +70,31 @@
 }
 
 .home_main_img_container>.home_account_btn:hover {
-	opacity: 0.5;
+	opacity: 0.7;
+}
+
+.home_main_img_container>.home_account_btn>span {
+	display: inline-block;
+	position: relative;
+	transition: 500ms;
+  }
+
+.home_main_img_container>.home_account_btn>span:after {
+	position:absolute;
+	content: '\00bb';
+	opacity: 0;
+	right: -16px;
+	visibility: hidden;
+	transition: 500ms;
+}
+
+.home_main_img_container>.home_account_btn:hover>span:after {
+	opacity: 1;
+	visibility: visible;
+}
+
+.home_main_img_container>.home_account_btn:hover>span {
+	padding-right: 16px;
 }
 
 @media (min-width: 700px) {

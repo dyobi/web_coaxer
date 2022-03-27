@@ -18,14 +18,19 @@ const Component = () => {
 		e.preventDefault();
 
 		const bio = document.querySelector(`textarea[name='bio']`).value;
+		const _blank = /^\s+|\s+$/g;
 
-		putUserBio(_user.email, bio, res => {
-			if (res.status === 200) {
-				dispatch(user_bio(bio));
-			} else {
-				setAlertView(!alertView);
-			}
-		});
+		if (bio.replace(_blank, '') !== '') {
+			putUserBio(_user.email, bio, res => {
+				if (res.status === 200) {
+					dispatch(user_bio(bio));
+				} else {
+					setAlertView(!alertView);
+				}
+			});
+		} else {
+			setAlertView(!alertView);
+		}
 	};
 
 	return (

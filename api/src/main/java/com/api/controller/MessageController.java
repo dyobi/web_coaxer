@@ -22,4 +22,5 @@ public class MessageController {
         messageService.postMessage(stomp.getRoomId(), stomp.getSender(), stomp.getContent());
         smt.convertAndSend("/room/" + stomp.getRoomId(), stomp);
     }
+
 }

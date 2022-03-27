@@ -90,7 +90,7 @@ const Component = () => {
 					if (res.status === 200) {
 						dispatch(user_chat(res.obj));
 						for (let i = 0; i < res.obj.length; i++) {
-							stomp.subscribe('/room/' + res.obj[i].id, (msg) => {
+							stomp.subscribe(`/room/${res.obj[i].id}`, (msg) => {
 								showChat(JSON.parse(msg.body), res.obj);
 							}, { id: res.obj[i].id });
 						}

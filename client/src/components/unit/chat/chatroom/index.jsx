@@ -31,15 +31,14 @@ const Component = ({ index }) => {
 
 		const content = $('textarea');
 		const _blank = /^\s+|\s+$/g;
+		const json = {
+			'roomId': _user.chat[index].id,
+			'sender': _user.id,
+			'content': content.val()
+		};
 
 		if (content.val().replace(_blank, '') !== '') {
-			stomp.send('/send/msg', {},
-				JSON.stringify({
-					'roomId': _user.chat[index].id,
-					'sender': _user.id,
-					'content': content.val()
-				})
-			);
+			stomp.send('/send/msg', {}, JSON.stringify(json));
 			content.val('');
 		}
 
@@ -69,7 +68,7 @@ const Component = ({ index }) => {
 
 			$('.chats').scrollTop($('.chats')[0].scrollHeight);
 
-			$('textarea').on('keydown', e => {
+			$('textarea').off('keypress').on('keypress', e => {
 				if (e.key === 'Enter' && !e.shiftKey) {
 					_sendChat(e);
 				}
@@ -159,8 +158,13 @@ const Component = ({ index }) => {
 						}
 					</div>
 					<div className='chat_input_container'>
-						<textarea className='chat_input' onFocus={() => _inputFocus(true)} onBlur={() => _inputFocus(false)} />
-						<div className='send_container' onClick={(e) => _sendChat(e)}>
+						<textarea className='chat_input'
+							onFocus={() => _inputFocus(true)}
+							onBlur={() => _inputFocus(false)}
+						/>
+						<div className='send_container'
+							onClick={(e) => _sendChat(e)}
+						>
 							<BiSend className='send_btn' />
 						</div>
 					</div>

@@ -16,16 +16,21 @@ export const LastName = () => {
 
 	const _handleLastName = (e) => {
 		e.preventDefault();
-		
-		const lastName = document.getElementById('lastName').value;
 
-		putUserLastName(_user.email, lastName, res => {
-			if (res.status === 200) {
-				dispatch(user_lastName(lastName));
-			} else {
-				setAlertView(!alertView);
-			}
-		});
+		const lastName = document.getElementById('lastName').value;
+		const _blank = /^\s+|\s+$/g;
+
+		if (lastName.replace(_blank, '') !== '') {
+			putUserLastName(_user.email, lastName, res => {
+				if (res.status === 200) {
+					dispatch(user_lastName(lastName));
+				} else {
+					setAlertView(!alertView);
+				}
+			});
+		} else {
+			setAlertView(!alertView);
+		}
 	};
 
 	return (
@@ -55,14 +60,19 @@ export const FirstName = () => {
 		e.preventDefault();
 
 		const firstName = document.getElementById('firstName').value;
+		const _blank = /^\s+|\s+$/g;
 
-		putUserFirstName(_user.email, firstName, res => {
-			if (res.status === 200) {
-				dispatch(user_firstName(firstName));
-			} else {
-				setAlertView(!alertView);
-			}
-		})
+		if (firstName.replace(_blank, '') !== '') {
+			putUserFirstName(_user.email, firstName, res => {
+				if (res.status === 200) {
+					dispatch(user_firstName(firstName));
+				} else {
+					setAlertView(!alertView);
+				}
+			});
+		} else {
+			setAlertView(!alertView);
+		}
 	};
 
 	return (
