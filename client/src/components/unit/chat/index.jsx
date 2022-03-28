@@ -68,11 +68,15 @@ const Component = () => {
 					id: -1,
 					sender: { id: msg.sender },
 					content: msg.content,
-					sendDate: ''
+					sendDate: new Date().toISOString().slice(0, 19)
 				});
 				break;
 			}
-		}
+		};
+
+		setTimeout(() => {
+			$('.chats').animate({ scrollTop: $('.chats')[0].scrollHeight }, 'slow');
+		}, 200);
 
 		dispatch(user_chat(appendedChat));
 
@@ -157,7 +161,7 @@ const Component = () => {
 									return (
 										<div className='chat_list_each'
 											key={idx}
-											onClick={async () => {
+											onClick={async (e) => {
 												await setChatIdx(idx);
 												_handleChatroom(true);
 											}}
@@ -194,7 +198,10 @@ const Component = () => {
 									);
 								})
 								:
-								''
+								_ui.lang === 'en_US' ?
+									<h3>There is no chatroom yet.</h3>
+									:
+									<h3>개설된 채팅방이 아직 없습니다.</h3>
 							}
 						</div>
 						<Chatroom index={chatIdx} />

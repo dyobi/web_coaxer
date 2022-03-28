@@ -15,6 +15,9 @@ import java.util.ArrayList;
 public class ChatroomService {
 
     @Setter(onMethod = @__({@Autowired}))
+    private MessageService messageService;
+
+    @Setter(onMethod = @__({@Autowired}))
     private UserRepository userRepository;
 
     @Setter(onMethod = @__({@Autowired}))
@@ -28,6 +31,11 @@ public class ChatroomService {
                 return new Response(400);
             } else {
                 ArrayList<Chatroom> res = chatroomRepository.findAllByUserId(id);
+
+                for (Chatroom room : res) {
+                    room.setMessages(null);
+                    room.setMessages(messageService.getMessage(room.getId(), id));
+                }
                 return new Response(200, res);
             }
         } catch (Exception e) {

@@ -42,7 +42,7 @@ const Component = ({ index }) => {
 			content.val('');
 		}
 
-	};;
+	};
 
 	const _handleChatroom = (setVal) => {
 		setTimeout(() => {
@@ -65,8 +65,6 @@ const Component = ({ index }) => {
 	$(() => {
 
 		if (index !== -1 && _other !== undefined) {
-
-			$('.chats').scrollTop($('.chats')[0].scrollHeight);
 
 			$('textarea').off('keypress').on('keypress', e => {
 				if (e.key === 'Enter' && !e.shiftKey) {
@@ -108,12 +106,15 @@ const Component = ({ index }) => {
 	});
 
 	useEffect(() => {
+
 		if (index !== -1 && _other !== undefined) {
-			$('.chats').scrollTop($('.chats')[0].scrollHeight);
+			$('.chats').scrollTop(0);
+			setTimeout(() => {
+				$('.chats').animate({ scrollTop: $('.chats')[0].scrollHeight }, 'slow');
+			}, 200);
 		}
 
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [_user.chat, index]);
+	}, [index, _other]);
 
 	return (
 		<>
@@ -136,7 +137,14 @@ const Component = ({ index }) => {
 						{_user.chat[index].messages.length > 0 ?
 							_user.chat[index].messages.map((msg, idx) =>
 								msg.sender.id === _user.id ?
-									<div className='from_me' key={idx}>{msg.content}</div>
+									<div className='from_me_container' key={idx}>
+										<div className='sendDate' style={{ alignItems: 'flex-end' }}>
+											<span>{msg.sendDate.substring(5, 10)}</span>
+											<span>{msg.sendDate.substring(11, 16)}</span>
+										</div>
+
+										<div className='from_me'>{msg.content}</div>
+									</div>
 									:
 									<div className='from_you_container' key={idx}>
 										{_other.pictures.length > 0 ?
@@ -148,6 +156,10 @@ const Component = ({ index }) => {
 											''
 										}
 										<div className='from_you'>{msg.content}</div>
+										<div className='sendDate' style={{ alignItems: 'flex-start' }}>
+											<span>{msg.sendDate.substring(5, 10)}</span>
+											<span>{msg.sendDate.substring(11, 16)}</span>
+										</div>
 									</div>
 							)
 							:

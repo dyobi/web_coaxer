@@ -31,6 +31,9 @@ public class Message {
 
     private String content;
 
+    @JsonIgnore @ManyToOne @OnDelete(action = OnDeleteAction.CASCADE)
+    private User visible;
+
     @CreatedDate
     private LocalDateTime sendDate;
 

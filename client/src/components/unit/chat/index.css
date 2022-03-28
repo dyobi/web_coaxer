@@ -31,6 +31,20 @@
 	cursor: -webkit-grabbing;
 }
 
+.chat_container>.chat_list>h3 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	width: 100%;
+	height: 100%;
+
+	color: darkslategray;
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 24px;
+}
+
 .chat_container>.chat_list>.chat_list_each {
 	display: flex;
 	align-items: center;
@@ -226,13 +240,25 @@
 	text-align: center;
 }
 
-.chat_container>.chatroom>.chats>.from_me {
+.sendDate {
+	align-self: flex-end;
+
+	display: flex;
+	flex-direction: column;
+
+	margin-bottom: 10px;
+	font-size: 7.6px;
+}
+
+.chat_container>.chatroom>.chats>.from_me_container {
 	align-self: flex-end;
 	display: flex;
 	align-items: center;
 	position: relative;
+}
 
-	margin: 6px 14px;
+.chat_container>.chatroom>.chats>.from_me_container>.from_me {
+	margin: 6px 14px 6px 8px;
 	padding: 6px 8px;
 	max-width: 260px;
 
@@ -262,7 +288,8 @@
 	align-items: center;
 	position: relative;
 
-	margin: 6px 12px;
+	margin: 6px 14px 6px 8px;
+	margin: 6px 8px 6px 14px;
 	padding: 6px 8px;
 	max-width: 260px;
 

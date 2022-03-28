@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import cookie from 'react-cookies';
 import Wrapper from 'react-div-100vh';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import $ from 'jquery';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 
@@ -45,22 +46,26 @@ const Component = () => {
 			dispatch(user_isComplete(true));
 		}
 	};
-	
+
 	const showChat = (msg, chat) => {
 
 		let appendedChat = chat;
-		
+
 		for (let i = 0; i < appendedChat.length; i++) {
 			if (appendedChat[i].id === msg.roomId) {
 				appendedChat[i].messages.push({
 					id: -1,
 					sender: { id: msg.sender },
 					content: msg.content,
-					sendDate: ''
+					sendDate: new Date().toISOString().slice(0, 19)
 				});
 				break;
 			}
-		}
+		};
+
+		setTimeout(() => {
+			$('.chats').animate({ scrollTop: $('.chats')[0].scrollHeight }, 'slow');
+		}, 200);
 
 		dispatch(user_chat(appendedChat));
 
@@ -99,6 +104,7 @@ const Component = () => {
 					}
 				})
 			});
+			stomp.debug = () => { };
 		} else if (stomp) {
 			stomp.disconnect();
 			stomp = undefined;
