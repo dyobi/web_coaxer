@@ -28,8 +28,10 @@ public class Log {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
+    @Column(columnDefinition = "VARCHAR(15)")
     private String deviceType;
 
+    @Column(columnDefinition = "VARCHAR(30)")
     private String info;
 
     @CreatedDate

@@ -7,7 +7,7 @@ import Chatroom from './chatroom';
 import Profile from '../../util/pullUser';
 import Interceptor from '../../util/interceptor';
 import ErrorAlert from '../../util/errorAlert';
-import { getChatroom } from '../../../datas';
+import { getChatroom, deleteMessage } from '../../../datas';
 import { user_chat } from '../../../store/actions';
 import { stomp } from '../../app';
 
@@ -53,9 +53,19 @@ const Component = () => {
 		}, 100);
 	};
 
-	const _handleDeleteChat = (e) => {
+	const _handleDeleteChat = (chat, idx, e) => {
 		e.stopPropagation();
-		console.log('delete');
+
+		deleteMessage(_user.id, chat.id, res => {
+			if (res.status === 200) {
+				let appendedChat = _user.chat;
+
+				appendedChat[idx].messages = [];
+				dispatch(user_chat(appendedChat));
+			} else {
+				setAlertView(!alertView);
+			}
+		});
 	};
 
 	const showChat = (msg, chat) => {
@@ -192,7 +202,10 @@ const Component = () => {
 												}
 											</div>
 											<div className='chat_delete_container'>
-												<BiXCircle className='chat_delete_btn' onClick={(e) => _handleDeleteChat(e)} />
+												<BiXCircle
+													className='chat_delete_btn'
+													onClick={(e) => _handleDeleteChat(chat, idx, e)}
+												/>
 											</div>
 										</div>
 									);

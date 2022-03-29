@@ -20,7 +20,7 @@ export const LastName = () => {
 		const lastName = document.getElementById('lastName').value;
 		const _blank = /^\s+|\s+$/g;
 
-		if (lastName.replace(_blank, '') !== '') {
+		if (lastName.replace(_blank, '') !== '' && lastName.length <= 15) {
 			putUserLastName(_user.email, lastName, res => {
 				if (res.status === 200) {
 					dispatch(user_lastName(lastName));
@@ -41,7 +41,13 @@ export const LastName = () => {
 					:
 					<span>성</span>
 				}
-				<input id='lastName' type={'text'} className='input_name' defaultValue={_user.lastName} />
+				<input
+					id='lastName'
+					type={'text'}
+					className='input_name'
+					defaultValue={_user.lastName}
+					maxLength={15}
+				/>
 				<Submit onClick={(e) => _handleLastName(e)} />
 			</div>
 			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
@@ -62,7 +68,7 @@ export const FirstName = () => {
 		const firstName = document.getElementById('firstName').value;
 		const _blank = /^\s+|\s+$/g;
 
-		if (firstName.replace(_blank, '') !== '') {
+		if (firstName.replace(_blank, '') !== '' && firstName.length <= 15) {
 			putUserFirstName(_user.email, firstName, res => {
 				if (res.status === 200) {
 					dispatch(user_firstName(firstName));
@@ -83,7 +89,13 @@ export const FirstName = () => {
 					:
 					<span>이름</span>
 				}
-				<input id='firstName' type={'text'} className='input_name' defaultValue={_user.firstName} />
+				<input
+					id='firstName'
+					type={'text'}
+					className='input_name'
+					defaultValue={_user.firstName}
+					maxLength={15}
+				/>
 				<Submit onClick={(e) => _handleFirstName(e)} />
 			</div>
 			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />

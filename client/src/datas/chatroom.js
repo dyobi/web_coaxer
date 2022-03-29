@@ -35,3 +35,36 @@ export const getChatroom = (id, cb) => {
 };
 
 /* ----------------------------------------------------- */
+
+/*
+	method: 
+		DELETE
+	url: 
+		/api/message
+	parameter: 
+		id
+	result:
+		status:
+			200: success
+			400: failure
+	using at:
+		Chat
+*/
+export const deleteMessage = (id, chatroomId, cb) => {
+
+	const url = '/api/message';
+	const data = {
+		id,
+		chatroomId
+	};
+
+	Axios.delete(url, { params: data })
+		.then(res => {
+			cb(res.data);
+		})
+		.catch(() => {
+			cb({ status: 400 });
+		});
+};
+
+/* ----------------------------------------------------- */

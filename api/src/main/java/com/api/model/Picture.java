@@ -25,11 +25,13 @@ public class Picture {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @NotEmpty @Column(unique = true)
+    @NotEmpty @Column(unique = true, columnDefinition = "VARCHAR(40)")
     private String name;
 
+    @Column(columnDefinition = "VARCHAR(50)")
     private String path;
 
+    @Column(columnDefinition = "VARCHAR(10)")
     private String type;
 
 }

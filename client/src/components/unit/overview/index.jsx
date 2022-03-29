@@ -103,7 +103,7 @@ const Component = () => {
 						<Overview
 							type={'overview'}
 							enTitle={'Who Liked Me Recently ?'}
-							krTitle={'최근 내가 관심있는 사람 ?'}
+							krTitle={'최근 나에게 관심 갖은 사람 ?'}
 							enDesc={'Can\'t find your ideal partner yet?'}
 							krDesc={'아직 마음에 드는 사람을 못찾으셨나요?'}
 							bgc={'var(--color-10)'}
@@ -112,7 +112,7 @@ const Component = () => {
 						<Overview
 							type={'overview'}
 							enTitle={'Whom I Liked Recently ?'}
-							krTitle={'최근 나에게 관심있는 사람 ?'}
+							krTitle={'최근 내가 선택한 사람 ?'}
 							enDesc={'Sorry, currently no one exists yet.'}
 							krDesc={'남들의 이목을 끌 수 있는 사진을 올려볼까요?'}
 							bgc={'#FAFAFA'}

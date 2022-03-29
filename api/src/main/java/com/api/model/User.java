@@ -22,11 +22,14 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty @Column(unique = true) @Email
+    @NotEmpty @Email
+    @Column(unique = true, columnDefinition = "VARCHAR(30)")
     private String email;
 
+    @Column(columnDefinition = "VARCHAR(15)")
     private String firstName;
 
+    @Column(columnDefinition = "VARCHAR(15)")
     private String lastName;
 
     private Date dateOfBirth;
@@ -53,7 +56,7 @@ public class User {
 
     private Integer preferredMaxRange = 310;
 
-    @NotEmpty
+    @NotEmpty @Column(columnDefinition = "VARCHAR(10)")
     private String socialType;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")

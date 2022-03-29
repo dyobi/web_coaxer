@@ -37,7 +37,7 @@ const Component = ({ index }) => {
 			'content': content.val()
 		};
 
-		if (content.val().replace(_blank, '') !== '') {
+		if (content.val().replace(_blank, '') !== '' && content.val().length <= 250) {
 			stomp.send('/send/msg', {}, JSON.stringify(json));
 			content.val('');
 		}
@@ -173,6 +173,7 @@ const Component = ({ index }) => {
 						<textarea className='chat_input'
 							onFocus={() => _inputFocus(true)}
 							onBlur={() => _inputFocus(false)}
+							maxLength={250}
 						/>
 						<div className='send_container'
 							onClick={(e) => _sendChat(e)}

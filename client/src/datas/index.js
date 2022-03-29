@@ -38,7 +38,8 @@ import {
 } from './hookup';
 
 import {
-	getChatroom
+	getChatroom,
+	deleteMessage
 } from './chatroom';
 
 import {
@@ -72,6 +73,7 @@ export {
 	postHookup,
 
 	getChatroom,
+	deleteMessage,
 
 	getLog,
 	postLog,

@@ -20,7 +20,7 @@ const Component = () => {
 		const bio = document.querySelector(`textarea[name='bio']`).value;
 		const _blank = /^\s+|\s+$/g;
 
-		if (bio.replace(_blank, '') !== '') {
+		if (bio.replace(_blank, '') !== '' && bio.length <= 500) {
 			putUserBio(_user.email, bio, res => {
 				if (res.status === 200) {
 					dispatch(user_bio(bio));
@@ -44,7 +44,7 @@ const Component = () => {
 					}
 					<Submit onClick={(e) => _handleBio(e)} />
 				</div>
-				<textarea name='bio' defaultValue={_user.bio} />
+				<textarea name='bio' maxLength={500} defaultValue={_user.bio} />
 			</div>
 			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
 		</>

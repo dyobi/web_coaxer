@@ -6,6 +6,7 @@ import com.api.model.User;
 import com.api.repository.ChatroomRepository;
 import com.api.repository.MessageRepository;
 import com.api.repository.UserRepository;
+import com.api.wrapper.Response;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,19 @@ public class MessageService {
             message2.setContent(content);
             message2.setVisible(chatroom.getUser2());
             messageRepository.save(message2);
+        }
+    }
+
+    public Response deleteMesssage(long user_id, long chat_id) {
+        try {
+            User visible = userRepository.findById(user_id).orElse(null);
+            Chatroom room = chatroomRepository.findById(chat_id).orElse(null);
+
+            messageRepository.deleteAllByRoomAndVisible(room, visible);
+            return new Response(200);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Response(400);
         }
     }
 }
