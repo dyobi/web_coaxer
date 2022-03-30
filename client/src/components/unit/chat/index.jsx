@@ -11,6 +11,9 @@ import { getChatroom, deleteMessage } from '../../../datas';
 import { user_chat } from '../../../store/actions';
 import { stomp } from '../../app';
 
+import NotificationGet from '../../../assets/sounds/notification_get.mp3';
+import NotificationSend from '../../../assets/sounds/notification_send.mp3';
+
 import './index.css';
 
 const Component = () => {
@@ -71,6 +74,12 @@ const Component = () => {
 	const showChat = (msg, chat) => {
 
 		let appendedChat = chat;
+
+		if (_user.id === msg.sender) {
+			document.getElementById('notification_send').play();
+		} else {
+			document.getElementById('notification_get').play();
+		}
 
 		for (let i = 0; i < appendedChat.length; i++) {
 			if (appendedChat[i].id === msg.roomId) {
@@ -231,6 +240,12 @@ const Component = () => {
 				}
 			</div>
 			<ErrorAlert alertView={alertView} setAlertView={() => setAlertView()} />
+			<audio id='notification_get' style={{ display: 'none' }} autoPlay=''>
+				<source src={NotificationGet} type='audio/mp3' />
+			</audio>
+			<audio id='notification_send' style={{ display: 'none' }} autoPlay=''>
+				<source src={NotificationSend} type='audio/mp3' />
+			</audio>
 		</>
 	);
 };
