@@ -33,6 +33,10 @@ const Component = () => {
 				$('.chat_delete_btn').css('visibility', 'hidden');
 				$('.chat_delete_btn').css('opacity', '0');
 				$('.chatroom').css('flex-basis', '100%');
+
+				setTimeout(() => {
+					$('.chats').animate({ scrollTop: $('.chats')[0].scrollHeight }, 'slow');
+				}, 200);
 			} else {
 				$('.chat_list').css('width', '100%');
 				$('.chat_delete_btn').css('visibility', 'visible');
@@ -71,14 +75,16 @@ const Component = () => {
 		});
 	};
 
-	const showChat = (msg, chat) => {
+	const showChat = (msg, chatList) => {
 
-		let appendedChat = chat;
+		let appendedChat = Object.keys(_user.chat).length === 0 ? chatList : _user.chat;
 
-		if (_user.id === msg.sender) {
-			document.getElementById('notification_send').play();
-		} else {
-			document.getElementById('notification_get').play();
+		if (_user.notification) {
+			if (_user.id === msg.sender) {
+				document.getElementById('notification_send').play();
+			} else {
+				document.getElementById('notification_get').play();
+			}
 		}
 
 		for (let i = 0; i < appendedChat.length; i++) {
@@ -97,16 +103,17 @@ const Component = () => {
 						sender: { id: msg.sender },
 						content: msg.content,
 						sendDate: new Date().toISOString().slice(0, 19)
-					}]
+					}];
+					break;
 				}
 			}
 		};
 
+		dispatch(user_chat(appendedChat));
+
 		setTimeout(() => {
 			$('.chats').animate({ scrollTop: $('.chats')[0].scrollHeight }, 'slow');
 		}, 200);
-
-		dispatch(user_chat(appendedChat));
 
 	};
 

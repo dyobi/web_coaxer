@@ -60,7 +60,7 @@ const Component = () => {
 					<>
 						<Maps
 							bootstrapURLKeys={{ key: GMAPS_API }}
-							defaultCenter={
+							center={
 								{
 									lat: _user.latitude,
 									lng: _user.longitude

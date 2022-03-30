@@ -21,7 +21,7 @@ const Component = () => {
 
 		putUserNotification(_user.email, notification, res => {
 			if (res.status === 200) {
-				dispatch(user_notification(Boolean(notification)));
+				dispatch(user_notification(JSON.parse(notification)));
 			} else {
 				setAlertView(!alertView);
 			}
