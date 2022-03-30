@@ -11,7 +11,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.ArrayList;
 
 @Service
 public class MessageService {
@@ -25,7 +25,7 @@ public class MessageService {
     @Setter(onMethod = @__({@Autowired}))
     private MessageRepository messageRepository;
 
-    public Set<Message> getMessage(long chat_id, long visible_id) {
+    public ArrayList<Message> getMessage(long chat_id, long visible_id) {
         try {
             return messageRepository.findByVisible(chat_id, visible_id);
         } catch (Exception e) {

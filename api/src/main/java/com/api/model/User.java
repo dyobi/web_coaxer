@@ -11,8 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity @Getter @Setter
 @DynamicInsert @DynamicUpdate
@@ -50,20 +50,20 @@ public class User {
     @Column(columnDefinition = "TINYINT")
     private boolean preferredGender = false;
 
-    private Integer preferredMinAge = 0;
+    private Short preferredMinAge = 0;
 
-    private Integer preferredMaxAge = 100;
+    private Short preferredMaxAge = 100;
 
-    private Integer preferredMaxRange = 310;
+    private Short preferredMaxRange = 310;
 
     @NotEmpty @Column(columnDefinition = "VARCHAR(10)")
     private String socialType;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private List<Picture> pictures = new ArrayList<>();
+    private Set<Picture> pictures = new HashSet<>();
 
     // Only For Wrapping
-    private Integer age;
+    private Short age;
 
     // Only For Wrapping
     private Float distance;

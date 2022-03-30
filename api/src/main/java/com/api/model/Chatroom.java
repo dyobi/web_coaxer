@@ -9,8 +9,8 @@ import org.hibernate.annotations.*;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.OrderBy;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity @Getter @Setter
 @DynamicInsert @DynamicUpdate
@@ -28,6 +28,6 @@ public class Chatroom {
 
     @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
     @OrderBy("sendDate asc")
-    private Set<Message> messages = new HashSet<>();
+    private List<Message> messages = new ArrayList<>();
     
 }

@@ -74,13 +74,22 @@ const Component = () => {
 
 		for (let i = 0; i < appendedChat.length; i++) {
 			if (appendedChat[i].id === msg.roomId) {
-				appendedChat[i].messages.push({
-					id: -1,
-					sender: { id: msg.sender },
-					content: msg.content,
-					sendDate: new Date().toISOString().slice(0, 19)
-				});
-				break;
+				if (appendedChat[i].messages.length > 0) {
+					appendedChat[i].messages.push({
+						id: appendedChat[i].messages[appendedChat[i].messages.length - 1].id + 1,
+						sender: { id: msg.sender },
+						content: msg.content,
+						sendDate: new Date().toISOString().slice(0, 19)
+					});
+					break;
+				} else {
+					appendedChat[i].messages = [{
+						id: 0,
+						sender: { id: msg.sender },
+						content: msg.content,
+						sendDate: new Date().toISOString().slice(0, 19)
+					}]
+				}
 			}
 		};
 
