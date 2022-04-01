@@ -41,7 +41,7 @@ export const getLog = (id, cb) => {
 	url: 
 		/api/log
 	parameter: 
-		id, info
+		id, deviceType, info
 	result:
 		status:
 			200: success

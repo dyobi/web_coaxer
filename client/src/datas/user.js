@@ -149,9 +149,9 @@ export const postUser = (
 	method: 
 		PUT
 	url: 
-		/api/user/firstName
+		/api/user/lastName
 	parameter: 
-		email, firstName
+		email, lastName
 	result:
 		status:
 			200 : success
