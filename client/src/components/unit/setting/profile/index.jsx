@@ -10,6 +10,7 @@ import Picture from './picture';
 import PreferredGender from './preferredGender';
 import PreferredAgeRange from './preferredAgeRange';
 import PreferredMaxRange from './preferredMaxRange';
+import DisableAccount from './disable';
 
 import { user_isComplete } from '../../../../store/actions';
 
@@ -68,6 +69,18 @@ const Component = () => {
 				<PreferredGender />
 				<PreferredAgeRange />
 				<PreferredMaxRange />
+			</>
+
+			{/* TITLE : Danger Zone */}
+			<>
+				<div className='section_title'>
+					{_ui.lang === 'en_US' ?
+						<span>Danger Zone</span>
+						:
+						<span>위험 지역</span>
+					}
+				</div>
+				<DisableAccount />
 			</>
 
 		</div>

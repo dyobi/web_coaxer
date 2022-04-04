@@ -1,8 +1,11 @@
 import { useEffect } from 'react';
-import $ from 'jquery';
+import { useSelector } from 'react-redux';
 import { BiCheck } from 'react-icons/bi';
+import $ from 'jquery';
 
 const Component = ({ onClick }) => {
+
+	const _ui = useSelector(state => state.ui);
 
 	useEffect(() => {
 
@@ -20,7 +23,11 @@ const Component = ({ onClick }) => {
 
 	return (
 		<div className='submit_btn' onClick={(e) => onClick(e)}>
-			<span>Submit</span>
+			{_ui.lang === 'en_US' ?
+				<span>Submit</span>
+				:
+				<span>확인</span>
+			}
 			<div className='success'>
 				<BiCheck className='success_icon' />
 			</div>

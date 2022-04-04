@@ -55,8 +55,8 @@ public class HookupService {
             } else {
                 hookupRepository.save(hookup);
 
-                if (!hookupRepository.existsByUsers(from, to) &&
-                        !chatroomRepository.existsByUsers(to, from)) {
+                if (!chatroomRepository.existsByUsers(from, to) &&
+                        hookupRepository.existsByUsers(from, to)) {
 
                     Chatroom chatroom = new Chatroom();
                     chatroom.setUser1(from_user);
