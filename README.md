@@ -153,6 +153,7 @@ Front-end default url : https://localhost:3000 / Back-end default url : http://l
 
 - Set your personal information including profile pictures
 - Set your preference of your ideal person
+- Changeable theme color
 
 ---
 
