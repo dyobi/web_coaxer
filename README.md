@@ -156,6 +156,13 @@ Front-end default url : https://localhost:3000 / Back-end default url : http://l
 
 ---
 
+## Document
+
+- Restful API Document : <a href="https://docs.google.com/document/d/1kbctOH3C_v5Nfn1ldkkX0KPw5BpUQ4WGck37fmrVb-A/edit?usp=sharing">`Google Docs`</a>
+- Database Document : <a href="https://docs.google.com/spreadsheets/d/10odso59XCuJZKs69PZLhTA8bEpkBBmoy93gOwLnbxVk/edit?usp=sharing">`Google Spread Sheet`</a>
+
+---
+
 ## Luke Kim (@kilkim in 42 Silicon Valley)
 
 - A Web developer who likes trying new things.
