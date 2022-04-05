@@ -21,7 +21,7 @@ const Component = () => {
 
 		putUserPreferredGender(_user.email, preferredGender, res => {
 			if (res.status === 200) {
-				dispatch(user_p_gender(Boolean(preferredGender)));
+				dispatch(user_p_gender(preferredGender === 'true' ? true : false));
 			} else {
 				setAlertView(!alertView);
 			}
@@ -43,7 +43,7 @@ const Component = () => {
 							:
 							<span>남성</span>
 						}
-						<input type={'radio'} name='preferredGender' value={false} defaultChecked={!_user.preferredGender ? true : false} />
+						<input type={'radio'} name='preferredGender' value={false} defaultChecked={_user.preferredGender ? false : true} />
 					</div>
 					<div className='radio_section'>
 						{_ui.lang === 'en_US' ?

@@ -21,7 +21,7 @@ const Component = () => {
 
 		putUserGender(_user.email, gender, res => {
 			if (res.status === 200) {
-				dispatch(user_gender(Boolean(gender)));
+				dispatch(user_gender(gender === 'true' ? true : false));
 			} else {
 				setAlertView(!alertView);
 			}

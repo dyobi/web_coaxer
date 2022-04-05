@@ -77,7 +77,7 @@ const Component = () => {
 
 	const showChat = (msg, chatList) => {
 
-		let appendedChat = Object.keys(_user.chat).length === 0 ? chatList : _user.chat;
+		const appendedChat = Object.keys(_user.chat).length !== Object.keys(chatList) ? chatList : _user.chat;
 
 		if (_user.notification) {
 			if (_user.id === msg.sender) {
@@ -87,7 +87,7 @@ const Component = () => {
 			}
 		}
 
-		for (let i = 0; i < appendedChat.length; i++) {
+		for (let i = 0; i < Object.keys(appendedChat).length; i++) {
 			if (appendedChat[i].id === msg.roomId) {
 				if (appendedChat[i].messages.length > 0) {
 					appendedChat[i].messages.push({
@@ -112,7 +112,9 @@ const Component = () => {
 		dispatch(user_chat(appendedChat));
 
 		setTimeout(() => {
-			$('.chats').animate({ scrollTop: $('.chats')[0].scrollHeight }, 'slow');
+			if (chatIdx !== -1) {
+				$('.chats').animate({ scrollTop: $('.chats')[0].scrollHeight }, 'slow');
+			}
 		}, 200);
 
 	};

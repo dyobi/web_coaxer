@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import cookie from 'react-cookies';
 import Wrapper from 'react-div-100vh';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import $ from 'jquery';
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 
@@ -50,48 +49,6 @@ const Component = () => {
 		}
 	};
 
-	const showChat = (msg, chatList) => {
-
-		let appendedChat = Object.keys(_user.chat).length === 0 ? chatList : _user.chat;
-
-		if (_user.notification) {
-			if (_user.id === msg.sender) {
-				document.getElementById('notification_send').play();
-			} else {
-				document.getElementById('notification_get').play();
-			}
-		}
-
-		for (let i = 0; i < appendedChat.length; i++) {
-			if (appendedChat[i].id === msg.roomId) {
-				if (appendedChat[i].messages.length > 0) {
-					appendedChat[i].messages.push({
-						id: appendedChat[i].messages[appendedChat[i].messages.length - 1].id + 1,
-						sender: { id: msg.sender },
-						content: msg.content,
-						sendDate: new Date().toISOString().slice(0, 19)
-					});
-					break;
-				} else {
-					appendedChat[i].messages = [{
-						id: 0,
-						sender: { id: msg.sender },
-						content: msg.content,
-						sendDate: new Date().toISOString().slice(0, 19)
-					}];
-					break;
-				}
-			}
-		};
-
-		dispatch(user_chat(appendedChat));
-
-		setTimeout(() => {
-			$('.chats').animate({ scrollTop: $('.chats')[0].scrollHeight }, 'slow');
-		}, 200);
-
-	};
-
 	window.onload = async () => {
 
 		const getCoords = async () => {
@@ -115,11 +72,6 @@ const Component = () => {
 				getChatroom(_user.id, res => {
 					if (res.status === 200) {
 						dispatch(user_chat(res.obj));
-						for (let i = 0; i < res.obj.length; i++) {
-							stomp.subscribe(`/room/${res.obj[i].id}`, (msg) => {
-								showChat(JSON.parse(msg.body), res.obj);
-							}, { id: res.obj[i].id });
-						}
 					}
 				})
 			});

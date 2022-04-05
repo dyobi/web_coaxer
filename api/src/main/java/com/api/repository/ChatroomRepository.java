@@ -19,7 +19,7 @@ public interface ChatroomRepository extends JpaRepository<Chatroom, Long> {
             nativeQuery = true)
     boolean existsByUsers(@Param("user1") long user1, @Param("user2") long user2);
 
-    @Query(value = "SELECT * FROM chatroom WHERE user1_id = :id OR user2_id = :id",
+    @Query(value = "SELECT * FROM chatroom WHERE user1_id = :id OR user2_id = :id ORDER BY id DESC",
             nativeQuery = true)
     ArrayList<Chatroom> findAllByUserId(long id);
 
