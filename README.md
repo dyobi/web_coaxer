@@ -1,8 +1,8 @@
-<a href="https://github.com/dyobi/WEBPJT_COAXER" title="header" alt="header">
-  <img src="https://github.com/dyobi/WEBPJT_COAXER/blob/main/client/src/assets/icons/logo.png" width="100" height="100" title="header" alt="header">
+<a href="https://github.com/dyobi/web_coaxer" title="header" alt="header">
+  <img src="https://github.com/dyobi/web_coaxer/blob/main/client/src/assets/icons/logo.png" width="100" height="100" title="header" alt="header">
 </a>
 
-# WEBPJT_COAXER
+# COAXER
 
 > A responsive Single Page Application(SPA) using React, Spring-boot
 
@@ -12,7 +12,7 @@
 
 ## Preview
 
-<img src="https://github.com/dyobi/WEBPJT_COAXER/blob/main/client/src/assets/images/PREVIEW.gif?raw=true" width="60%" title="preview" alt="preview">
+<img src="https://github.com/dyobi/web_coaxer/blob/main/client/src/assets/images/PREVIEW.gif?raw=true" width="60%" title="preview" alt="preview">
 
 ---
 
