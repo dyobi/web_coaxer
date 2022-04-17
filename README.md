@@ -29,7 +29,7 @@ Hello guys, Do you want to try this project yourself on your computer? Follow th
 The first step is cloning git repository from GitHub using `git clone` command.
 
 ```shell
-git clone https://github.com/dyobi/WEBPJT_COAXER.git && cd WEBPJT_COAXER
+git clone https://github.com/dyobi/web_coaxer.git && cd web_coaxer
 ```
 
 <br>
