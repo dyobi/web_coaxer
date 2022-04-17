@@ -61,20 +61,20 @@ cd client/src/constants && vim api.js
 ```
 
 ```shell
-// GOOGLE API
-export const GOOGLE_ID = 'Your Google Api Id';
-export const GOOGLE_SECRET = 'Your Google Api Secret';
+// GOOGLE Oauth API
+export const GOOGLE_ID = 'Your Google API Id';
+export const GOOGLE_SECRET = 'Your Google API Secret';
 
-// FACEBOOK API
-export const FACEBOOK_ID = 'Your Facebook Api Id';
-export const FACEBOOK_SECRET = 'Your Facebook Api Secret';
+// FACEBOOK Oauth API
+export const FACEBOOK_ID = 'Your Facebook API Id';
+export const FACEBOOK_SECRET = 'Your Facebook API Secret';
 
-// GITHUB API
-export const GITHUB_ID = 'Your Github Api Id';
-export const GITHUB_SECRET = 'Your Github Api Secret';
+// GITHUB Oauth API
+export const GITHUB_ID = 'Your Github API Id';
+export const GITHUB_SECRET = 'Your Github API Secret';
 
 // GOOGLE MAPS
-export const GMAPS_API = 'Your GoogleMap Api Key';
+export const GMAPS_API = 'Your GoogleMap API Key';
 ```
 
 ```shell
